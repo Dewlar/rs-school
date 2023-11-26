@@ -1,0 +1,32 @@
+.link-animation:before {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  height: 2px;
+  background-color: #403F3D;
+
+  //left: 50%;
+  //width: 0;
+  //transform: translateX(-50%);
+  //transition: width 0.5s ease;
+
+  transform-origin: left;
+  left: 0;
+  width: 100%;
+  transform: scaleX(0);
+  transition: transform .5s ease;
+}
+
+.link-animation:hover:before {
+  color: blue;
+
+  //width: 100%;
+
+  //transform-origin: left;
+  transform: scaleX(1);
+  //transition: transform .5s ease;
+}
+
+.link-animation {
+  position: relative;
+}

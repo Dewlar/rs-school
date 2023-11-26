@@ -11,8 +11,28 @@
     <link rel="stylesheet" href="sass/style.css">
 </head>
 <body>
-<header>
-
+<header class="header">
+    <div class="wrapper header__wrapper">
+        <a class="header__logo" href="./index.html">
+            <object class="logo-object" data="./assets/logo.svg" type="image/svg+xml">
+                Your browser does not support SVG
+            </object>
+        </a>
+        <nav class="header__navigation">
+            <ul class="main-navigation">
+                <li class="main-navigation__link"><a class="link-animation" href="#">Favorite coffee</a></li>
+                <li class="main-navigation__link"><a class="link-animation" href="#">About</a></li>
+                <li class="main-navigation__link"><a class="link-animation" href="#">Mobile app</a></li>
+                <li class="main-navigation__link"><a class="link-animation" href="#">Contact us</a></li>
+            </ul>
+        </nav>
+        <div class="header-menu-button">
+            <a href="#" class="header-menu-button__link link-animation">
+                <span>Menu</span>
+                <span><img src="assets/icons/coffee-cup.svg" alt="icon cup"></span>
+            </a>
+        </div>
+    </div>
 </header>
 </body>
 </html>

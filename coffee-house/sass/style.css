@@ -401,8 +401,93 @@ ul {
   box-sizing: border-box;
 }
 
+header {
+  font-family: Inter, sans-serif;
+}
+
+header {
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%;
+}
+
 body {
   background-color: #E1D4C9;
+}
+
+.wrapper {
+  width: 1440px;
+  margin: 0 auto;
+}
+
+.header__wrapper {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  height: 60px;
+}
+
+.logo-object {
+  height: 60px;
+  width: 100px;
+}
+
+html {
+  font-size: 10px;
+}
+
+.header-menu-button {
+  margin-left: 1px;
+}
+
+img {
+  height: 20px;
+  width: 20px;
+  margin-top: 1px;
+}
+
+.header-menu-button__link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #403F3D;
+  padding-top: 15px;
+}
+
+.link-animation:before {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  height: 2px;
+  background-color: #403F3D;
+  transform-origin: left;
+  left: 0;
+  width: 100%;
+  transform: scaleX(0);
+  transition: transform 0.5s ease;
+}
+
+.link-animation:hover:before {
+  color: blue;
+  transform: scaleX(1);
+}
+
+.link-animation {
+  position: relative;
+}
+
+.main-navigation {
+  display: flex;
+  gap: 40px;
+}
+
+.main-navigation__link a {
+  text-decoration: none;
+  color: #403F3D;
 }
 
 /*# sourceMappingURL=style.css.map */
