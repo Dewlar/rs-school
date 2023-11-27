@@ -1,0 +1,28 @@
+.brand {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 100px;
+  border-radius: 40px;
+  background: url("../assets/img-hero.png") lightgray 50% / cover no-repeat;
+}
+
+.brand__text-box {
+  display: flex;
+  flex-direction: column;
+  width: 530px;
+  gap: 40px;
+
+  p {
+    margin: 0;
+    color: $text-light;
+  }
+
+  h1 {
+    height: 228px;
+    color: $text-light;
+  }
+
+  h1 i {
+    color: $text-accent;
+  }
+}

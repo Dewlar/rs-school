@@ -401,15 +401,12 @@ ul {
   box-sizing: border-box;
 }
 
-header {
+body {
   font-family: Inter, sans-serif;
 }
 
 header {
-  font-size: 1.6rem;
-  font-style: normal;
   font-weight: 600;
-  line-height: 150%;
 }
 
 body {
@@ -439,6 +436,37 @@ html {
   font-size: 10px;
 }
 
+body {
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+}
+
+h1 {
+  font-size: 7.2rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 105%;
+  margin: 0;
+}
+
+h2 {
+  font-size: 6rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 125%;
+  margin: 0;
+}
+
+h3 {
+  font-size: 2.4rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 125%;
+  margin: 0;
+}
+
 .header-menu-button {
   margin-left: 1px;
 }
@@ -458,13 +486,23 @@ img {
   padding-top: 15px;
 }
 
+.button-primary {
+  width: 200px;
+  padding: 20px 78px;
+  font-weight: 600;
+  border: none;
+  border-radius: 100px;
+  background-color: #E1D4C9;
+  color: #403F3D;
+  cursor: pointer;
+}
+
 .link-animation:before {
   content: "";
   position: absolute;
   bottom: -3px;
   height: 2px;
   background-color: #403F3D;
-  transform-origin: left;
   left: 0;
   width: 100%;
   transform: scaleX(0);
@@ -488,6 +526,32 @@ img {
 .main-navigation__link a {
   text-decoration: none;
   color: #403F3D;
+}
+
+.brand {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 100px;
+  border-radius: 40px;
+  background: url("../assets/img-hero.png") lightgray 50%/cover no-repeat;
+}
+
+.brand__text-box {
+  display: flex;
+  flex-direction: column;
+  width: 530px;
+  gap: 40px;
+}
+.brand__text-box p {
+  margin: 0;
+  color: #E1D4C9;
+}
+.brand__text-box h1 {
+  height: 228px;
+  color: #E1D4C9;
+}
+.brand__text-box h1 i {
+  color: #B0907A;
 }
 
 /*# sourceMappingURL=style.css.map */

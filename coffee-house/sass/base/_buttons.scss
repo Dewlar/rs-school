@@ -1,3 +1,4 @@
+// header link button
 .header-menu-button {
   margin-left: 1px;
 }
@@ -15,4 +16,16 @@ img {
   text-decoration: none;
   color: $text-dark;
   padding-top: 15px;
+}
+
+// button-primary
+.button-primary {
+  width: 200px;
+  padding: 20px 78px;
+  font-weight: 600;
+  border: none;
+  border-radius: 100px;
+  background-color: $background-body;
+  color: $text-dark;
+  cursor: pointer;
 }
