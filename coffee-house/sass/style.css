@@ -409,10 +409,6 @@ header {
   font-weight: 600;
 }
 
-body {
-  background-color: #E1D4C9;
-}
-
 .wrapper {
   width: 1440px;
   margin: 0 auto;
@@ -437,10 +433,17 @@ html {
 }
 
 body {
+  background-color: #E1D4C9;
   font-size: 1.6rem;
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
 }
 
 h1 {
@@ -448,7 +451,6 @@ h1 {
   font-style: normal;
   font-weight: 600;
   line-height: 105%;
-  margin: 0;
 }
 
 h2 {
@@ -456,7 +458,6 @@ h2 {
   font-style: normal;
   font-weight: 600;
   line-height: 125%;
-  margin: 0;
 }
 
 h3 {
@@ -464,14 +465,13 @@ h3 {
   font-style: normal;
   font-weight: 600;
   line-height: 125%;
-  margin: 0;
 }
 
 .header-menu-button {
   margin-left: 1px;
 }
 
-img {
+.cup-icon {
   height: 20px;
   width: 20px;
   margin-top: 1px;
@@ -487,6 +487,8 @@ img {
 }
 
 .button-primary {
+  display: flex;
+  align-items: center;
   width: 200px;
   padding: 20px 78px;
   font-weight: 600;
@@ -495,6 +497,21 @@ img {
   background-color: #E1D4C9;
   color: #403F3D;
   cursor: pointer;
+}
+.button-primary span {
+  height: 24px;
+  transition: transform 1s ease;
+}
+.button-primary .cup-icon {
+  margin-left: 8px;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+.button-primary:hover span {
+  transform: translate(-14px);
+}
+.button-primary:hover .cup-icon {
+  opacity: 1;
 }
 
 .link-animation:before {
@@ -530,7 +547,7 @@ img {
 
 .brand {
   max-width: 1360px;
-  margin: 0 auto;
+  margin: 0 auto 100px auto;
   padding: 100px;
   border-radius: 40px;
   background: url("../assets/img-hero.png") lightgray 50%/cover no-repeat;

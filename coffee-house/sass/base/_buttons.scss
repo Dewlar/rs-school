@@ -3,7 +3,7 @@
   margin-left: 1px;
 }
 
-img {
+.cup-icon {
   height: 20px;
   width: 20px;
   margin-top: 1px;
@@ -20,6 +20,8 @@ img {
 
 // button-primary
 .button-primary {
+  display: flex;
+  align-items: center;
   width: 200px;
   padding: 20px 78px;
   font-weight: 600;
@@ -28,4 +30,26 @@ img {
   background-color: $background-body;
   color: $text-dark;
   cursor: pointer;
+
+
+  span {
+    height: 24px;
+    transition: transform 1s ease;
+  }
+
+  .cup-icon {
+    margin-left: 8px;
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+
+  &:hover {
+    span {
+      transform: translate(-14px);
+    }
+
+    .cup-icon {
+      opacity: 1;
+    }
+  }
 }
