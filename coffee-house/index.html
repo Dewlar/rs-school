@@ -41,19 +41,55 @@
             <p>With its inviting atmosphere and delicious coffee options, the Coffee House Resource is a popular
                 destination for coffee lovers and those seeking a warm and inviting space to enjoy their favorite
                 beverage.</p>
-            <button class="button-primary button-icon-cup-hover"><span class="button-primary__header">Menu</span><span><img class="cup-icon" src="assets/icons/coffee-cup.svg" alt="icon cup"></span></button>
+            <button class="button-primary button-icon-cup-hover">
+                <span class="button-primary__header">Menu</span>
+                <span>
+                    <img class="cup-icon" src="assets/icons/coffee-cup.svg" alt="icon cup">
+                </span>
+            </button>
         </div>
     </section>
     <section class="slider">
-        <h2 class="slider__header"></h2>
-        <div class="slider__content">
-            <div class="left-switcher"></div>
-            <div class="slide-wrapper">
+        <h2 class="slider__header">Choose your <i>favorite</i> coffee</h2>
+        <div class="slide-wrapper">
+            <div class="switcher">
+                <div class="left-switcher"></div>
+            </div>
+            <div class="slider__content">
                 <div class="slide">
-                    <img src="assets/slider/coffee-slider-1.png" alt="coffee image">
+                    <div class="slide__image"></div>
+                    <div class="slide__dish">
+                        <h3 class="dish__title">S’mores Frappuccino</h3>
+                        <p class="dish__description">This new drink takes an espresso and mixes it with brown sugar and
+                            cinnamon before being topped with oat milk.</p>
+                        <h3 class="price">&#36;5.50</h3>
+                    </div>
                 </div>
             </div>
-            <div class="right-switcher"></div>
+            <div class="switcher">
+                <div class="right-switcher"></div>
+            </div>
+        </div>
+        <div class="slider-control control">
+            <div class="slider-control__item active"></div>
+            <div class="slider-control__item"></div>
+            <div class="slider-control__item"></div>
+        </div>
+    </section>
+    <section class="gallery">
+        <h2 class="gallery__title">
+            Resource is <i>the perfect and cozy place</i> where you can enjoy a variety of hot beverages, relax, catch up with
+            friends, or get some work done.
+        </h2>
+        <div class="gallery__images">
+            <div class="column">
+                <img src="assets/photo/about-1.png" alt="coffee shop photo">
+                <img src="assets/photo/about-2.png" alt="coffee shop photo">
+            </div>
+            <div class="column">
+                <img src="assets/photo/about-3.png" alt="coffee shop photo">
+                <img src="assets/photo/about-4.png" alt="coffee shop photo">
+            </div>
         </div>
     </section>
 </main>
