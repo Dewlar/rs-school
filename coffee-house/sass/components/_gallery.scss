@@ -9,8 +9,7 @@
     flex-direction: column;
     align-items: center;
     gap: 40px;
-    max-width: 1360px;
-    margin-left: 3px;
+    width: 1360px;
   }
 }
 
@@ -18,14 +17,13 @@
   letter-spacing: -0.002em;
   color: $text-dark;
 
-  i{
+  i {
     color: $text-accent
   }
 }
 
 .gallery__images {
   display: flex;
-  margin-left: -2px;
 
   .column {
     display: flex;

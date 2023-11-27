@@ -5,6 +5,11 @@
   width: $content-width;
   margin: 0 auto 100px auto;
   padding: 0 40px;
+  color: $text-dark;
+
+  h2 i {
+    color: $text-accent;
+  }
 }
 
 .slide-wrapper {

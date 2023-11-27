@@ -578,6 +578,10 @@ h3 {
   width: 1440px;
   margin: 0 auto 100px auto;
   padding: 0 40px;
+  color: #403F3D;
+}
+.slider h2 i {
+  color: #B0907A;
 }
 
 .slide-wrapper {
@@ -680,8 +684,7 @@ h3 {
   flex-direction: column;
   align-items: center;
   gap: 40px;
-  max-width: 1360px;
-  margin-left: 3px;
+  width: 1360px;
 }
 
 .gallery__title {
@@ -694,7 +697,6 @@ h3 {
 
 .gallery__images {
   display: flex;
-  margin-left: -2px;
 }
 .gallery__images .column {
   display: flex;
