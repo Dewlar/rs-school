@@ -552,6 +552,11 @@ footer {
   width: 100px;
 }
 
+.header__logo img {
+  height: 60px;
+  width: 100px;
+}
+
 html {
   font-size: 10px;
 }
@@ -937,6 +942,81 @@ h3 {
 .app__buttons {
   display: flex;
   gap: 20px;
+}
+
+main .hidden-header {
+  height: 0;
+}
+
+.offer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 1440px;
+  margin: 0 auto 40px auto;
+  padding: 0 40px;
+}
+.offer__title {
+  width: 800px;
+  text-align: center;
+  color: #403F3D;
+}
+.offer__title i {
+  color: #B0907A;
+}
+.offer__tabs {
+  display: flex;
+  width: 361px;
+  gap: 16px;
+  font-weight: 600;
+}
+.offer__tabs .tab {
+  display: flex;
+  padding: 8px 16px 8px 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  border-radius: 100px;
+  border: 1px solid #C1B6AD;
+  cursor: pointer;
+  transition: background-color 0.8s ease, border 0.8s ease;
+}
+.offer__tabs .tab p {
+  margin: 0;
+}
+.offer__tabs .tab .img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px 7px;
+  height: 30px;
+  width: 30px;
+  border-radius: 100px;
+  background-color: #C1B6AD;
+}
+.offer__tabs .tab .img-coffee,
+.offer__tabs .tab .img-tea,
+.offer__tabs .tab .img-dessert {
+  height: 16px;
+  width: 16px;
+}
+.offer__tabs .tab .img-coffee {
+  background: url("../assets/icons/coffee-menu-nav.svg") no-repeat;
+}
+.offer__tabs .tab .img-tea {
+  background: url("../assets/icons/tea-menu-nav.svg") no-repeat;
+}
+.offer__tabs .tab .img-dessert {
+  background: url("../assets/icons/dessert-menu-nav.svg") no-repeat;
+}
+.offer__tabs .tab:hover {
+  border: 1px solid #665F55;
+  background-color: #665F55;
+}
+.offer .active {
+  border: 1px solid #665F55;
+  background-color: #665F55;
 }
 
 /*# sourceMappingURL=style.css.map */
