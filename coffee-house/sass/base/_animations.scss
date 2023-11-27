@@ -1,0 +1,22 @@
+// Link underline animation
+.link-animation:before {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  height: 2px;
+  background-color: $text-dark;
+  //transform-origin: left;
+  left: 0;
+  width: 100%;
+  transform: scaleX(0);
+  transition: transform .5s ease;
+}
+
+.link-animation:hover:before {
+  color: blue;
+  transform: scaleX(1);
+}
+
+.link-animation {
+  position: relative;
+}
