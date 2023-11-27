@@ -467,6 +467,17 @@ h3 {
   line-height: 125%;
 }
 
+.button-primary {
+  width: 200px;
+  height: 64px;
+  font-weight: 600;
+  color: #403F3D;
+  border-radius: 100px;
+  border: 1px solid #665F55;
+  background-color: #E1D4C9;
+  cursor: pointer;
+}
+
 .header-menu-button {
   margin-left: 1px;
 }
@@ -486,32 +497,75 @@ h3 {
   padding-top: 15px;
 }
 
-.button-primary {
+.button-icon-cup {
   display: flex;
   align-items: center;
-  width: 200px;
   padding: 20px 78px;
-  font-weight: 600;
   border: none;
-  border-radius: 100px;
-  background-color: #E1D4C9;
-  color: #403F3D;
-  cursor: pointer;
 }
-.button-primary span {
+.button-icon-cup span {
   height: 24px;
   transition: transform 1s ease;
 }
-.button-primary .cup-icon {
+.button-icon-cup .cup-icon {
   margin-left: 8px;
   opacity: 0;
   transition: opacity 1s ease;
 }
-.button-primary:hover span {
+.button-icon-cup:hover span {
   transform: translate(-14px);
 }
-.button-primary:hover .cup-icon {
+.button-icon-cup:hover .cup-icon {
   opacity: 1;
+}
+
+.app-button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  transition: background-color 0.8s cubic-bezier(0.18, 0.89, 0.32, 1.28), color 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+.app-button__text {
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 140%;
+}
+.app-button .app-icon {
+  height: 36px;
+  width: 36px;
+  margin-left: -1px;
+}
+.app-button .app-button__text {
+  text-align: start;
+  margin-bottom: 3px;
+}
+.app-button:hover {
+  background-color: #665F55;
+  color: #E1D4C9;
+}
+.app-button:hover .app-icon_apple {
+  background: url("../assets/icons/icon-iphone-hover.svg") no-repeat;
+}
+.app-button:hover .app-icon_android {
+  background: url("../assets/icons/icon-android-hover.svg") no-repeat;
+}
+
+.app-button div > p {
+  margin: 0;
+}
+
+.app-button_apple .app-icon_apple {
+  background: url("../assets/icons/icon-iphone.svg") no-repeat;
+  transition: background 0.8s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.app-button_android .app-icon_android {
+  background: url("../assets/icons/icon-android.svg") no-repeat;
+  transition: background 0.8s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 }
 
 .link-animation:before {
@@ -726,6 +780,39 @@ h3 {
 }
 .photo_short {
   flex: 0 0 430px;
+}
+
+.app {
+  display: flex;
+  gap: 100px;
+  width: 1440px;
+  margin: 0 auto 100px auto;
+  padding: 0 40px;
+  color: #403F3D;
+}
+.app__photo {
+  width: 630px;
+  height: 630px;
+  background: url("../assets/mobile-screens.png");
+}
+.app__link {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 40px;
+  width: 630px;
+}
+.app__description {
+  margin: 0;
+}
+
+.app__title i {
+  color: #B0907A;
+}
+
+.app__buttons {
+  display: flex;
+  gap: 20px;
 }
 
 /*# sourceMappingURL=style.css.map */

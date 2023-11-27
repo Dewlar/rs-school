@@ -1,3 +1,15 @@
+// button-primary
+.button-primary {
+  width: 200px;
+  height: 64px;
+  font-weight: 600;
+  color: $text-dark;
+  border-radius: 100px;
+  border: 1px solid $border-dark;
+  background-color: $background-body;
+  cursor: pointer;
+}
+
 // header link button
 .header-menu-button {
   margin-left: 1px;
@@ -18,19 +30,12 @@
   padding-top: 15px;
 }
 
-// button-primary
-.button-primary {
+// brand button with cup animation
+.button-icon-cup {
   display: flex;
   align-items: center;
-  width: 200px;
   padding: 20px 78px;
-  font-weight: 600;
   border: none;
-  border-radius: 100px;
-  background-color: $background-body;
-  color: $text-dark;
-  cursor: pointer;
-
 
   span {
     height: 24px;
@@ -51,5 +56,63 @@
     .cup-icon {
       opacity: 1;
     }
+  }
+}
+
+// app buttons
+.app-button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  transition: background-color .8s cubic-bezier(0.18, 0.89, 0.32, 1.28), color .5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+
+  &__text {
+    @include font($size: 1rem, $height: 140%, $weight: 600);
+  }
+
+  .app-icon {
+    height: 36px;
+    width: 36px;
+    margin-left: -1px;
+  }
+
+  .app-button__text {
+    text-align: start;
+    margin-bottom: 3px
+  }
+
+  &:hover {
+    background-color: $background-container;
+    color: $text-light;
+
+    .app-icon_apple {
+      background: url("../assets/icons/icon-iphone-hover.svg") no-repeat;
+    }
+
+    .app-icon_android {
+      background: url("../assets/icons/icon-android-hover.svg") no-repeat;
+    }
+
+  }
+}
+
+.app-button div > p {
+  margin: 0;
+}
+
+.app-button_apple {
+  .app-icon_apple {
+    background: url("../assets/icons/icon-iphone.svg") no-repeat;
+    transition: background .8s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  }
+}
+
+.app-button_android {
+  .app-icon_android {
+    background: url("../assets/icons/icon-android.svg") no-repeat;
+    transition: background .8s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   }
 }
