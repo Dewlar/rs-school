@@ -1,0 +1,145 @@
+footer {
+  width: $content-width;
+  padding: 0 40px 40px 40px;
+  margin: 0 auto;
+}
+
+.footer {
+  display: flex;
+  gap: 100px;
+  padding: 100px;
+  background-color: $background-container;
+  border-radius: 40px;
+}
+
+//contact us block here
+.contact-us {
+  width: 530px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 40px;
+  color: $text-light;
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .item {
+    font-weight: 600;
+  }
+
+  .item a {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: $text-light;
+    margin-bottom: 4px;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .link-animation:before {
+    background-color: $text-light;
+  }
+
+  .img {
+    width: 20px;
+    height: 20px;
+    align-self: flex-start;
+  }
+
+  .img-pin {
+    background: url("../assets/icons/pin-alt.svg");
+  }
+
+  .img-phone {
+    background: url("../assets/icons/phone.svg");
+  }
+
+  .img-clock {
+    background: url("../assets/icons/clock.svg");
+  }
+}
+
+// social media block here
+.social-media {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  width: 530px;
+
+  &__header {
+    color: $text-light;
+  }
+
+  &__header i {
+    color: $text-accent;
+  }
+}
+
+.social-media__links {
+  display: flex;
+  gap: 12px;
+
+  .twitter,
+  .instagram,
+  .facebook {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    width: 60px;
+    border-radius: 100px;
+    border: 1px solid $border-light;
+  }
+
+  .icon-twitter,
+  .icon-instagram,
+  .icon-facebook {
+    height: 24px;
+    width: 24px;
+    transition: background 1s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  }
+
+  .icon-twitter {
+    background: url("../assets/icons/twitter.svg") no-repeat;
+  }
+
+  .icon-instagram {
+    background: url("../assets/icons/instagram.svg") no-repeat;
+  }
+
+  .icon-facebook {
+    background: url("../assets/icons/facebook.svg") no-repeat;
+  }
+
+  .social-media-link {
+    transition: background-color 1s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  }
+}
+
+.social-media-link:hover {
+  background-color: $background-body;
+
+  .icon-twitter {
+    background: url("../assets/icons/twitter-hover.svg") no-repeat;
+  }
+
+  .icon-instagram {
+    background: url("../assets/icons/instagram-hover.svg") no-repeat;
+  }
+
+  .icon-facebook {
+    background: url("../assets/icons/facebook-hover.svg") no-repeat;
+  }
+}
