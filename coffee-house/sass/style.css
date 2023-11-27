@@ -669,4 +669,61 @@ h3 {
   background-color: #665F55;
 }
 
+.gallery {
+  display: flex;
+  justify-content: center;
+  width: 1440px;
+  margin: 0 auto 100px auto;
+}
+.gallery__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  max-width: 1360px;
+  margin-left: 3px;
+}
+
+.gallery__title {
+  letter-spacing: -0.002em;
+  color: #403F3D;
+}
+.gallery__title i {
+  color: #B0907A;
+}
+
+.gallery__images {
+  display: flex;
+  margin-left: -2px;
+}
+.gallery__images .column {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.gallery__images .column:first-of-type {
+  padding-right: 40px;
+}
+
+.photo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 660px;
+  flex: 0 0 590px;
+  overflow: hidden;
+  border-radius: 20px;
+}
+.photo img {
+  transform: scale(1.1);
+  width: 100%;
+  transition: transform 0.5s ease;
+}
+.photo img:hover {
+  transform: scale(1);
+}
+.photo_short {
+  flex: 0 0 430px;
+}
+
 /*# sourceMappingURL=style.css.map */
