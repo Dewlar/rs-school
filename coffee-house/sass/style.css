@@ -700,7 +700,7 @@ h3 {
 .link-animation:before {
   content: "";
   position: absolute;
-  bottom: -3px;
+  bottom: -1px;
   height: 2px;
   background-color: #403F3D;
   left: 0;
@@ -716,6 +716,22 @@ h3 {
 
 .link-animation {
   position: relative;
+}
+
+.link-hovered {
+  position: relative;
+}
+
+.link-hovered:before {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  height: 2px;
+  background-color: #403F3D;
+  transform-origin: left;
+  left: 0;
+  width: 100%;
+  transform: scaleX(1);
 }
 
 .main-navigation {
@@ -973,7 +989,7 @@ main .hidden-header {
 }
 .offer__tabs .tab {
   display: flex;
-  padding: 8px 16px 8px 8px;
+  padding: 7px 16px 7px 8px;
   justify-content: center;
   align-items: center;
   gap: 7px;
