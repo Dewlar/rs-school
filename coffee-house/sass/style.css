@@ -601,6 +601,7 @@ h3 {
   width: 200px;
   height: 64px;
   font-weight: 600;
+  text-decoration: none;
   color: #403F3D;
   border-radius: 100px;
   border: 1px solid #665F55;
