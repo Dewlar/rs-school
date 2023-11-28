@@ -962,7 +962,7 @@ h3 {
 }
 
 main .hidden-header {
-  height: 0;
+  display: none;
 }
 
 .offer {
