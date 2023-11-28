@@ -35,10 +35,11 @@ main {
       justify-content: center;
       align-items: center;
       gap: 7px;
+      color: $text-dark;
       border-radius: 100px;
       border: 1px solid $border-light;
       cursor: pointer;
-      transition: background-color .8s ease, border .8s ease;
+      transition: background-color .8s ease, border .8s ease, color .8s ease;
 
       p {
         margin: 0;
@@ -76,11 +77,13 @@ main {
     }
 
     .tab:hover {
+      color: $text-light;
       border: 1px solid $background-container;
       background-color: $background-container;
     }
   }
   .active {
+    color: $text-light;
     border: 1px solid $background-container;
     background-color: $background-container;
   }
