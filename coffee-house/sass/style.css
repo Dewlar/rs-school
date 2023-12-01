@@ -721,6 +721,7 @@ h3 {
 }
 
 .link-hovered {
+  cursor: auto;
   position: relative;
 }
 
@@ -1035,6 +1036,7 @@ main .hidden-header {
   background-color: #665F55;
 }
 .offer .active {
+  cursor: auto;
   color: #E1D4C9;
   border: 1px solid #665F55;
   background-color: #665F55;

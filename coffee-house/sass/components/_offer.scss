@@ -83,6 +83,7 @@ main {
     }
   }
   .active {
+    cursor: auto;
     color: $text-light;
     border: 1px solid $background-container;
     background-color: $background-container;
