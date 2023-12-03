@@ -1039,6 +1039,37 @@ h3 {
   gap: 20px;
 }
 
+@media (max-width: 1439px) {
+  main {
+    container-type: inline-size;
+  }
+  .app {
+    width: auto;
+    container-type: inline-size;
+    gap: clamp(10px, 2cqi, 100px);
+  }
+  .app__photo {
+    background: url("../assets/mobile-screens.png") center/clamp(300px, 43.75cqi, 630px) no-repeat;
+  }
+}
+@media (max-width: 930px) {
+  .main {
+    container-type: normal;
+  }
+  .app {
+    container-type: normal;
+    flex-direction: column;
+    align-items: center;
+    gap: 100px;
+  }
+  .app__link {
+    align-items: flex-start;
+    width: 100%;
+  }
+  .app__photo {
+    background: url("../assets/mobile-screens.png") no-repeat;
+  }
+}
 main .hidden-header {
   display: none;
 }
