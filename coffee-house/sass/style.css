@@ -488,6 +488,7 @@ footer {
   justify-content: center;
   gap: 40px;
   color: #E1D4C9;
+  white-space: nowrap;
 }
 .contact-us__link {
   display: flex;
@@ -590,6 +591,40 @@ footer {
   }
   .social-media-link:hover .icon-facebook {
     background: url("../assets/icons/facebook-hover.svg") no-repeat;
+  }
+}
+@media (max-width: 1439px) {
+  footer {
+    width: auto;
+    container-type: inline-size;
+  }
+  .footer {
+    gap: clamp(10px, 7.3cqi, 100px);
+  }
+  .social-media {
+    container-type: inline-size;
+  }
+  .social-media .social-media__header {
+    font-size: clamp(35px, 11cqi, 60px);
+  }
+}
+@media (max-width: 800px) {
+  footer {
+    container-type: normal;
+  }
+  .social-media {
+    container-type: normal;
+  }
+  .footer {
+    flex-direction: column;
+    padding: 100px 60px;
+    gap: 100px;
+  }
+  .footer h2 {
+    font-size: 6rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 125%;
   }
 }
 html {

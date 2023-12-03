@@ -20,6 +20,7 @@ footer {
   justify-content: center;
   gap: 40px;
   color: $text-light;
+  white-space: nowrap;
 
   &__link {
     display: flex;
@@ -146,3 +147,39 @@ footer {
   }
 }
 
+// @media rule : smooth transition for footer between 1440 and 768
+@media (max-width: 1439px) {
+  footer {
+    width: auto;
+    container-type: inline-size;
+  }
+  .footer {
+    gap: clamp(10px, 7.3cqi, 100px);
+  }
+
+  .social-media {
+    container-type: inline-size;
+
+    .social-media__header {
+      font-size: clamp(35px, 11cqi, 60px)
+    }
+  }
+}
+// @media rule :  tablet 768px
+@media (max-width: 800px) {
+  footer {
+    container-type: normal;
+  }
+  .social-media {
+    container-type: normal;
+  }
+  .footer {
+    flex-direction: column;
+    padding: 100px 60px;
+    gap: 100px;
+
+    h2 {
+      @include font($size: 6rem, $height: 125%, $weight: 600);
+    }
+  }
+}
