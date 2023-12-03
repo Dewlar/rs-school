@@ -65,16 +65,17 @@
   border: 1px solid $border-dark;
   transition: background-color 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   cursor: pointer;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background-color: $background-container;
 
-  &:hover {
-    background-color: $background-container;
+      .left-switcher {
+        background-image: url("../assets/icons/arrow-left-hover.svg");
+      }
 
-    .left-switcher {
-      background-image: url("../assets/icons/arrow-left-hover.svg");
-    }
-
-    .right-switcher {
-      background-image: url("../assets/icons/arrow-right-hover.svg");
+      .right-switcher {
+        background-image: url("../assets/icons/arrow-right-hover.svg");
+      }
     }
   }
 }

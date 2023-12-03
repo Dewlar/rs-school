@@ -40,6 +40,7 @@ main {
       border: 1px solid $border-light;
       cursor: pointer;
       transition: background-color .8s ease, border .8s ease, color .8s ease;
+      user-select: none;
 
       p {
         margin: 0;
@@ -76,12 +77,15 @@ main {
       }
     }
 
-    .tab:hover {
-      color: $text-light;
-      border: 1px solid $background-container;
-      background-color: $background-container;
+    @media (hover: hover) and (pointer: fine) {
+      .tab:hover {
+        color: $text-light;
+        border: 1px solid $background-container;
+        background-color: $background-container;
+      }
     }
   }
+
   .active {
     cursor: auto;
     color: $text-light;

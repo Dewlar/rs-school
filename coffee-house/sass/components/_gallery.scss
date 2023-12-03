@@ -49,9 +49,10 @@
     transform: scale(1.1);
     width: 100%;
     transition: transform .5s ease;
-
-    &:hover {
-      transform: scale(1);
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        transform: scale(1);
+      }
     }
   }
 

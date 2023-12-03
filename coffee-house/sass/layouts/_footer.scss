@@ -128,18 +128,21 @@ footer {
   }
 }
 
-.social-media-link:hover {
-  background-color: $background-body;
+@media (hover: hover) and (pointer: fine) {
+  .social-media-link:hover {
+    background-color: $background-body;
 
-  .icon-twitter {
-    background: url("../assets/icons/twitter-hover.svg") no-repeat;
-  }
+    .icon-twitter {
+      background: url("../assets/icons/twitter-hover.svg") no-repeat;
+    }
 
-  .icon-instagram {
-    background: url("../assets/icons/instagram-hover.svg") no-repeat;
-  }
+    .icon-instagram {
+      background: url("../assets/icons/instagram-hover.svg") no-repeat;
+    }
 
-  .icon-facebook {
-    background: url("../assets/icons/facebook-hover.svg") no-repeat;
+    .icon-facebook {
+      background: url("../assets/icons/facebook-hover.svg") no-repeat;
+    }
   }
 }
+

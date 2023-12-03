@@ -9,7 +9,9 @@
   border: 1px solid $border-dark;
   background-color: $background-body;
   cursor: pointer;
+  user-select: none;
 }
+
 // brand section button with cup animation
 .button-icon-cup {
   display: flex;
@@ -28,13 +30,15 @@
     transition: opacity 1s ease;
   }
 
-  &:hover {
-    span {
-      transform: translate(-14px);
-    }
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      span {
+        transform: translate(-14px);
+      }
 
-    .cup-icon {
-      opacity: 1;
+      .cup-icon {
+        opacity: 1;
+      }
     }
   }
 }
@@ -64,18 +68,19 @@
     margin-bottom: 3px
   }
 
-  &:hover {
-    background-color: $background-container;
-    color: $text-light;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background-color: $background-container;
+      color: $text-light;
 
-    .app-icon_apple {
-      background: url("../assets/icons/icon-iphone-hover.svg") no-repeat;
+      .app-icon_apple {
+        background: url("../assets/icons/icon-iphone-hover.svg") no-repeat;
+      }
+
+      .app-icon_android {
+        background: url("../assets/icons/icon-android-hover.svg") no-repeat;
+      }
     }
-
-    .app-icon_android {
-      background: url("../assets/icons/icon-android-hover.svg") no-repeat;
-    }
-
   }
 }
 

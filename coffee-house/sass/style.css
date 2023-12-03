@@ -405,8 +405,22 @@ body {
   font-family: Inter, sans-serif;
 }
 
+.wrapper {
+  width: 1440px;
+  margin: 0 auto;
+}
+
 header {
   font-weight: 600;
+}
+
+.header__wrapper {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  height: 60px;
 }
 
 .logo-object {
@@ -448,6 +462,11 @@ header {
   padding-top: 15px;
 }
 
+@media (max-width: 1439px) {
+  .wrapper {
+    width: auto;
+  }
+}
 footer {
   width: 1440px;
   padding: 0 40px 40px 40px;
@@ -559,33 +578,20 @@ footer {
   transition: background-color 1s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 }
 
-.social-media-link:hover {
-  background-color: #E1D4C9;
+@media (hover: hover) and (pointer: fine) {
+  .social-media-link:hover {
+    background-color: #E1D4C9;
+  }
+  .social-media-link:hover .icon-twitter {
+    background: url("../assets/icons/twitter-hover.svg") no-repeat;
+  }
+  .social-media-link:hover .icon-instagram {
+    background: url("../assets/icons/instagram-hover.svg") no-repeat;
+  }
+  .social-media-link:hover .icon-facebook {
+    background: url("../assets/icons/facebook-hover.svg") no-repeat;
+  }
 }
-.social-media-link:hover .icon-twitter {
-  background: url("../assets/icons/twitter-hover.svg") no-repeat;
-}
-.social-media-link:hover .icon-instagram {
-  background: url("../assets/icons/instagram-hover.svg") no-repeat;
-}
-.social-media-link:hover .icon-facebook {
-  background: url("../assets/icons/facebook-hover.svg") no-repeat;
-}
-
-.wrapper {
-  width: 1440px;
-  margin: 0 auto;
-}
-
-.header__wrapper {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 0 40px;
-  display: flex;
-  justify-content: space-between;
-  height: 60px;
-}
-
 html {
   font-size: 10px;
   scroll-behavior: smooth;
@@ -636,6 +642,7 @@ h3 {
   border: 1px solid #665F55;
   background-color: #E1D4C9;
   cursor: pointer;
+  user-select: none;
 }
 
 .button-icon-cup {
@@ -653,11 +660,13 @@ h3 {
   opacity: 0;
   transition: opacity 1s ease;
 }
-.button-icon-cup:hover span {
-  transform: translate(-14px);
-}
-.button-icon-cup:hover .cup-icon {
-  opacity: 1;
+@media (hover: hover) and (pointer: fine) {
+  .button-icon-cup:hover span {
+    transform: translate(-14px);
+  }
+  .button-icon-cup:hover .cup-icon {
+    opacity: 1;
+  }
 }
 
 .app-button {
@@ -684,15 +693,17 @@ h3 {
   text-align: start;
   margin-bottom: 3px;
 }
-.app-button:hover {
-  background-color: #665F55;
-  color: #E1D4C9;
-}
-.app-button:hover .app-icon_apple {
-  background: url("../assets/icons/icon-iphone-hover.svg") no-repeat;
-}
-.app-button:hover .app-icon_android {
-  background: url("../assets/icons/icon-android-hover.svg") no-repeat;
+@media (hover: hover) and (pointer: fine) {
+  .app-button:hover {
+    background-color: #665F55;
+    color: #E1D4C9;
+  }
+  .app-button:hover .app-icon_apple {
+    background: url("../assets/icons/icon-iphone-hover.svg") no-repeat;
+  }
+  .app-button:hover .app-icon_android {
+    background: url("../assets/icons/icon-android-hover.svg") no-repeat;
+  }
 }
 
 .app-button div > p {
@@ -721,11 +732,12 @@ h3 {
   transition: transform 0.5s ease;
 }
 
-.link-animation:hover:before {
-  color: blue;
-  transform: scaleX(1);
+@media (hover: hover) and (pointer: fine) {
+  .link-animation:hover:before {
+    color: blue;
+    transform: scaleX(1);
+  }
 }
-
 .link-animation {
   position: relative;
 }
@@ -836,14 +848,16 @@ h3 {
   transition: background-color 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   cursor: pointer;
 }
-.switcher:hover {
-  background-color: #665F55;
-}
-.switcher:hover .left-switcher {
-  background-image: url("../assets/icons/arrow-left-hover.svg");
-}
-.switcher:hover .right-switcher {
-  background-image: url("../assets/icons/arrow-right-hover.svg");
+@media (hover: hover) and (pointer: fine) {
+  .switcher:hover {
+    background-color: #665F55;
+  }
+  .switcher:hover .left-switcher {
+    background-image: url("../assets/icons/arrow-left-hover.svg");
+  }
+  .switcher:hover .right-switcher {
+    background-image: url("../assets/icons/arrow-right-hover.svg");
+  }
 }
 
 .left-switcher,
@@ -923,8 +937,10 @@ h3 {
   width: 100%;
   transition: transform 0.5s ease;
 }
-.photo img:hover {
-  transform: scale(1);
+@media (hover: hover) and (pointer: fine) {
+  .photo img:hover {
+    transform: scale(1);
+  }
 }
 .photo_short {
   flex: 0 0 430px;
@@ -1001,6 +1017,7 @@ main .hidden-header {
   border: 1px solid #C1B6AD;
   cursor: pointer;
   transition: background-color 0.8s ease, border 0.8s ease, color 0.8s ease;
+  user-select: none;
 }
 .offer__tabs .tab p {
   margin: 0;
@@ -1030,10 +1047,12 @@ main .hidden-header {
 .offer__tabs .tab .img-dessert {
   background: url("../assets/icons/dessert-menu-nav.svg") no-repeat;
 }
-.offer__tabs .tab:hover {
-  color: #E1D4C9;
-  border: 1px solid #665F55;
-  background-color: #665F55;
+@media (hover: hover) and (pointer: fine) {
+  .offer__tabs .tab:hover {
+    color: #E1D4C9;
+    border: 1px solid #665F55;
+    background-color: #665F55;
+  }
 }
 .offer .active {
   cursor: auto;
@@ -1095,8 +1114,10 @@ main .hidden-header {
 .card h3:last-child {
   margin-bottom: -2px;
 }
-.card:hover img {
-  transform: scale(1);
+@media (hover: hover) and (pointer: fine) {
+  .card:hover img {
+    transform: scale(1);
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
