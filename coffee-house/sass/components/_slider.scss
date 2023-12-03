@@ -56,10 +56,11 @@
 // left-right slide switcher
 .switcher {
   display: flex;
+  flex: 0 0 60px;
   justify-content: center;
   align-items: center;
   height: 60px;
-  width: 60px;
+  //width: 60px;
   box-sizing: border-box;
   border-radius: 100px;
   border: 1px solid $border-dark;
@@ -109,5 +110,14 @@
 
   .active {
     background-color: $border-dark;
+  }
+}
+
+@media (max-width: 1439px) {
+  .slider {
+    width: auto;
+    h2 {
+      text-align: center;
+    }
   }
 }
