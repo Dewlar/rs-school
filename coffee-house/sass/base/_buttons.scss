@@ -1,4 +1,4 @@
-// button-primary
+// header button-primary
 .button-primary {
   width: 200px;
   height: 64px;
@@ -10,28 +10,7 @@
   background-color: $background-body;
   cursor: pointer;
 }
-
-// header link button
-.header-menu-button {
-  margin-left: 1px;
-}
-
-.cup-icon {
-  height: 20px;
-  width: 20px;
-  margin-top: 1px;
-}
-
-.header-menu-button__link {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  color: $text-dark;
-  padding-top: 15px;
-}
-
-// brand button with cup animation
+// brand section button with cup animation
 .button-icon-cup {
   display: flex;
   align-items: center;
