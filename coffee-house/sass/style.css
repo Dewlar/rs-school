@@ -954,13 +954,13 @@ h3 {
   justify-content: center;
   width: 1440px;
   margin: 0 auto 100px auto;
+  padding: 0 40px;
 }
 .gallery__wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 40px;
-  width: 1360px;
 }
 
 .gallery__title {
@@ -972,40 +972,93 @@ h3 {
 }
 
 .gallery__images {
-  display: flex;
-}
-.gallery__images .column {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-.gallery__images .column:first-of-type {
-  padding-right: 40px;
+  height: 1060px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 120px 1fr;
+  grid-auto-flow: column dense;
+  grid-gap: 40px;
 }
 
 .photo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 660px;
-  flex: 0 0 590px;
-  overflow: hidden;
   border-radius: 20px;
 }
-.photo img {
-  transform: scale(1.1);
-  width: 100%;
-  transition: transform 0.5s ease;
+
+.photo:nth-child(1) {
+  grid-row: span 2;
+  background: url("../assets/photo/about-1.png") center/110% no-repeat;
+  transition: background-size 0.5s ease;
 }
 @media (hover: hover) and (pointer: fine) {
-  .photo img:hover {
-    transform: scale(1);
+  .photo:nth-child(1):hover {
+    background-size: 100%;
+    cursor: pointer;
   }
 }
-.photo_short {
-  flex: 0 0 430px;
+
+.photo:nth-child(2) {
+  grid-row: span 1;
+  background: url("../assets/photo/about-2.png") center/110% no-repeat;
+  transition: background-size 0.5s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .photo:nth-child(2):hover {
+    background-size: 100%;
+    cursor: pointer;
+  }
 }
 
+.photo:nth-child(3) {
+  grid-row: span 1;
+  background: url("../assets/photo/about-3.png") center/110% no-repeat;
+  transition: background-size 0.5s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .photo:nth-child(3):hover {
+    background-size: 100%;
+    cursor: pointer;
+  }
+}
+
+.photo:nth-child(4) {
+  grid-row: span 2;
+  background: url("../assets/photo/about-4.png") center/110% no-repeat;
+  transition: background-size 0.5s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .photo:nth-child(4):hover {
+    background-size: 100%;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 1439px) {
+  .gallery {
+    width: auto;
+  }
+  .gallery__images {
+    height: clamp(500px, 73.6vw, 1060px);
+  }
+}
+@media (max-width: 800px) {
+  .gallery__images {
+    height: 1220px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 40px;
+  }
+  .gallery__images .photo:nth-child(2),
+  .gallery__images .photo:nth-child(3) {
+    display: none;
+  }
+  .gallery__images .photo:nth-child(1),
+  .gallery__images .photo:nth-child(4) {
+    grid-row: span 1;
+    background-size: auto;
+  }
+}
 .app {
   display: flex;
   gap: 100px;

@@ -29,7 +29,7 @@
     opacity: 0;
     transition: opacity 1s ease;
   }
-
+// for mobile or any touch screen devices
   @media (hover: none) and (pointer: coarse) {
     span {
       transform: translate(-14px);
@@ -39,7 +39,7 @@
       opacity: 1;
     }
   }
-
+// for desktop
   @media (hover: hover) and (pointer: fine) {
     &:hover {
       span {
