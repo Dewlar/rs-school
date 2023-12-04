@@ -93,12 +93,35 @@ main {
     background-color: $background-container;
   }
 }
+
 @media (max-width: 1439px) {
   .offer {
     width: auto;
 
     &__title {
       width: auto;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .offer__title {
+    container-type: inline-size;
+    width: 100%;
+
+    & h2 {
+      font-size: clamp(32px, 9cqi, 60px);
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .offer {
+    padding: 0 16px;
+
+    &__tabs {
+      width: auto;
+      gap: 8px;
     }
   }
 }

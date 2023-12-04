@@ -1288,6 +1288,24 @@ main .hidden-header {
     width: auto;
   }
 }
+@media (max-width: 600px) {
+  .offer__title {
+    container-type: inline-size;
+    width: 100%;
+  }
+  .offer__title h2 {
+    font-size: clamp(32px, 9cqi, 60px);
+  }
+}
+@media (max-width: 400px) {
+  .offer {
+    padding: 0 16px;
+  }
+  .offer__tabs {
+    width: auto;
+    gap: 8px;
+  }
+}
 .preview {
   display: flex;
   flex-direction: column;
