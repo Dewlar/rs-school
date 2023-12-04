@@ -20,6 +20,7 @@ footer {
   justify-content: center;
   gap: 40px;
   color: $text-light;
+  white-space: nowrap;
 
   &__link {
     display: flex;
@@ -128,18 +129,102 @@ footer {
   }
 }
 
-.social-media-link:hover {
-  background-color: $background-body;
+@media (hover: hover) and (pointer: fine) {
+  .social-media-link:hover {
+    background-color: $background-body;
 
-  .icon-twitter {
-    background: url("../assets/icons/twitter-hover.svg") no-repeat;
+    .icon-twitter {
+      background: url("../assets/icons/twitter-hover.svg") no-repeat;
+    }
+
+    .icon-instagram {
+      background: url("../assets/icons/instagram-hover.svg") no-repeat;
+    }
+
+    .icon-facebook {
+      background: url("../assets/icons/facebook-hover.svg") no-repeat;
+    }
+  }
+}
+
+// @media rule : smooth transition for footer between 1440 and 768
+@media (max-width: 1439px) {
+  //@media (800px < width <= 1439px) {
+  footer {
+    width: auto;
+    container-type: inline-size;
+  }
+  .footer {
+    gap: clamp(10px, 7.3cqi, 100px);
   }
 
-  .icon-instagram {
-    background: url("../assets/icons/instagram-hover.svg") no-repeat;
-  }
+  .social-media {
+    container-type: inline-size;
 
-  .icon-facebook {
-    background: url("../assets/icons/facebook-hover.svg") no-repeat;
+    .social-media__header {
+      font-size: clamp(35px, 11cqi, 60px)
+    }
+  }
+}
+
+// @media rule :  tablet 768px
+@media (max-width: 830px) {
+  //@media (630px < width <= 800px) {
+  footer {
+    width: auto;
+    container-type: normal;
+  }
+  .social-media {
+    container-type: normal;
+  }
+  .footer {
+    flex-direction: column;
+    padding: 100px 60px;
+    gap: 100px;
+
+    h2 {
+      @include font($size: 6rem, $height: 125%, $weight: 600);
+    }
+  }
+}
+
+@media (max-width: 650px) {
+  //@media (400px < width <= 630px) {
+  footer {
+    width: auto;
+    padding: 0 16px 40px 16px;
+  }
+  .footer {
+    padding: 60px 16px;
+    gap: 40px;
+    .social-media {
+      container-type: inline-size;
+      width: auto;
+
+      &__header {
+        font-size: clamp(32px, 7.81cqi, 60px);
+      }
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  footer {
+    width: auto;
+    padding: 0 16px 40px 16px;
+
+    .footer {
+      padding: 60px 16px;
+      gap: 40px;
+
+      .social-media {
+        container-type: normal;
+        width: auto;
+
+        &__header {
+          font-size: 32px;
+        }
+      }
+    }
   }
 }

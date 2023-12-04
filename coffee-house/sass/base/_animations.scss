@@ -12,19 +12,23 @@
   transition: transform .5s ease;
 }
 
-.link-animation:hover:before {
-  color: blue;
-  transform: scaleX(1);
+@media (hover: hover) and (pointer: fine) {
+  .link-animation:hover:before {
+    color: blue;
+    transform: scaleX(1);
+  }
 }
 
 .link-animation {
   position: relative;
 }
+
 // link hovered in menu page means that the link doesn't animate
 .link-hovered {
   cursor: auto;
   position: relative;
 }
+
 .link-hovered:before {
   content: "";
   position: absolute;
