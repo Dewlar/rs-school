@@ -73,3 +73,33 @@
     }
   }
 }
+
+
+@media (max-width: 630px) {
+  .app {
+    padding: 0 16px;
+    gap: 40px;
+    &__photo {
+      width: clamp(348px,93.75cqi,630px);
+      height: clamp(348px,93.75cqi,630px);
+      background: url("../assets/mobile-screens.png") center/clamp(348px,93.75cqi,630px) no-repeat;
+    }
+  }
+  .app__buttons{
+    flex-direction: column;
+  }
+  .app__title {
+    font-size: 32px;
+  }
+}
+@media (max-width: 400px) {
+
+  .app {
+    &__photo {
+      width: 348px;
+      height: 348px;
+      background: url("../assets/mobile-screens.png") no-repeat;
+      background-size: contain;
+    }
+  }
+}
