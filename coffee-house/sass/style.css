@@ -1214,13 +1214,23 @@ main .hidden-header {
   }
 }
 .preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 1440px;
   padding: 0 40px;
   margin: 0 auto 100px auto;
+}
+.preview__grid {
+  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, 1fr);
   grid-gap: 40px;
+}
+
+.menu-circle-button {
+  display: none;
 }
 
 .card {
@@ -1269,6 +1279,44 @@ main .hidden-header {
 @media (hover: hover) and (pointer: fine) {
   .card:hover img {
     transform: scale(1);
+  }
+}
+
+@media (max-width: 1439px) {
+  .preview {
+    width: auto;
+  }
+  .preview__grid {
+    margin: 0 auto 40px auto;
+    justify-content: center;
+    grid-template-columns: repeat(3, 310px);
+  }
+  .preview .card:nth-child(n+7) {
+    display: none;
+  }
+  .menu-circle-button {
+    height: 60px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100px;
+    border: 1px solid #665F55;
+  }
+  .menu-circle-button svg {
+    fill: none;
+    stroke: #403F3D;
+    height: 24px;
+    width: 24px;
+  }
+}
+@media (max-width: 1060px) {
+  .preview__grid {
+    justify-content: center;
+    grid-template-columns: repeat(2, 310px);
+  }
+  .card:nth-child(n+5) {
+    display: none;
   }
 }
 
