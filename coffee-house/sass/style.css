@@ -1205,6 +1205,14 @@ main .hidden-header {
   background-color: #665F55;
 }
 
+@media (max-width: 1439px) {
+  .offer {
+    width: auto;
+  }
+  .offer__title {
+    width: auto;
+  }
+}
 .preview {
   width: 1440px;
   padding: 0 40px;

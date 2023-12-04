@@ -93,4 +93,12 @@ main {
     background-color: $background-container;
   }
 }
+@media (max-width: 1439px) {
+  .offer {
+    width: auto;
 
+    &__title {
+      width: auto;
+    }
+  }
+}
