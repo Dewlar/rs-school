@@ -116,8 +116,33 @@
 @media (max-width: 1439px) {
   .slider {
     width: auto;
+
     h2 {
       text-align: center;
     }
+  }
+}
+
+@media (max-width: 700px) {
+  .slider {
+    padding: 0 16px;
+
+    &__content {
+      margin: 0;
+    }
+  }
+  .slide {
+    width: 348px;
+    &__image {
+      height: 348px;
+    }
+  }
+  .switcher {
+    display: none;
+  }
+}
+@media (max-width: 400px) {
+  .slider__header {
+    font-size: 32px;
   }
 }

@@ -1058,6 +1058,28 @@ h3 {
     text-align: center;
   }
 }
+@media (max-width: 700px) {
+  .slider {
+    padding: 0 16px;
+  }
+  .slider__content {
+    margin: 0;
+  }
+  .slide {
+    width: 348px;
+  }
+  .slide__image {
+    height: 348px;
+  }
+  .switcher {
+    display: none;
+  }
+}
+@media (max-width: 400px) {
+  .slider__header {
+    font-size: 32px;
+  }
+}
 .gallery {
   display: flex;
   justify-content: center;
