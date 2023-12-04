@@ -12,12 +12,6 @@ header {
   height: 60px;
 }
 
-// header logo
-//.logo-object {
-//  height: 60px;
-//  width: 100px;
-//}
-
 .header__logo {
   height: 60px;
 
@@ -112,5 +106,10 @@ header {
 
   .header-menu-button {
     display: none;
+  }
+}
+@media (max-width: 400px) {
+  .header__wrapper{
+    padding: 0 16px;
   }
 }
