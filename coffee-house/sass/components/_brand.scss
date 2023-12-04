@@ -1,6 +1,7 @@
 .enjoy {
   padding: 0 40px;
 }
+
 .brand {
   max-width: 1360px;
   margin: 0 auto 100px auto;
@@ -29,8 +30,38 @@
     color: $text-accent;
   }
 }
+
 @media (max-width: 1439px) {
   .brand {
     padding: 100px 60px;
+  }
+}
+
+@media (max-width: 700px) {
+  .enjoy {
+    padding: 0 16px;
+  }
+  .brand {
+    padding: 60px 16px;
+  }
+  .brand__text-box {
+    width: auto;
+    container-type: inline-size;
+
+    h1 {
+      height: auto;
+      @include font($size: 4.2rem, $height: 115%, $weight: 600);
+      font-size: clamp(42px, 9cqi, 60px);
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .brand__text-box {
+
+    h1 {
+      height: 144px;
+      @include font($size: 4.2rem, $height: 115%, $weight: 600);
+    }
   }
 }
