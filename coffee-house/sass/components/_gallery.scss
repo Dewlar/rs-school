@@ -115,3 +115,17 @@
   }
 }
 
+@media (max-width: 760px) {
+  .gallery__title {
+    font-size: clamp(32px, 7cqi, 60px);
+  }
+}
+
+@media (max-width: 400px) {
+  .gallery {
+    padding: 0 16px;
+  }
+  .gallery__title {
+    font-size: 32px;
+  }
+}
