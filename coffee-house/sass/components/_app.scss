@@ -35,3 +35,71 @@
   display: flex;
   gap: 20px;
 }
+
+@media (max-width: 1439px) {
+  main {
+    container-type: inline-size;
+  }
+  .app {
+    width: auto;
+    container-type: inline-size;
+
+    gap: clamp(10px, 2cqi, 100px);
+
+    &__photo {
+      background: url("../assets/mobile-screens.png") center/clamp(300px,43.75cqi,630px) no-repeat;
+    }
+  }
+}
+
+@media (max-width: 930px) {
+  .main {
+    container-type: normal;
+  }
+
+  .app {
+    container-type: normal;
+    flex-direction: column;
+    align-items: center;
+    gap: 100px;
+
+    &__link {
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    &__photo {
+      background: url("../assets/mobile-screens.png") no-repeat;
+    }
+  }
+}
+
+
+@media (max-width: 630px) {
+  .app {
+    padding: 0 16px;
+    gap: 40px;
+    &__photo {
+      width: clamp(348px,93.75cqi,630px);
+      height: clamp(348px,93.75cqi,630px);
+      background: url("../assets/mobile-screens.png") center/clamp(348px,93.75cqi,630px) no-repeat;
+    }
+  }
+  .app__buttons{
+    flex-direction: column;
+  }
+  .app__title {
+    font-size: 32px;
+  }
+}
+@media (max-width: 400px) {
+
+  .app {
+    &__photo {
+      width: 348px;
+      height: 348px;
+      background: url("../assets/mobile-screens.png") no-repeat;
+      background-size: contain;
+    }
+  }
+}

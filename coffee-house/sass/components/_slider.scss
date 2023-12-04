@@ -56,25 +56,27 @@
 // left-right slide switcher
 .switcher {
   display: flex;
+  flex: 0 0 60px;
   justify-content: center;
   align-items: center;
   height: 60px;
-  width: 60px;
+  //width: 60px;
   box-sizing: border-box;
   border-radius: 100px;
   border: 1px solid $border-dark;
   transition: background-color 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   cursor: pointer;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background-color: $background-container;
 
-  &:hover {
-    background-color: $background-container;
+      .left-switcher {
+        background-image: url("../assets/icons/arrow-left-hover.svg");
+      }
 
-    .left-switcher {
-      background-image: url("../assets/icons/arrow-left-hover.svg");
-    }
-
-    .right-switcher {
-      background-image: url("../assets/icons/arrow-right-hover.svg");
+      .right-switcher {
+        background-image: url("../assets/icons/arrow-right-hover.svg");
+      }
     }
   }
 }
@@ -108,5 +110,39 @@
 
   .active {
     background-color: $border-dark;
+  }
+}
+
+@media (max-width: 1439px) {
+  .slider {
+    width: auto;
+
+    h2 {
+      text-align: center;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .slider {
+    padding: 0 16px;
+
+    &__content {
+      margin: 0;
+    }
+  }
+  .slide {
+    width: 348px;
+    &__image {
+      height: 348px;
+    }
+  }
+  .switcher {
+    display: none;
+  }
+}
+@media (max-width: 400px) {
+  .slider__header {
+    font-size: 32px;
   }
 }

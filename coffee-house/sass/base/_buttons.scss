@@ -1,4 +1,4 @@
-// button-primary
+// header button-primary
 .button-primary {
   width: 200px;
   height: 64px;
@@ -9,29 +9,10 @@
   border: 1px solid $border-dark;
   background-color: $background-body;
   cursor: pointer;
+  user-select: none;
 }
 
-// header link button
-.header-menu-button {
-  margin-left: 1px;
-}
-
-.cup-icon {
-  height: 20px;
-  width: 20px;
-  margin-top: 1px;
-}
-
-.header-menu-button__link {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  color: $text-dark;
-  padding-top: 15px;
-}
-
-// brand button with cup animation
+// Enjoy brand section button with cup animation
 .button-icon-cup {
   display: flex;
   align-items: center;
@@ -45,17 +26,30 @@
 
   .cup-icon {
     margin-left: 8px;
+    margin-top: 1px;
     opacity: 0;
     transition: opacity 1s ease;
   }
-
-  &:hover {
+// for mobile or any touch screen devices
+  @media (hover: none) and (pointer: coarse) {
     span {
       transform: translate(-14px);
     }
 
     .cup-icon {
       opacity: 1;
+    }
+  }
+// for desktop
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      span {
+        transform: translate(-14px);
+      }
+
+      .cup-icon {
+        opacity: 1;
+      }
     }
   }
 }
@@ -85,18 +79,19 @@
     margin-bottom: 3px
   }
 
-  &:hover {
-    background-color: $background-container;
-    color: $text-light;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background-color: $background-container;
+      color: $text-light;
 
-    .app-icon_apple {
-      background: url("../assets/icons/icon-iphone-hover.svg") no-repeat;
+      .app-icon_apple {
+        background: url("../assets/icons/icon-iphone-hover.svg") no-repeat;
+      }
+
+      .app-icon_android {
+        background: url("../assets/icons/icon-android-hover.svg") no-repeat;
+      }
     }
-
-    .app-icon_android {
-      background: url("../assets/icons/icon-android-hover.svg") no-repeat;
-    }
-
   }
 }
 
