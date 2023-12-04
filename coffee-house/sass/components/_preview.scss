@@ -119,3 +119,12 @@
     display: none;
   }
 }
+@media (max-width: 740px) {
+  .preview{
+    padding: 0 16px;
+  }
+  .preview__grid {
+    justify-content: center;
+    grid-template-columns: 310px;
+  }
+}

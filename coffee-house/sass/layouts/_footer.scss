@@ -149,6 +149,7 @@ footer {
 
 // @media rule : smooth transition for footer between 1440 and 768
 @media (max-width: 1439px) {
+  //@media (800px < width <= 1439px) {
   footer {
     width: auto;
     container-type: inline-size;
@@ -165,9 +166,12 @@ footer {
     }
   }
 }
+
 // @media rule :  tablet 768px
-@media (max-width: 800px) {
+@media (max-width: 830px) {
+  //@media (630px < width <= 800px) {
   footer {
+    width: auto;
     container-type: normal;
   }
   .social-media {
@@ -180,6 +184,47 @@ footer {
 
     h2 {
       @include font($size: 6rem, $height: 125%, $weight: 600);
+    }
+  }
+}
+
+@media (max-width: 650px) {
+  //@media (400px < width <= 630px) {
+  footer {
+    width: auto;
+    padding: 0 16px 40px 16px;
+  }
+  .footer {
+    padding: 60px 16px;
+    gap: 40px;
+    .social-media {
+      container-type: inline-size;
+      width: auto;
+
+      &__header {
+        font-size: clamp(32px, 7.81cqi, 60px);
+      }
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  footer {
+    width: auto;
+    padding: 0 16px 40px 16px;
+
+    .footer {
+      padding: 60px 16px;
+      gap: 40px;
+
+      .social-media {
+        container-type: normal;
+        width: auto;
+
+        &__header {
+          font-size: 32px;
+        }
+      }
     }
   }
 }
