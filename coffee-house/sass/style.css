@@ -412,16 +412,17 @@ body {
 
 header {
   font-weight: 600;
+  padding: 0 40px;
 }
 
 .header__wrapper {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 0 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 60px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  position: relative;
 }
 
 .header__logo {
@@ -470,6 +471,9 @@ header {
   .header__navigation {
     display: none;
   }
+  .header-menu-button {
+    display: none;
+  }
   .burger-button {
     display: flex;
     width: 44px;
@@ -478,36 +482,97 @@ header {
     align-items: center;
     border-radius: 100px;
     border: 1px solid #665F55;
+    cursor: pointer;
   }
   .burger-button span {
     position: relative;
   }
-  .burger-button span:before {
+  .burger-button span:before, .burger-button span:after {
     content: "";
     position: absolute;
     width: 18px;
     height: 2px;
+    background-color: #403F3D;
+    border-radius: 2px;
+  }
+  .burger-button span:before {
     top: -5px;
     left: -9px;
-    background-color: #403F3D;
-    border-radius: 2px;
+    transition: transform 0.3s ease-in-out, top 0.3s ease-in-out;
   }
   .burger-button span:after {
-    content: "";
-    position: absolute;
-    width: 18px;
-    height: 2px;
     bottom: -5px;
     left: -9px;
-    background-color: #403F3D;
-    border-radius: 2px;
+    transition: transform 0.3s ease-in-out, bottom 0.3s ease-in-out;
   }
-  .header-menu-button {
-    display: none;
+  .burger-button.burger-checked {
+    position: absolute;
+    top: 8px;
+    right: 0;
+  }
+  .burger-button.burger-checked span:before {
+    top: -1px;
+    transform: rotate(225deg);
+  }
+  .burger-button.burger-checked span:after {
+    bottom: -1px;
+    transform: rotate(-225deg);
+  }
+  .header-menu-button.burger-checked {
+    display: block;
+  }
+  .header__logo.burger-checked {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .header__navigation.burger-checked {
+    display: block;
+    width: 100%;
+  }
+  .header__wrapper.burger-checked {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    padding-top: 140px;
+    font-size: 3.2rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 125%;
+  }
+  .header__wrapper.burger-checked .main-navigation {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    width: 100%;
+    margin: 0;
+  }
+  .header__wrapper.burger-checked .header-menu-button {
+    padding-top: 100px;
+  }
+  .header__wrapper.burger-checked .header-menu-button__link {
+    gap: 16px;
+  }
+  .header__wrapper.burger-checked .cup-icon {
+    height: 40px;
+    width: 40px;
+    margin-top: 0;
+  }
+  body.burger-checked {
+    overflow: hidden;
+  }
+  body.burger-checked .header {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 1000;
+    background-color: #E1D4C9;
   }
 }
 @media (max-width: 400px) {
-  .header__wrapper {
+  .header {
     padding: 0 16px;
   }
 }
