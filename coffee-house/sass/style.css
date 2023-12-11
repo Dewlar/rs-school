@@ -1485,6 +1485,9 @@ main .hidden-header {
     background-color: #665F55;
   }
 }
+.offer .tab-no-clickable {
+  pointer-events: none;
+}
 .offer .active {
   cursor: auto;
   color: #E1D4C9;

@@ -1,7 +1,7 @@
 const burger = document.querySelector('.burger-button');
 const navLinks = document.querySelector('.main-navigation');
 const burgerElements = document.querySelectorAll('.head-bg');
-const switchSlideDelay = 3000;
+const switchSlideDelay = 5000;
 const sliderControls = document.querySelectorAll('.control');
 
 

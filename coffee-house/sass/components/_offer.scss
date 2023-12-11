@@ -86,6 +86,10 @@ main {
     }
   }
 
+  .tab-no-clickable {
+    pointer-events: none;
+  }
+
   .active {
     cursor: auto;
     color: $text-light;
