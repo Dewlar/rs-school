@@ -1053,11 +1053,22 @@ h3 {
   margin: 40px 0;
 }
 
-.slider__content {
+.slider-content {
   display: flex;
   justify-content: center;
   width: 1152px;
   margin: 0 40px;
+}
+
+.slide-container {
+  width: 480px;
+  overflow: hidden;
+}
+
+.slide-frame {
+  display: flex;
+  min-width: 1740px;
+  transition: translate 0.5s ease;
 }
 
 .slide {
@@ -1065,13 +1076,13 @@ h3 {
   flex-direction: column;
   align-items: center;
   width: 480px;
+  min-width: 480px;
+  margin-right: 100px;
 }
 .slide__image {
   height: 480px;
   width: 100%;
   margin-bottom: 20px;
-  background: url("../assets/slider/coffee-slider-1.png") no-repeat;
-  background-size: contain;
 }
 .slide__dish {
   display: flex;
@@ -1081,6 +1092,18 @@ h3 {
 }
 .slide__dish p {
   text-align: center;
+}
+
+.slide-frappuccino .slide__image {
+  background: url("../assets/slider/coffee-slider-1.png") center/contain no-repeat;
+}
+
+.slide-macchiato .slide__image {
+  background: url("../assets/slider/coffee-slider-2.png") center/contain no-repeat;
+}
+
+.slide-ice .slide__image {
+  background: url("../assets/slider/coffee-slider-3.png") center/contain no-repeat;
 }
 
 .switcher {
@@ -1132,7 +1155,12 @@ h3 {
   border-radius: 100px;
   background-color: #C1B6AD;
 }
+.slider-control .control {
+  width: 0;
+  transition: width 5s linear;
+}
 .slider-control .active {
+  width: 100%;
   background-color: #665F55;
 }
 
@@ -1148,11 +1176,15 @@ h3 {
   .slider {
     padding: 0 16px;
   }
-  .slider__content {
+  .slider .slider-content {
     margin: 0;
+  }
+  .slide-container {
+    width: 348px;
   }
   .slide {
     width: 348px;
+    min-width: 348px;
   }
   .slide__image {
     height: 348px;
