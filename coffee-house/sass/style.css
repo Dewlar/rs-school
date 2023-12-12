@@ -1718,6 +1718,10 @@ main .hidden-header {
   padding-top: 11px;
   padding-bottom: 12px;
 }
+.modal-description .modal-info img {
+  width: 16px;
+  height: 16px;
+}
 .modal-description .modal-info p {
   width: calc(100% - 24px);
   font-size: 1rem;
@@ -1801,6 +1805,23 @@ main .hidden-header {
 
 .tab-icon {
   margin-left: -1px;
+}
+
+@media (max-width: 730px) {
+  .modal-img {
+    display: none;
+  }
+  .modal-description {
+    width: auto;
+  }
+}
+@media (max-width: 400px) {
+  .modal-img {
+    display: none;
+  }
+  .modal-card {
+    min-width: 342px;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

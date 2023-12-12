@@ -87,6 +87,11 @@
     padding-top: 11px;
     padding-bottom: 12px;
 
+    img {
+      width: 16px;
+      height: 16px;
+    }
+
     p {
       width: calc(100% - 24px);
       @include font($size: 1rem, $weight: 600, $height: 140%);
@@ -175,4 +180,20 @@
 
 .tab-icon {
   margin-left: -1px;
+}
+@media (max-width: 730px) {
+  .modal-img {
+    display: none;
+  }
+  .modal-description {
+    width: auto;
+  }
+}
+@media (max-width: 400px) {
+  .modal-img {
+    display: none;
+  }
+  .modal-card {
+    min-width: 342px;
+  }
 }
