@@ -1,0 +1,177 @@
+.overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  padding: 0 40px;
+  background-color: $background-backdrop;
+  transition: opacity 0.3s ease-out;
+}
+
+.modal-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal-card {
+  display: flex;
+  gap: 20px;
+  border-radius: 40px;
+  background-color: $background-body;
+  padding: 16px;
+  max-width: 800px;
+}
+
+.modal-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -1px;
+  border-radius: 40px;
+  width: 310px;
+  height: 310px;
+  overflow: hidden;
+
+  img {
+    transition: width 0.5s ease-out;
+    width: 340px;
+
+    &:hover {
+      width: 310px;
+    }
+  }
+}
+
+.modal-description {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: calc(100% - 330px);
+  max-width: 438px;
+
+  p {
+    margin: 0;
+  }
+
+  .modal-title {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .modal-size {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .modal-additives {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .modal-total {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .modal-info {
+    display: flex;
+    gap: 8px;
+    border-top: 1px solid $border-light;
+    padding-top: 11px;
+    padding-bottom: 12px;
+
+    p {
+      width: calc(100% - 24px);
+      @include font($size: 1rem, $weight: 600, $height: 140%);
+    }
+  }
+
+  .modal-close-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: stretch;
+    height: 44px;
+    font-weight: 600;
+    border-radius: 100px;
+    border: 1px solid $border-dark;
+    cursor: pointer;
+    transition: background-color 0.5s ease-out, border-color 0.5s ease-out, color 0.5s ease-out;
+
+    &:hover {
+      border-color: $background-container;
+      background-color: $background-container;
+      color: $text-light;
+    }
+  }
+}
+
+.modal-size-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  .tab-no-clickable {
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .active {
+    border-color: $background-container;
+    background-color: $background-container;
+    color: $text-light;
+  }
+}
+
+.modal-additives-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 46px;
+  padding: 8px 16px 8px 8px;
+  color: $text-dark;
+  font-weight: 600;
+  border-radius: 100px;
+  border: 1px solid $border-light;
+  cursor: pointer;
+  transition: background-color 0.5s ease-out, color 0.5s ease-out, border-color 0.5s ease-out;
+
+  &:hover {
+    border-color: $background-container;
+    background-color: $background-container;
+    color: $text-light;
+
+    & .tab-icon {
+      background-color: $background-body;
+    }
+  }
+
+  .tab-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    color: $text-dark;
+    background-color: $border-light;
+    border-radius: 100px;
+    transition: background-color 0.5s ease-out;
+  }
+}
+
+.tab-icon {
+  margin-left: -1px;
+}

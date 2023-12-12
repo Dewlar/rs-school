@@ -1,15 +1,16 @@
 header {
   font-weight: 600;
+  padding: 0 40px;
 }
 
 .header__wrapper {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 0 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 60px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  position: relative;
 }
 
 .header__logo {
@@ -68,6 +69,9 @@ header {
   .header__navigation {
     display: none;
   }
+  .header-menu-button {
+    display: none;
+  }
   .burger-button {
     display: flex;
     width: 44px;
@@ -76,40 +80,114 @@ header {
     align-items: center;
     border-radius: 100px;
     border: 1px solid $border-dark;
+    cursor: pointer;
 
     span {
       position: relative;
 
-      &:before {
-        content: "";
-        position: absolute;
-        width: 18px;
-        height: 2px;
-        top: -5px;
-        left: -9px;
-        background-color: $text-dark;
-        border-radius: 2px;
-      }
-
+      &:before,
       &:after {
         content: "";
         position: absolute;
         width: 18px;
         height: 2px;
-        bottom: -5px;
-        left: -9px;
         background-color: $text-dark;
         border-radius: 2px;
       }
+
+      &:before {
+        top: -5px;
+        left: -9px;
+        transition: transform .3s ease-in-out, top .3s ease-in-out;
+      }
+
+      &:after {
+        bottom: -5px;
+        left: -9px;
+        transition: transform .3s ease-in-out, bottom .3s ease-in-out;
+      }
+    }
+  }
+  // header burger button :checked
+  .burger-button.burger-checked {
+    position: absolute;
+    top: 8px;
+    right: 0;
+
+    span {
+      &:before {
+        top: -1px;
+        transform: rotate(225deg);
+      }
+
+      &:after {
+        bottom: -1px;
+        transform: rotate(-225deg);
+      }
+
+    }
+  }
+  // open navigation when the button is checked
+  .header-menu-button.burger-checked {
+    display: block;
+  }
+  .header__logo.burger-checked {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .header__navigation.burger-checked {
+    display: block;
+    width: 100%;
+  }
+  .header__wrapper.burger-checked {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    padding-top: 140px;
+    @include font($size: 3.2rem, $weight: 600, $height: 125%);
+
+    .main-navigation {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 60px;
+      width: 100%;
+      margin: 0;
+    }
+
+    .header-menu-button {
+      padding-top: 100px;
+
+      &__link {
+        gap: 16px;
+      }
+    }
+
+    .cup-icon {
+      height: 40px;
+      width: 40px;
+      margin-top: 0;
     }
   }
 
-  .header-menu-button {
-    display: none;
+  body.burger-checked {
+    overflow: hidden;
+
+    .header {
+      height: 100%;
+      width: 100%;
+      position: fixed;
+      z-index: 1000;
+      background-color: $background-body;
+    }
   }
+
 }
+
 @media (max-width: 400px) {
-  .header__wrapper{
+  .header {
     padding: 0 16px;
   }
 }

@@ -1,13 +1,28 @@
 .enjoy {
   padding: 0 40px;
+  margin: 0 auto 100px auto;
+  height: 644px;
+  max-width: 1440px;
+
+  position: relative;
+  container-type: size;
+  overflow: hidden;
 }
 
 .brand {
   max-width: 1360px;
-  margin: 0 auto 100px auto;
   padding: 100px;
   border-radius: 40px;
-  background: url("../assets/img-hero.png") lightgray 50% / cover no-repeat;
+  height: 100cqb;
+}
+
+.video {
+  height: 100cqb;
+  width: 100cqi;
+  object-fit: cover;
+  border-radius: 40px;
+  position: absolute;
+  z-index: -1;
 }
 
 .brand__text-box {
@@ -39,12 +54,15 @@
 
 @media (max-width: 700px) {
   .enjoy {
+    height: 552px;
     padding: 0 16px;
   }
   .brand {
     padding: 60px 16px;
   }
   .brand__text-box {
+    justify-content: space-between;
+    height: 100%;
     width: auto;
     container-type: inline-size;
 
@@ -58,6 +76,8 @@
 
 @media (max-width: 400px) {
   .brand__text-box {
+    justify-content: flex-start;
+    height: auto;
 
     h1 {
       height: 144px;
