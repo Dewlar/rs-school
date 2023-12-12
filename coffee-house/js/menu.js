@@ -59,7 +59,7 @@ const switchTab = (e) => {
     removeActiveTabStyle();
     e.currentTarget.classList.add('active');
     e.currentTarget.classList.add('tab-no-clickable');
-    console.log(e.target.closest('.tab').classList.contains('tab-coffee'));
+    // console.log(e.target.closest('.tab').classList.contains('tab-coffee'));
     e.target.closest('.tab').classList.contains('tab-coffee') && renderCardsToDom('coffee');
     e.target.closest('.tab').classList.contains('tab-tea') && renderCardsToDom('tea');
     e.target.closest('.tab').classList.contains('tab-dessert') && renderCardsToDom('dessert');
@@ -134,6 +134,7 @@ const renderModalToDom = async (id) => {
     const bodyDom = document.querySelector('body');
     const modalOverlay = new Modal(gridItems.find(card => card.id === +id));
     bodyDom.append(modalOverlay.generateModalOverlay());
+    bodyDom.style.overflow = 'hidden';
     // console.log('renderModalToDom', id);
     // console.log(gridItems.find(card => card.id == id)); // получаем объект с данными карточки по которой кликнули
     bindModalEvents();
@@ -149,6 +150,7 @@ const modalEvents = async (e) => {
     let eventClasses = e.target.classList;
     if (eventClasses.contains('overlay') || eventClasses.contains('modal-close-button')) {
         document.querySelector('.overlay').remove();
+        document.querySelector('body').style.overflow = 'visible';
         return;
     }
     cardData = gridItems.find(card => card.id === +e.target.closest('.modal-card').getAttribute('data-idx'));
