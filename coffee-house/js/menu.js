@@ -20,8 +20,10 @@ navLinks.addEventListener('click', (e) => {
 let gridItems = [];
 const gridPreview = document.querySelector('.preview__grid');
 gridPreview.addEventListener('click', (e) => {
-    // console.log(e.target.closest('.card'));
-    renderModalToDom(e.target.closest('.card').getAttribute('data-id'));
+    let isCard = !!e.target.closest('.card');
+    if (isCard) {
+        renderModalToDom(e.target.closest('.card').getAttribute('data-id'));
+    }
 });
 window.onload = function () {
 
@@ -118,18 +120,66 @@ const renderModalToDom = async (id) => {
     bodyDom.append(modalOverlay.generateModalOverlay());
     // console.log('renderModalToDom', id);
     // console.log(gridItems.find(card => card.id == id)); // получаем объект с данными карточки по которой кликнули
-    bindModalCloseEvents();
+    bindModalEvents();
 };
-const bindModalCloseEvents = () => {
-    const overlay = document.querySelector('body')
-    overlay.addEventListener('click', closeModal)
-}
-const closeModal = (e) => {
+const bindModalEvents = () => {
+    const overlay = document.querySelector('.overlay');
+    overlay.addEventListener('click', modalEvents);
+};
+const modalEvents = async (e) => {
+    await loadData();
+    let cardData;
+    const tab = e.target.closest('.tab'); // по какой кнопке кликнули
     let eventClasses = e.target.classList;
-    if (eventClasses.contains('overlay') || eventClasses.contains('modal-close-button')){
+    if (eventClasses.contains('overlay') || eventClasses.contains('modal-close-button')) {
         document.querySelector('.overlay').remove();
+        return;
     }
-}
+    cardData = gridItems.find(card => card.id === +e.target.closest('.modal-card').getAttribute('data-idx'));
+    const sizes = document.querySelectorAll('.tab-size');
+    const tabs = document.querySelectorAll('.modal-description .tab');
+    let tabActiv = [];
+    const prices = [
+        cardData.sizes.s['add-price'],
+        cardData.sizes.m['add-price'],
+        cardData.sizes.l['add-price'],
+        cardData.additives[0]['add-price'],
+        cardData.additives[1]['add-price'],
+        cardData.additives[2]['add-price'],
+    ];
+
+    // console.log(eventClasses,e.target.closest('.modal-card').getAttribute('data-idx'));
+    if (tab) {
+        if (tab.classList.contains('tab-additives')) {
+            tab.classList.toggle('active');
+        }
+        if (tab.classList.contains('tab-size')) {
+            sizes.forEach(tab => {
+                tab.classList.remove('active');
+                tab.classList.remove('tab-no-clickable');
+            });
+            tab.classList.add('active');
+            tab.classList.add('tab-no-clickable');
+
+        }
+    }
+    tabs.forEach(tab => tab.classList.contains('active') ? tabActiv.push(1) : tabActiv.push(0));
+    // console.log(tabActiv, prices);
+    let totalPrice = tabActiv.reduce((sum, check, index) => {
+        if (check === 0) return sum;
+        else {
+            return sum + +prices[index];
+        }
+    }, +cardData.price);
+    // console.log(totalPrice);
+    updatePrice(totalPrice);
+};
+
+const updatePrice = (price) => {
+    const priceTotal = document.querySelector('.price-total');
+    priceTotal.textContent = price.toFixed(2);
+};
+
 class Modal {
     constructor({id, name, description, price, category, image, sizes, additives}) {
         this.id = id;
@@ -148,7 +198,7 @@ class Modal {
         let overlay = document.createElement('div');
         overlay.className = 'overlay';
 
-        template += `<div class="modal-card">`;
+        template += `<div class="modal-card" data-idx="${this.id}">`;
 
         template += `<div class="modal-img">`;
         template += `<img src="assets/menu/${this.image}" alt="card image">`;
@@ -165,15 +215,15 @@ class Modal {
         template += `<p>Size</p>`;
 
         template += `<div class="modal-size-buttons">`;
-        template += `<div class="tab active tab-no-clickable">`;
+        template += `<div class="tab tab-size size-small active tab-no-clickable">`;
         template += `<div class="tab-icon">S</div>`;
         template += `<p>${this.sizes.s.size}</p>`;
         template += `</div>`; // tab
-        template += `<div class="tab">`;
+        template += `<div class="tab tab-size size-medium">`;
         template += `<div class="tab-icon">M</div>`;
         template += `<p>${this.sizes.m.size}</p>`;
         template += `</div>`; // tab
-        template += `<div class="tab">`;
+        template += `<div class="tab tab-size size-large">`;
         template += `<div class="tab-icon">L</div>`;
         template += `<p>${this.sizes.l.size}</p>`;
         template += `</div>`; // tab
@@ -185,15 +235,15 @@ class Modal {
         template += `<p>Additives</p>`;
 
         template += `<div class="modal-additives-buttons">`;
-        template += `<div class="tab">`;
+        template += `<div class="tab tab-additives additives-one">`;
         template += `<div class="tab-icon">1</div>`;
         template += `<p>${this.additives[0].name}</p>`;
         template += `</div>`; // tab
-        template += `<div class="tab">`;
+        template += `<div class="tab tab-additives additives-two">`;
         template += `<div class="tab-icon">2</div>`;
         template += `<p>${this.additives[1].name}</p>`;
         template += `</div>`; // tab
-        template += `<div class="tab">`;
+        template += `<div class="tab tab-additives additives-three">`;
         template += `<div class="tab-icon">3</div>`;
         template += `<p>${this.additives[2].name}</p>`;
         template += `</div>`; // tab
@@ -203,7 +253,7 @@ class Modal {
 
         template += `<div class="modal-total">`;
         template += `<h3>Total:</h3>`;
-        template += `<h3 class="modal-price">&#36;${this.price}</h3>`;
+        template += `<h3 class="modal-price"><span>&#36;</span><span class="price-total">${this.price}</span></h3>`;
         template += `</div>`; //modal-total
 
         template += `<div class="modal-info">`;

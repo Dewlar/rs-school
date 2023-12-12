@@ -118,16 +118,17 @@
   flex-wrap: wrap;
   gap: 8px;
 
-  .tab-no-clickable {
-    cursor: default;
-    pointer-events: none;
-  }
+}
 
-  .active {
-    border-color: $background-container;
-    background-color: $background-container;
-    color: $text-light;
-  }
+.tab-no-clickable {
+  cursor: default;
+  pointer-events: none;
+}
+
+.active {
+  border-color: $background-container;
+  background-color: $background-container;
+  color: $text-light;
 }
 
 .modal-additives-buttons {

@@ -1748,11 +1748,13 @@ main .hidden-header {
   flex-wrap: wrap;
   gap: 8px;
 }
-.modal-size-buttons .tab-no-clickable {
+
+.tab-no-clickable {
   cursor: default;
   pointer-events: none;
 }
-.modal-size-buttons .active {
+
+.active {
   border-color: #665F55;
   background-color: #665F55;
   color: #E1D4C9;
