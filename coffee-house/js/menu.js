@@ -73,13 +73,12 @@ const generateCards = (data) => {
 };
 
 class MenuCard {
-    constructor({name, description, price, image, category, ...rest}) {
+    constructor({name, description, price, image, category}) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.image = image;
         this.category = category;
-        this.rest = [...rest];
     }
 
     // menu card-item generator
@@ -101,4 +100,19 @@ class MenuCard {
         card.innerHTML = template;
         return card;
     }
+}
+
+class Modal {
+    constructor(classes) {
+        // this.classes = classes;
+        // this.modal ='';
+        // this.overlay = '';
+        // this.modalCloseBtn = '';
+        // this.modalContent = '';
+    }
+
+    // buildModal(content) {
+    //     this.overlay = document.createElement('div');
+    //     this.overlay.classList.add('o')
+    // }
 }
