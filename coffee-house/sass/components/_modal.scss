@@ -12,6 +12,11 @@
   transition: opacity 0.3s ease-out;
 }
 
+.modal-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .modal-card {
   display: flex;
   gap: 20px;
@@ -87,7 +92,8 @@
       @include font($size: 1rem, $weight: 600, $height: 140%);
     }
   }
-  .modal-close-button{
+
+  .modal-close-button {
     display: flex;
     justify-content: center;
     align-items: center;

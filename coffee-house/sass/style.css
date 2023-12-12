@@ -1650,6 +1650,11 @@ main .hidden-header {
   transition: opacity 0.3s ease-out;
 }
 
+.modal-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .modal-card {
   display: flex;
   gap: 20px;
