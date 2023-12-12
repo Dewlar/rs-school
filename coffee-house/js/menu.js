@@ -19,6 +19,18 @@ navLinks.addEventListener('click', (e) => {
 //////////////////////////////////////////////////
 let gridItems = [];
 let tabIndex = [];
+
+// console.log(menuRefreshButton);
+
+const menuRefreshButton = document.querySelector('.menu-circle-button');
+menuRefreshButton.addEventListener('click', refreshButtonHandler);
+
+function refreshButtonHandler() {
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => card.style.display = 'flex');
+    menuRefreshButton.style.display = 'none';
+}
+
 const gridPreview = document.querySelector('.preview__grid');
 gridPreview.addEventListener('click', (e) => {
     let isCard = !!e.target.closest('.card');
