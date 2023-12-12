@@ -40,9 +40,12 @@
     transition: width 0.5s ease-out;
     width: 340px;
 
-    &:hover {
-      width: 310px;
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        width: 310px;
+      }
     }
+
   }
 }
 
@@ -110,10 +113,12 @@
     cursor: pointer;
     transition: background-color 0.5s ease-out, border-color 0.5s ease-out, color 0.5s ease-out;
 
-    &:hover {
-      border-color: $background-container;
-      background-color: $background-container;
-      color: $text-light;
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        border-color: $background-container;
+        background-color: $background-container;
+        color: $text-light;
+      }
     }
   }
 }
@@ -155,13 +160,15 @@
   cursor: pointer;
   transition: background-color 0.5s ease-out, color 0.5s ease-out, border-color 0.5s ease-out;
 
-  &:hover {
-    border-color: $background-container;
-    background-color: $background-container;
-    color: $text-light;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      border-color: $background-container;
+      background-color: $background-container;
+      color: $text-light;
 
-    & .tab-icon {
-      background-color: $background-body;
+      & .tab-icon {
+        background-color: $background-body;
+      }
     }
   }
 
@@ -181,6 +188,7 @@
 .tab-icon {
   margin-left: -1px;
 }
+
 @media (max-width: 730px) {
   .modal-img {
     display: none;
@@ -189,6 +197,7 @@
     width: auto;
   }
 }
+
 @media (max-width: 400px) {
   .modal-img {
     display: none;

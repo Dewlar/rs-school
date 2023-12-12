@@ -1678,8 +1678,10 @@ main .hidden-header {
   transition: width 0.5s ease-out;
   width: 340px;
 }
-.modal-img img:hover {
-  width: 310px;
+@media (hover: hover) and (pointer: fine) {
+  .modal-img img:hover {
+    width: 310px;
+  }
 }
 
 .modal-description {
@@ -1741,10 +1743,12 @@ main .hidden-header {
   cursor: pointer;
   transition: background-color 0.5s ease-out, border-color 0.5s ease-out, color 0.5s ease-out;
 }
-.modal-description .modal-close-button:hover {
-  border-color: #665F55;
-  background-color: #665F55;
-  color: #E1D4C9;
+@media (hover: hover) and (pointer: fine) {
+  .modal-description .modal-close-button:hover {
+    border-color: #665F55;
+    background-color: #665F55;
+    color: #E1D4C9;
+  }
 }
 
 .modal-size-buttons {
@@ -1783,13 +1787,15 @@ main .hidden-header {
   cursor: pointer;
   transition: background-color 0.5s ease-out, color 0.5s ease-out, border-color 0.5s ease-out;
 }
-.tab:hover {
-  border-color: #665F55;
-  background-color: #665F55;
-  color: #E1D4C9;
-}
-.tab:hover .tab-icon {
-  background-color: #E1D4C9;
+@media (hover: hover) and (pointer: fine) {
+  .tab:hover {
+    border-color: #665F55;
+    background-color: #665F55;
+    color: #E1D4C9;
+  }
+  .tab:hover .tab-icon {
+    background-color: #E1D4C9;
+  }
 }
 .tab .tab-icon {
   display: flex;
