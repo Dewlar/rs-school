@@ -1772,6 +1772,9 @@ main .hidden-header {
   background-color: #665F55;
   color: #E1D4C9;
 }
+.active p {
+  color: #E1D4C9;
+}
 
 .modal-additives-buttons {
   display: flex;
