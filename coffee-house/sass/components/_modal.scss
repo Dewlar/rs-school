@@ -111,6 +111,7 @@
     border-radius: 100px;
     border: 1px solid $border-dark;
     cursor: pointer;
+    user-select: none;
     transition: background-color 0.5s ease-out, border-color 0.5s ease-out, color 0.5s ease-out;
 
     @media (hover: hover) and (pointer: fine) {
@@ -127,7 +128,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-
+  user-select: none;
 }
 
 .tab-no-clickable {
@@ -145,6 +146,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  user-select: none;
 }
 
 .tab {

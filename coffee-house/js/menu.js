@@ -18,6 +18,7 @@ navLinks.addEventListener('click', (e) => {
 
 //////////////////////////////////////////////////
 let gridItems = [];
+let tabIndex = [];
 const gridPreview = document.querySelector('.preview__grid');
 gridPreview.addEventListener('click', (e) => {
     let isCard = !!e.target.closest('.card');
@@ -26,10 +27,9 @@ gridPreview.addEventListener('click', (e) => {
     }
 });
 window.onload = function () {
-
     //tabs handler
     addTabsClickHandler();
-    renderCardsToDom();
+    renderCardsToDom('coffee');
 };
 
 const loadData = async () => {
@@ -47,6 +47,10 @@ const switchTab = (e) => {
     removeActiveTabStyle();
     e.currentTarget.classList.add('active');
     e.currentTarget.classList.add('tab-no-clickable');
+    console.log(e.target.closest('.tab').classList.contains('tab-coffee'));
+    e.target.closest('.tab').classList.contains('tab-coffee') && renderCardsToDom('coffee');
+    e.target.closest('.tab').classList.contains('tab-tea') && renderCardsToDom('tea');
+    e.target.closest('.tab').classList.contains('tab-dessert') && renderCardsToDom('dessert');
 };
 const removeActiveTabStyle = () => {
     tabBtn.forEach(button => {
@@ -57,11 +61,11 @@ const removeActiveTabStyle = () => {
     });
 };
 
-const renderCardsToDom = async () => {
+const renderCardsToDom = async (tabname) => {
     await loadData();
     // console.log(gridItems[0].name);
     let previewGrid = getPreviewGrid();
-    generateCards(gridItems).forEach(card => {
+    generateCards(gridItems.filter(card => card.category === tabname)).forEach(card => {
         previewGrid.append(card.generateMenuItem());
     });
 };
