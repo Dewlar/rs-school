@@ -1,17 +1,18 @@
-// burger menu
 const infoIconURL = './assets/icons/info-empty.svg';
+//burger
 const burger = document.querySelector('.burger-button');
-const navLinks = document.querySelector('.main-navigation');
-const burgerElements = document.querySelectorAll('.head-bg');
 
 burger.addEventListener('click', () => {
-    burgerElements
-        .forEach(e => e.classList.toggle('burger-checked'));
-});
-navLinks.addEventListener('click', (e) => {
-    if (e.target.classList.contains('link-animation')) {
-        burgerElements
-            .forEach(e => e.classList.remove('burger-checked'));
+    document.querySelector('body').classList.toggle('collapsed');
+    document.querySelector('.burger-button').classList.toggle('collapsed');
+    const burgerWrapper = document.querySelector('.burger-wrapper');
+    burgerWrapper.classList.toggle('collapsed');
+    if (burgerWrapper.classList.contains('collapsed')) {
+        burgerWrapper.style.left = '0';
+        burgerWrapper.style.opacity = '1';
+    }else {
+        burgerWrapper.style.left = '110vw';
+        burgerWrapper.style.opacity = '0';
     }
 });
 //////////////////////////////////////////////////
