@@ -3,6 +3,7 @@ const burger = document.querySelector('.burger-button');
 const burgerWrapper = document.querySelector('.burger-wrapper');
 
 burger.addEventListener('click', () => {
+    window.scroll(0,0);
     burgerCloseHandler();
 });
 document.querySelector('.burger-wrapper').addEventListener('click', (e) => {
@@ -23,14 +24,14 @@ function burgerCloseHandler() {
 }
 
 ////////////////media listeners//////////////////////////////////
-const mediaOneColumn = window.matchMedia('(max-width: 740px)');
-mediaOneColumn.addEventListener('change', changeMediaQuery);
-const mediaTwoColumn = window.matchMedia('(max-width: 1060px)');
-mediaTwoColumn.addEventListener('change', changeMediaQuery);
-const mediaThreeColumn = window.matchMedia('(max-width: 1439px)');
-mediaThreeColumn.addEventListener('change', changeMediaQuery);
+window.matchMedia('(max-width: 740px)').addEventListener('change', changeMediaQuery);
+window.matchMedia('(max-width: 768px)').addEventListener('change', changeMediaQuery);
+window.matchMedia('(max-width: 1060px)').addEventListener('change', changeMediaQuery);
+window.matchMedia('(max-width: 1439px)').addEventListener('change', changeMediaQuery);
 
 function changeMediaQuery() {
+    document.querySelector('body').classList.contains('collapsed') && burgerCloseHandler();
+
     tabBtn.forEach(tab => {
         if (tab.classList.contains('active')) {
             tab.classList.contains('tab-coffee') && renderCardsToDom('coffee');

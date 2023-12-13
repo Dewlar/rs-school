@@ -6,12 +6,14 @@ const burger = document.querySelector('.burger-button');
 const burgerWrapper = document.querySelector('.burger-wrapper');
 
 burger.addEventListener('click', () => {
+    window.scroll(0, 0);
     burgerCloseHandler();
 });
 document.querySelector('.burger-wrapper').addEventListener('click', (e) => {
     e.target.closest('.link-animation') && burgerCloseHandler();
 });
-function burgerCloseHandler (){
+
+function burgerCloseHandler() {
     document.querySelector('body').classList.toggle('collapsed');
     document.querySelector('.burger-button').classList.toggle('collapsed');
     burgerWrapper.classList.toggle('collapsed');
@@ -23,6 +25,15 @@ function burgerCloseHandler (){
         burgerWrapper.style.opacity = '0';
     }
 }
+
+////////////////media listeners//////////////////////////////////
+window.matchMedia('(max-width: 740px)').addEventListener('change', mainMediaChanger);
+window.matchMedia('(max-width: 768px)').addEventListener('change', mainMediaChanger);
+
+function mainMediaChanger() {
+    document.querySelector('body').classList.contains('collapsed') && burgerCloseHandler();
+}
+//////////////////////////////////////////////////
 // slider
 const sliderFrame = document.querySelector('.slide-frame');
 let sliderShift = 0;
