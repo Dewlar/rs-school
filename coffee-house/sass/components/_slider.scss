@@ -135,6 +135,8 @@
     height: 4px;
     border-radius: 100px;
     background-color: $border-light;
+    max-width: 40px;
+    overflow: hidden;
   }
 
   .control {

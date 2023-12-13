@@ -1157,6 +1157,8 @@ h3 {
   height: 4px;
   border-radius: 100px;
   background-color: #C1B6AD;
+  max-width: 40px;
+  overflow: hidden;
 }
 .slider-control .active {
   background-color: #665F55;
