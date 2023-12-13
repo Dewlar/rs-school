@@ -1,34 +1,66 @@
-const infoIconURL = './assets/icons/info-empty.svg';
 //burger
 const burger = document.querySelector('.burger-button');
+const burgerWrapper = document.querySelector('.burger-wrapper');
 
 burger.addEventListener('click', () => {
+    burgerCloseHandler();
+});
+document.querySelector('.burger-wrapper').addEventListener('click', (e) => {
+    e.target.closest('.link-animation') && burgerCloseHandler();
+});
+
+function burgerCloseHandler() {
     document.querySelector('body').classList.toggle('collapsed');
     document.querySelector('.burger-button').classList.toggle('collapsed');
-    const burgerWrapper = document.querySelector('.burger-wrapper');
     burgerWrapper.classList.toggle('collapsed');
     if (burgerWrapper.classList.contains('collapsed')) {
         burgerWrapper.style.left = '0';
         burgerWrapper.style.opacity = '1';
-    }else {
+    } else {
         burgerWrapper.style.left = '110vw';
         burgerWrapper.style.opacity = '0';
     }
-});
-//////////////////////////////////////////////////
+}
+
+////////////////media listeners//////////////////////////////////
+const mediaOneColumn = window.matchMedia('(max-width: 740px)');
+mediaOneColumn.addEventListener('change', changeMediaQuery);
+const mediaTwoColumn = window.matchMedia('(max-width: 1060px)');
+mediaTwoColumn.addEventListener('change', changeMediaQuery);
+const mediaThreeColumn = window.matchMedia('(max-width: 1439px)');
+mediaThreeColumn.addEventListener('change', changeMediaQuery);
+
+function changeMediaQuery() {
+    tabBtn.forEach(tab => {
+        if (tab.classList.contains('active')) {
+            tab.classList.contains('tab-coffee') && renderCardsToDom('coffee');
+            tab.classList.contains('tab-tea') && renderCardsToDom('tea');
+            tab.classList.contains('tab-dessert') && renderCardsToDom('dessert');
+        }
+    });
+}
 
 //////////////////////////////////////////////////
+const infoIconURL = './assets/icons/info-empty.svg';
+const tabBtn = document.querySelectorAll('.offer__tabs .tab');
 let gridItems = [];
 let tabIndex = [];
 
 // console.log(menuRefreshButton);
-
 const menuRefreshButton = document.querySelector('.menu-circle-button');
 menuRefreshButton.addEventListener('click', refreshButtonHandler);
 
 function refreshButtonHandler() {
     const cards = document.querySelectorAll('.card');
     cards.forEach(card => card.style.display = 'flex');
+    hideRefreshButton();
+}
+
+function showRefreshButton() {
+    menuRefreshButton.style.display = 'flex';
+}
+
+function hideRefreshButton() {
     menuRefreshButton.style.display = 'none';
 }
 
@@ -52,7 +84,6 @@ const loadData = async () => {
 };
 // await loadData();
 
-const tabBtn = document.querySelectorAll('.offer__tabs .tab');
 const addTabsClickHandler = () => {
     tabBtn.forEach(button => button.addEventListener('click', switchTab));
 };
@@ -81,7 +112,21 @@ const renderCardsToDom = async (tabname) => {
     generateCards(gridItems.filter(card => card.category === tabname)).forEach(card => {
         previewGrid.append(card.generateMenuItem());
     });
+
+    checkRefreshButtonStatus();
 };
+
+function checkRefreshButtonStatus() {
+    hideRefreshButton();
+    const cards = document.querySelectorAll('.card');
+    let invisibleCardCounter = 0;
+    cards.forEach(card => {
+        if (getComputedStyle(card).display === 'none') {
+            invisibleCardCounter++;
+        }
+    });
+    invisibleCardCounter > 0 && showRefreshButton();
+}
 
 const getPreviewGrid = () => {
     const gridContainer = document.querySelector('.preview__grid');

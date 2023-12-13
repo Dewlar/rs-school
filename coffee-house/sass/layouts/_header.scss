@@ -198,7 +198,9 @@ header {
     gap: 100px;
     position: fixed;
     left: 110vw;
+    top: 54px;
     z-index: 100;
+    //background-color: #403F3D;
     background-color: $background-body;
     @include font($size: 3.2rem, $weight: 600, $height: 125%);
     transition: left .8s ease, opacity .8s ease;

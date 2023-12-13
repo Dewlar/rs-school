@@ -3,22 +3,26 @@ const sliderControls = document.querySelectorAll('.control');
 
 //burger
 const burger = document.querySelector('.burger-button');
+const burgerWrapper = document.querySelector('.burger-wrapper');
 
 burger.addEventListener('click', () => {
+    burgerCloseHandler();
+});
+document.querySelector('.burger-wrapper').addEventListener('click', (e) => {
+    e.target.closest('.link-animation') && burgerCloseHandler();
+});
+function burgerCloseHandler (){
     document.querySelector('body').classList.toggle('collapsed');
     document.querySelector('.burger-button').classList.toggle('collapsed');
-    const burgerWrapper = document.querySelector('.burger-wrapper');
     burgerWrapper.classList.toggle('collapsed');
     if (burgerWrapper.classList.contains('collapsed')) {
         burgerWrapper.style.left = '0';
         burgerWrapper.style.opacity = '1';
-    }else {
+    } else {
         burgerWrapper.style.left = '110vw';
         burgerWrapper.style.opacity = '0';
     }
-});
-
-
+}
 // slider
 const sliderFrame = document.querySelector('.slide-frame');
 let sliderShift = 0;
