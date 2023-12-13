@@ -170,8 +170,8 @@ function slideResume() {
     // console.log(Math.abs(deltaX));
     if (Math.abs(deltaX) > 50) {
         remainingTime = 5000;
-        if (deltaX < 0) slideShifter('left');
-        if (deltaX > 0) slideShifter('right');
+        if (deltaX > 0) slideShifter('left');
+        if (deltaX < 0) slideShifter('right');
     } else {
         slideShifterCall('right');
     }
