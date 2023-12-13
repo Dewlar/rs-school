@@ -138,12 +138,12 @@
   }
 
   .control {
-    width: 0;
-    transition: width 5s linear;
+    //width: 0;
+    //transition: width .1s linear;
   }
 
   .active {
-    width: 100%;
+    //width: 100%;
     background-color: $border-dark;
   }
 }
