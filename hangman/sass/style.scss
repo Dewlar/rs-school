@@ -1,0 +1,148 @@
+$background-body: #5A5FB2;
+$background-game: #ffffff;
+
+$incorrect-counter-count: #ff0000;
+$keyboard-text-color: #ffffff;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.6rem;
+  background-color: $background-body;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  padding: 0 10px;
+  margin: 0;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  max-width: 850px;
+  background-color: $background-game;
+  border-radius: 1rem;
+  padding: 6rem 4rem;
+}
+
+// gallows
+.gallows-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 220px;
+}
+
+.gallows {
+  fill: transparent;
+  stroke: black;
+  stroke-width: 5px;
+  stroke-linecap: round;
+}
+
+.hide {
+  display: none;
+}
+
+.hangman-title {
+  font-size: 2.3rem;
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+// game container with keyboard
+.game-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.hint,
+.incorrect-guess {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.guess-word {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  list-style: none;
+  font-size: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.letter {
+  border-bottom: 3px solid black;
+  width: 2.5rem;
+  font-weight: 900;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.hint {
+  text-align: center;
+}
+
+.incorrect-guess {
+  span {
+    color: $incorrect-counter-count;
+  }
+}
+
+.keyboard {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: .6rem;
+  max-width: 45rem;
+
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .7rem;
+    width: calc(100% / 9 - 6px);
+    font-weight: 600;
+    color: $keyboard-text-color;
+    border-radius: .4rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    background-color: $background-body;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 3rem 2rem;
+    max-width: 470px;
+  }
+
+  .game-container {
+    gap: 0;
+  }
+
+  .hangman-title {
+    margin: -3.5rem 0 1.5rem 0;
+  }
+}
