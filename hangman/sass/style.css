@@ -16,15 +16,15 @@ body {
   position: fixed;
   height: 100%;
   width: 100%;
-  padding: 0 10px;
+  padding: 0 1rem;
   margin: 0;
 }
 
 .wrapper {
   display: flex;
   justify-content: center;
-  gap: 60px;
-  max-width: 850px;
+  gap: 6rem;
+  max-width: 85rem;
   background-color: #ffffff;
   border-radius: 1rem;
   padding: 6rem 4rem;
@@ -108,7 +108,7 @@ body {
   justify-content: center;
   align-items: center;
   padding: 0.7rem;
-  width: calc(11.1111111111% - 6px);
+  width: calc(11.1111111111% - 0.6rem);
   font-weight: 600;
   color: #ffffff;
   border-radius: 0.4rem;
@@ -124,7 +124,7 @@ body {
     justify-content: center;
     gap: 0;
     padding: 3rem 2rem;
-    max-width: 470px;
+    max-width: 47rem;
   }
   .game-container {
     gap: 0;
