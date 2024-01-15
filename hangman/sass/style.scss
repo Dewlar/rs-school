@@ -189,6 +189,7 @@ body {
     border-radius: .7rem;
     color: $button-text-color;
     cursor: pointer;
+    user-select: none;
   }
 }
 

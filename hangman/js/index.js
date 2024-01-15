@@ -36,7 +36,7 @@ const startNewGame = async () => {
   mistakeCounterNode.textContent = '0';
   guessLetters = [];
   bodyPartsNodelist.forEach(bodyPart => bodyPart.classList.add('hide'));
-  console.log(bodyPartsNodelist);
+  // console.log(bodyPartsNodelist);
   keyboardButtonsNodelist.forEach(button => {
     if (button.classList.contains('disabled')) button.classList.remove('disabled');
   });
@@ -45,7 +45,7 @@ const startNewGame = async () => {
   hint = question.hint;
   word = question.word;
 
-  console.log(word, hint);
+  console.log('answer: ', word);
   currentQuestionNode.textContent = hint;
   createLettersList(word.length);
 };
@@ -61,11 +61,18 @@ const createLettersList = (letterCount) => {
 };
 
 const keyboardPressHandler = (event) => {
-  console.log(event, event.key, event.code);
+  // console.log(event, event.key, event.code);
+  let englishLetter;
+  let buttonIndex;
+  if (/^Key[A-Z]$/.test(event.code)) {
+    englishLetter = event.code.charAt(3).toLowerCase();
+    buttonIndex = keyboardButtonsNodelist.findIndex(button => button.textContent === englishLetter);
+  }
+  keyboardClickHandler(keyboardButtonsNodelist[buttonIndex], englishLetter);
 };
 
 const keyboardClickHandler = (button, letter) => {
-  console.log(button, letter);
+  // console.log(button, letter);
   button.classList.add('disabled');
 
   let mistakes = Number(mistakeCounterNode.textContent);
@@ -77,7 +84,7 @@ const keyboardClickHandler = (button, letter) => {
         guessLetters.push(letter);
       }
     });
-    console.log('есть такая буква', guessLetters);
+    // console.log('есть такая буква', guessLetters);
   } else {
     bodyPartsNodelist[mistakes].classList.remove('hide');
     mistakeCounterNode.textContent = (++mistakes).toString();
@@ -90,11 +97,11 @@ const keyboardClickHandler = (button, letter) => {
 const gameOver = (isLoss) => {
   if (isLoss === false) {
     generateModal(false, word);
-    console.log('ты победил');
+    // console.log('You won!');
   }
   if (isLoss === true) {
     generateModal(true, word);
-    console.log('ты проиграл');
+    // console.log('You loss!');
   }
 };
 
@@ -196,7 +203,7 @@ const generateModal = (isLoss, word) => {
 
   let title = document.createElement('h2');
   title.className = 'modal__title';
-  title.textContent = isLoss ? 'Sorry your loss' : 'Congrats you win!';
+  title.textContent = isLoss ? 'Sorry you loss' : 'Congrats you win!';
   let result = document.createElement('h3');
   result.className = 'modal__result';
   result.textContent = 'Guessed word: ';

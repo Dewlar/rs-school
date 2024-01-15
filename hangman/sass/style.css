@@ -171,6 +171,7 @@ body {
   border-radius: 0.7rem;
   color: #ffffff;
   cursor: pointer;
+  user-select: none;
 }
 
 @media (max-width: 768px) {
