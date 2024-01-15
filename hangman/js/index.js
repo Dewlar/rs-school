@@ -67,8 +67,10 @@ const keyboardPressHandler = (event) => {
   if (/^Key[A-Z]$/.test(event.code)) {
     englishLetter = event.code.charAt(3).toLowerCase();
     buttonIndex = keyboardButtonsNodelist.findIndex(button => button.textContent === englishLetter);
+
+    if (!keyboardButtonsNodelist[buttonIndex].classList.contains('disabled'))
+      keyboardClickHandler(keyboardButtonsNodelist[buttonIndex], englishLetter);
   }
-  keyboardClickHandler(keyboardButtonsNodelist[buttonIndex], englishLetter);
 };
 
 const keyboardClickHandler = (button, letter) => {
