@@ -8,6 +8,7 @@ let word;
 let hint;
 let guessLetters = [];
 let bodyPartsNodelist = [];
+let modalWrapperNode;
 
 
 window.onload = function () {
@@ -36,6 +37,7 @@ const startNewGame = async () => {
   mistakeCounterNode.textContent = '0';
   guessLetters = [];
   bodyPartsNodelist.forEach(bodyPart => bodyPart.classList.add('hide'));
+  modalWrapperNode = null;
   // console.log(bodyPartsNodelist);
   keyboardButtonsNodelist.forEach(button => {
     if (button.classList.contains('disabled')) button.classList.remove('disabled');
@@ -64,12 +66,14 @@ const keyboardPressHandler = (event) => {
   // console.log(event, event.key, event.code);
   let englishLetter;
   let buttonIndex;
-  if (/^Key[A-Z]$/.test(event.code)) {
-    englishLetter = event.code.charAt(3).toLowerCase();
-    buttonIndex = keyboardButtonsNodelist.findIndex(button => button.textContent === englishLetter);
+  if(!modalWrapperNode){
+    if (/^Key[A-Z]$/.test(event.code)) {
+      englishLetter = event.code.charAt(3).toLowerCase();
+      buttonIndex = keyboardButtonsNodelist.findIndex(button => button.textContent === englishLetter);
 
-    if (!keyboardButtonsNodelist[buttonIndex].classList.contains('disabled'))
-      keyboardClickHandler(keyboardButtonsNodelist[buttonIndex], englishLetter);
+      if (!keyboardButtonsNodelist[buttonIndex].classList.contains('disabled'))
+        keyboardClickHandler(keyboardButtonsNodelist[buttonIndex], englishLetter);
+    }
   }
 };
 
@@ -193,8 +197,8 @@ const generateKeyboardButtons = () => {
 };
 
 const generateModal = (isLoss, word) => {
-  let modalWrapper = document.createElement('div');
-  modalWrapper.className = 'modal-wrapper';
+  modalWrapperNode = document.createElement('div');
+  modalWrapperNode.className = 'modal-wrapper';
 
   let modal = document.createElement('div');
   modal.className = 'modal';
@@ -219,13 +223,13 @@ const generateModal = (isLoss, word) => {
   button.textContent = 'play again';
 
 
-  modalWrapper.append(modal);
-  modalWrapper.addEventListener('click', e => {
+  modalWrapperNode.append(modal);
+  modalWrapperNode.addEventListener('click', e => {
     if (e.target.classList.contains('modal-wrapper') || e.target.classList.contains('game-reset')) {
-      modalWrapper.remove();
+      modalWrapperNode.remove();
       startNewGame();
     }
   });
   modal.append(img, title, result, button);
-  document.body.append(modalWrapper);
+  document.body.append(modalWrapperNode);
 };
