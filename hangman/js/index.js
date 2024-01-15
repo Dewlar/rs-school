@@ -13,7 +13,6 @@ let modalWrapperNode;
 
 window.onload = function () {
   console.log('hangman game started');
-  // loadQuestions();
   document.body.append(generateTemplate());
   document.addEventListener('keydown', keyboardPressHandler);
   bodyPartsNodelist = document.querySelectorAll('.body-part');
@@ -38,7 +37,6 @@ const startNewGame = async () => {
   guessLetters = [];
   bodyPartsNodelist.forEach(bodyPart => bodyPart.classList.add('hide'));
   modalWrapperNode = null;
-  // console.log(bodyPartsNodelist);
   keyboardButtonsNodelist.forEach(button => {
     if (button.classList.contains('disabled')) button.classList.remove('disabled');
   });
@@ -63,7 +61,6 @@ const createLettersList = (letterCount) => {
 };
 
 const keyboardPressHandler = (event) => {
-  // console.log(event, event.key, event.code);
   let englishLetter;
   let buttonIndex;
   if(!modalWrapperNode){
@@ -78,7 +75,6 @@ const keyboardPressHandler = (event) => {
 };
 
 const keyboardClickHandler = (button, letter) => {
-  // console.log(button, letter);
   button.classList.add('disabled');
 
   let mistakes = Number(mistakeCounterNode.textContent);
@@ -91,7 +87,6 @@ const keyboardClickHandler = (button, letter) => {
         guessLetters.push(letter);
       }
     });
-    // console.log('есть такая буква', guessLetters);
   } else {
     bodyPartsNodelist[mistakes].classList.remove('hide');
     mistakeCounterNode.textContent = (++mistakes).toString();
@@ -104,11 +99,9 @@ const keyboardClickHandler = (button, letter) => {
 const gameOver = (isLoss) => {
   if (isLoss === false) {
     generateModal(false, word);
-    // console.log('You won!');
   }
   if (isLoss === true) {
     generateModal(true, word);
-    // console.log('You loss!');
   }
 };
 
