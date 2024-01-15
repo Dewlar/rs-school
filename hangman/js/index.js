@@ -26,7 +26,6 @@ const loadQuestions = async () => {
 
 const getQuestion = async () => {
   await loadQuestions();
-  // console.log(questions[~~(Math.random() * questions.length)]);
   return questions[~~(Math.random() * questions.length)];
 };
 
@@ -36,8 +35,11 @@ const startNewGame = async () => {
   currentQuestionNode.textContent = '';
   mistakeCounterNode.textContent = '0';
   guessLetters = [];
-  bodyPartsNodelist.forEach(bodyPart => bodyPart.classList.add('hide'))
+  bodyPartsNodelist.forEach(bodyPart => bodyPart.classList.add('hide'));
   console.log(bodyPartsNodelist);
+  keyboardButtonsNodelist.forEach(button => {
+    if (button.classList.contains('disabled')) button.classList.remove('disabled');
+  });
 
   let question = await getQuestion();
   hint = question.hint;
@@ -58,12 +60,10 @@ const createLettersList = (letterCount) => {
   }
 };
 
-// function keyPressHandler(event) {
-//   console.log(event.key, event.code);
-// };
 const keyboardPressHandler = (event) => {
   console.log(event, event.key, event.code);
 };
+
 const keyboardClickHandler = (button, letter) => {
   console.log(button, letter);
   button.classList.add('disabled');
@@ -79,7 +79,7 @@ const keyboardClickHandler = (button, letter) => {
     });
     console.log('есть такая буква', guessLetters);
   } else {
-    bodyPartsNodelist[mistakes].classList.remove('hide')
+    bodyPartsNodelist[mistakes].classList.remove('hide');
     mistakeCounterNode.textContent = (++mistakes).toString();
   }
 
@@ -89,9 +89,11 @@ const keyboardClickHandler = (button, letter) => {
 
 const gameOver = (isLoss) => {
   if (isLoss === false) {
+    generateModal(false, word);
     console.log('ты победил');
   }
   if (isLoss === true) {
+    generateModal(true, word);
     console.log('ты проиграл');
   }
 };
@@ -178,4 +180,42 @@ const generateKeyboardButtons = () => {
   }
 
   return keyboard;
+};
+
+const generateModal = (isLoss, word) => {
+  let modalWrapper = document.createElement('div');
+  modalWrapper.className = 'modal-wrapper';
+
+  let modal = document.createElement('div');
+  modal.className = 'modal';
+
+  let img = document.createElement('img');
+  img.className = 'modal__img';
+  if (isLoss) img.setAttribute('src', './assets/sad-tear.png');
+  else img.setAttribute('src', './assets/party-blower.png');
+
+  let title = document.createElement('h2');
+  title.className = 'modal__title';
+  title.textContent = isLoss ? 'Sorry your loss' : 'Congrats you win!';
+  let result = document.createElement('h3');
+  result.className = 'modal__result';
+  result.textContent = 'Guessed word: ';
+  let guessedWord = document.createElement('span');
+  guessedWord.textContent = word;
+  result.append(guessedWord);
+
+  let button = document.createElement('div');
+  button.className = 'game-reset';
+  button.textContent = 'play again';
+
+
+  modalWrapper.append(modal);
+  modalWrapper.addEventListener('click', e => {
+    if (e.target.classList.contains('modal-wrapper') || e.target.classList.contains('game-reset')) {
+      modalWrapper.remove();
+      startNewGame();
+    }
+  });
+  modal.append(img, title, result, button);
+  document.body.append(modalWrapper);
 };

@@ -127,6 +127,52 @@ body {
   opacity: 0.7;
 }
 
+.modal-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(64, 63, 61, 0.8);
+  padding: 0 1rem;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 5rem;
+  background-color: white;
+  border-radius: 2rem;
+}
+.modal .modal__img {
+  width: 7rem;
+  height: 100%;
+}
+.modal .modal__title,
+.modal .modal__result {
+  text-align: center;
+}
+.modal .modal__title span,
+.modal .modal__result span {
+  color: #5A5FB2;
+}
+.modal .game-reset {
+  margin-top: 1rem;
+  padding: 1rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 2rem;
+  background-color: #5A5FB2;
+  border-radius: 0.7rem;
+  color: #ffffff;
+  cursor: pointer;
+}
+
 @media (max-width: 768px) {
   .wrapper {
     flex-direction: column;

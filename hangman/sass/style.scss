@@ -1,8 +1,10 @@
 $background-body: #5A5FB2;
 $background-game: #ffffff;
+$background-backdrop: rgba(64, 63, 61, 0.80);
 
+$color-accent: #5A5FB2;
 $incorrect-counter-count: #ff0000;
-$keyboard-text-color: #ffffff;
+$button-text-color: #ffffff;
 
 * {
   box-sizing: border-box;
@@ -123,7 +125,7 @@ body {
     padding: .7rem;
     width: calc(100% / 9 - .6rem);
     font-weight: 600;
-    color: $keyboard-text-color;
+    color: $button-text-color;
     border-radius: .4rem;
     cursor: pointer;
     text-transform: uppercase;
@@ -139,6 +141,57 @@ body {
     opacity: .7;
   }
 }
+
+// modal
+.modal-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $background-backdrop;
+  padding: 0 1rem;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 5rem;
+  background-color: white;
+  border-radius: 2rem;
+
+  .modal__img {
+    width: 7rem;
+    height: 100%;
+  }
+
+  .modal__title,
+  .modal__result {
+    text-align: center;
+
+    & span {
+      color: $color-accent;
+    }
+  }
+
+  .game-reset {
+    margin-top: 1rem;
+    padding: 1rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 2rem;
+    background-color: $background-body;
+    border-radius: .7rem;
+    color: $button-text-color;
+    cursor: pointer;
+  }
+}
+
 
 @media (max-width: 768px) {
   .wrapper {
