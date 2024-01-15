@@ -225,7 +225,7 @@ const generateModal = (isLoss, word) => {
 
   modalWrapperNode.append(modal);
   modalWrapperNode.addEventListener('click', e => {
-    if (e.target.classList.contains('modal-wrapper') || e.target.classList.contains('game-reset')) {
+    if (e.target.classList.contains('game-reset')) {
       modalWrapperNode.remove();
       startNewGame();
     }
