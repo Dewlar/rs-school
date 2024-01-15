@@ -114,6 +114,7 @@ body {
   flex-wrap: wrap;
   gap: .6rem;
   max-width: 45rem;
+  user-select: none;
 
   div {
     display: flex;
@@ -127,6 +128,15 @@ body {
     cursor: pointer;
     text-transform: uppercase;
     background-color: $background-body;
+
+    &:hover {
+      opacity: .7;
+    }
+  }
+
+  .disabled {
+    pointer-events: none;
+    opacity: .7;
   }
 }
 

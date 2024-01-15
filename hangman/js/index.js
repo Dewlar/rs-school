@@ -1,16 +1,22 @@
 let questions = [];
-let guessWord;
-let currentQuestion;
-let mistakeCounter;
+let guessWordNode;
+let letterNodelist = [];
+let keyboardButtonsNodelist = [];
+let currentQuestionNode;
+let mistakeCounterNode;
+let word;
+let hint;
+let guessLetters = [];
+let bodyPartsNodelist = [];
+
 
 window.onload = function () {
   console.log('hangman game started');
   // loadQuestions();
   document.body.append(generateTemplate());
+  document.addEventListener('keydown', keyboardPressHandler);
+  bodyPartsNodelist = document.querySelectorAll('.body-part');
   startNewGame();
-
-  // console.log(getQuestion());
-  // console.log(hint);
 };
 
 const loadQuestions = async () => {
@@ -20,30 +26,75 @@ const loadQuestions = async () => {
 
 const getQuestion = async () => {
   await loadQuestions();
-  console.log(questions[~~(Math.random() * questions.length)]);
+  // console.log(questions[~~(Math.random() * questions.length)]);
   return questions[~~(Math.random() * questions.length)];
 };
 
 const startNewGame = async () => {
-  let { word, hint } = await getQuestion();
+  letterNodelist.forEach(el => el.remove());
+  letterNodelist = [];
+  currentQuestionNode.textContent = '';
+  mistakeCounterNode.textContent = '0';
+  guessLetters = [];
+  bodyPartsNodelist.forEach(bodyPart => bodyPart.classList.add('hide'))
+  console.log(bodyPartsNodelist);
+
+  let question = await getQuestion();
+  hint = question.hint;
+  word = question.word;
+
   console.log(word, hint);
-  currentQuestion.textContent = hint;
-  let lettersNodeList = createLettersList(word.length);
+  currentQuestionNode.textContent = hint;
+  createLettersList(word.length);
 };
 
 const createLettersList = (letterCount) => {
-  let letterNodelist = [];
   for (let i = 0; i < letterCount; i++) {
     let li = document.createElement('li');
     li.className = 'letter';
-    li.style.width = `calc(100% / ${letterCount} - 1rem)`
+    li.style.width = `calc(100% / ${letterCount} - 1rem)`;
     letterNodelist.push(li);
-    guessWord.append(li);
+    guessWordNode.append(li);
   }
-
-  return letterNodelist;
 };
 
+// function keyPressHandler(event) {
+//   console.log(event.key, event.code);
+// };
+const keyboardPressHandler = (event) => {
+  console.log(event, event.key, event.code);
+};
+const keyboardClickHandler = (button, letter) => {
+  console.log(button, letter);
+  button.classList.add('disabled');
+
+  let mistakes = Number(mistakeCounterNode.textContent);
+
+  if (word.includes(letter)) {
+    word.split('').forEach((char, i) => {
+      if (char === letter) {
+        letterNodelist[i].textContent = letter;
+        guessLetters.push(letter);
+      }
+    });
+    console.log('есть такая буква', guessLetters);
+  } else {
+    bodyPartsNodelist[mistakes].classList.remove('hide')
+    mistakeCounterNode.textContent = (++mistakes).toString();
+  }
+
+  if (mistakes >= 6) gameOver(true);
+  if (guessLetters.length === word.length) gameOver(false);
+};
+
+const gameOver = (isLoss) => {
+  if (isLoss === false) {
+    console.log('ты победил');
+  }
+  if (isLoss === true) {
+    console.log('ты проиграл');
+  }
+};
 
 const generateTemplate = () => {
   let wrapper = document.createElement('div');
@@ -67,12 +118,12 @@ const generateGallows = () => {
   svg += `<line x1="140" y1="20" x2="140" y2="50"/>`;
   svg += `<line x1="60" y1="60" x2="90" y2="20"/>`;
   svg += `<line x1="20" y1="200" x2="170" y2="200"/>`;
-  svg += `<circle cx="140" cy="70" r="20" class="hide"/>`;
-  svg += `<line x1="140" y1="90" x2="140" y2="130" class="hide"/>`;
-  svg += `<line x1="140" y1="100" x2="120" y2="120" class="hide"/>`;
-  svg += `<line x1="140" y1="100" x2="160" y2="120" class="hide"/>`;
-  svg += `<line x1="140" y1="130" x2="130" y2="170" class="hide"/>`;
-  svg += `<line x1="140" y1="130" x2="150" y2="170" class="hide"/>`;
+  svg += `<circle cx="140" cy="70" r="20" class="body-part hide"/>`;
+  svg += `<line x1="140" y1="90" x2="140" y2="130" class="body-part hide"/>`;
+  svg += `<line x1="140" y1="100" x2="120" y2="120" class="body-part hide"/>`;
+  svg += `<line x1="140" y1="100" x2="160" y2="120" class="body-part hide"/>`;
+  svg += `<line x1="140" y1="130" x2="130" y2="170" class="body-part hide"/>`;
+  svg += `<line x1="140" y1="130" x2="150" y2="170" class="body-part hide"/>`;
   svg += `</svg>`;
 
   gallowsContainer.innerHTML = svg;
@@ -89,28 +140,28 @@ const generateGameControls = () => {
   let gameContainer = document.createElement('div');
   gameContainer.className = 'game-container';
 
-  guessWord = document.createElement('ul');
-  guessWord.className = 'guess-word';
+  guessWordNode = document.createElement('ul');
+  guessWordNode.className = 'guess-word';
 
   let question = document.createElement('p');
   question.className = 'hint';
   question.textContent = 'Hint: ';
-  currentQuestion = document.createElement('span');
-  question.append(currentQuestion);
+  currentQuestionNode = document.createElement('span');
+  question.append(currentQuestionNode);
 
 
   let incorrectGuess = document.createElement('p');
   incorrectGuess.className = 'incorrect-guess';
   incorrectGuess.textContent = 'Incorrect guesses: ';
-  mistakeCounter = document.createElement('span');
-  mistakeCounter.textContent = '0';
+  mistakeCounterNode = document.createElement('span');
+  mistakeCounterNode.textContent = '0';
   let maxMistakes = document.createElement('span');
   maxMistakes.textContent = ' / 6';
-  incorrectGuess.append(mistakeCounter, maxMistakes);
+  incorrectGuess.append(mistakeCounterNode, maxMistakes);
 
 
   let keyboard = generateKeyboardButtons();
-  gameContainer.append(guessWord, question, incorrectGuess, keyboard);
+  gameContainer.append(guessWordNode, question, incorrectGuess, keyboard);
   return gameContainer;
 };
 
@@ -122,9 +173,8 @@ const generateKeyboardButtons = () => {
     const button = document.createElement('div');
     button.textContent = String.fromCharCode(i);
     keyboard.append(button);
-    button.addEventListener('click', (e) => {
-      console.log(e.target);
-    });
+    keyboardButtonsNodelist.push(button);
+    button.addEventListener('click', e => keyboardClickHandler(e.target, String.fromCharCode(i)));
   }
 
   return keyboard;
