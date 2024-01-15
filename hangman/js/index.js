@@ -30,7 +30,7 @@ const getQuestion = async () => {
 };
 
 const startNewGame = async () => {
-  letterNodelist.forEach(el => el.remove());
+  letterNodelist.forEach(letterNode => letterNode.remove());
   letterNodelist = [];
   currentQuestionNode.textContent = '';
   mistakeCounterNode.textContent = '0';
@@ -81,6 +81,7 @@ const keyboardClickHandler = (button, letter) => {
     word.split('').forEach((char, i) => {
       if (char === letter) {
         letterNodelist[i].textContent = letter;
+        letterNodelist[i].style.borderBottom = 'none';
         guessLetters.push(letter);
       }
     });
