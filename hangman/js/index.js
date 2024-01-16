@@ -41,13 +41,19 @@ const startNewGame = async () => {
     if (button.classList.contains('disabled')) button.classList.remove('disabled');
   });
 
+  let previousWord = word;
+
   let question = await getQuestion();
   hint = question.hint;
   word = question.word;
 
-  console.log('answer: ', word);
-  currentQuestionNode.textContent = hint;
-  createLettersList(word.length);
+  if (word !== previousWord) {
+    console.log('answer: ', word);
+    currentQuestionNode.textContent = hint;
+    createLettersList(word.length);
+  } else {
+    startNewGame();
+  }
 };
 
 const createLettersList = (letterCount) => {
@@ -63,7 +69,7 @@ const createLettersList = (letterCount) => {
 const keyboardPressHandler = (event) => {
   let englishLetter;
   let buttonIndex;
-  if(!modalWrapperNode){
+  if (!modalWrapperNode) {
     if (/^Key[A-Z]$/.test(event.code)) {
       englishLetter = event.code.charAt(3).toLowerCase();
       buttonIndex = keyboardButtonsNodelist.findIndex(button => button.textContent === englishLetter);
