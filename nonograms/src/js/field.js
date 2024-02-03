@@ -3,6 +3,7 @@ import { createNode } from "./functions-lib";
 export class Field {
   constructor(size, matrix, imageUrl) {
     this.cells = [];
+    this.cellsMatrix = [];
     this.size = size;
     this.mousedown = false;
     this.mouseButton = 1;
@@ -11,11 +12,13 @@ export class Field {
     this.rowHints = [];
     this.columnHints = [];
     this.isMove = false;
+    this.field = null;
   };
 
   generateField() {
     for (let i = 0; i < this.size + 1; i++) {
       const row = [];
+      const matrixRow = [];
       for (let j = 0; j < this.size + 1; j++) {
         let cell;
         if (i === 0) {
@@ -24,10 +27,12 @@ export class Field {
           cell = createNode('th', ['hint', 'hint-r']);
         } else {
           cell = createNode('td', ['cell']);
+          matrixRow.push(cell);
         }
         row.push(cell);
       }
       this.cells.push(row);
+      if (i !== 0) this.cellsMatrix.push(matrixRow);
     }
     const field = createNode('div', ['field']);
     const table = createNode('table', ['table']);
@@ -45,16 +50,12 @@ export class Field {
       if (e.target.classList.contains('cell')) {
         if (e.button === 0) {
           this.mouseButton = 0;
-          // e.target.innerHTML='';
-          // console.log('Левая кнопка мыши была нажата');
         } else if (e.button === 2) {
           this.mouseButton = 2;
-          // e.target.innerHTML='&#x2717;'
-          // console.log('Правая кнопка мыши была нажата');
         }
-          this.mousedown = true;
-          this.isMove = !e.target.classList.contains('cell-on');
-          this.#changeCellFill(e.target, this.mouseButton);
+        this.mousedown = true;
+        this.isMove = !e.target.classList.contains('cell-on');
+        this.#changeCellFill(e.target, this.mouseButton);
       }
     });
     field.addEventListener('mouseover', (e) => {
@@ -64,14 +65,44 @@ export class Field {
     });
     field.addEventListener('mouseup', () => {
       this.mousedown = false;
+      this.checkResult(field);
     });
     field.addEventListener('contextmenu', (e) => {
       e.preventDefault();
       this.mouseButton = 2;
       this.#changeCellFill(e.target, this.mouseButton);
-    })
+    });
 
+    this.field = field;
     return field;
+  }
+
+  getMatrix() {
+    return this.cellsMatrix.map(row => row.map(cell => cell.classList.contains('cell-on') ? 1 : 0));
+    // const matrix = [];
+    // for (let i = 1; i < this.size + 1; i++) {
+    //   const row = [];
+    //   for (let j = 1; j < this.size + 1; j++) {
+    //     row.push(this.cells[i][j].classList.contains('cell-on') ? 1 : 0);
+    //   }
+    //   matrix.push(row);
+    // }
+    // return matrix;
+  }
+
+  checkResult(field) {
+    if (this.getMatrix().toString() === this.matrix.toString()) {
+      field.style.pointerEvents = 'none';
+      console.log('ты выйграл');
+    }
+  }
+
+  reset() {
+    this.cellsMatrix.map(row => row.map(cell => {
+      cell.classList.remove('cell-on');
+      cell.innerHTML = '';
+    }))
+    this.field.style.pointerEvents = 'auto';
   }
 
   #changeCellFill(cell, button) {
@@ -80,7 +111,7 @@ export class Field {
       cell.classList.toggle('cell-on', this.isMove);
     }
     if (button === 2) {
-      cell.innerHTML='&#x2717;'
+      cell.innerHTML = '&#x2717;';
       cell.classList.remove('cell-on');
       // cell.classList.add('cell-x');
     }
