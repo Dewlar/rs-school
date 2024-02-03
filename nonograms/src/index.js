@@ -12,15 +12,15 @@ window.onload = function () {
   const gameContainer = createNode('div', ['container']);
   gameContainer.append(newField.generateField());
   document.body.append(gameContainer);
-  listeners();
+  // listeners();
 };
 
-const listeners = () => {
-  const cells = document.querySelectorAll(".cell");
-
-  cells.forEach((cell) => {
-    cell.onclick = () => {
-      cell.classList.toggle("dark");
-    };
-  });
-};
+// const listeners = () => {
+//   const cells = document.querySelectorAll(".cell");
+//
+//   cells.forEach((cell) => {
+//     cell.onclick = () => {
+//       cell.classList.toggle("dark");
+//     };
+//   });
+// };
