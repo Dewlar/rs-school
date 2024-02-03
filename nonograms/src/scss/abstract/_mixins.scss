@@ -1,0 +1,8 @@
+@mixin borderes($side) {
+  &:not(:last-child) {
+    border-#{$side}: 1px solid var(--border-color-light);
+  }
+  &:nth-child(5n+1) {
+    border-color: var(--border-color-dark);
+  }
+}

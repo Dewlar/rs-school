@@ -1,0 +1,16 @@
+:root {
+  --cell: 28px;
+  --border-color-light: #0000004d;
+  --border-color-dark: #000000c2;
+  --background: #ffe2a3;
+  --text-color: #000000;
+  --hint-bg: #eeeeee;
+}
+
+.theme-dark {
+  --border-color-light: #ffffff38;
+  --border-color-dark: #ffffff9c;
+  --background: #4b3564;
+  --text-color: #e3bfbf;
+  --hint-bg: #2c2a346e;
+}
