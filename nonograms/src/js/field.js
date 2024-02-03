@@ -18,26 +18,28 @@ export class Field {
     for (let i = 0; i < this.size + 1; i++) {
       const row = [];
       for (let j = 0; j < this.size + 1; j++) {
-        const cell = createNode('div', ['cell']);
-        // let cell;
-        // if (i === 0) {
-        //   cell = createNode('div', ['hint', 'hint_row']);
-        // } else if(j === 0){
-        //   cell = createNode('div', ['hint', 'hint_column']);
-        // } else {
-        //   cell = createNode('div', ['cell']);
-        // }
+        // const cell = createNode('div', ['cell']);
+        let cell;
+        if (i === 0) {
+          cell = createNode('th', ['hint', 'hint-c']);
+        } else if(j === 0){
+          cell = createNode('th', ['hint', 'hint-r']);
+        } else {
+          cell = createNode('td', ['cell']);
+        }
         row.push(cell);
       }
       this.cells.push(row);
     }
     const field = createNode('div', ['field']);
+    const table = createNode('table', ['table']);
     const rows = this.cells.map(row => {
-      const newRow = createNode('div', ['row']);
+      const newRow = createNode('tr', ['row']);
       newRow.append(...row);
       return newRow;
     });
-    field.append(...rows);
+    table.append(...rows);
+    field.append(table);
     this.#writeClues(rowHints, columnHints);
 
     // console.log(rows);
@@ -87,10 +89,14 @@ export class Field {
         span.textContent = columnHints[i - 1][j];
         hintC.push(span);
       }
-      this.cells[i][0].append(...hintR);
-      this.cells[0][i].append(...hintC);
-      this.cells[i][0].classList.add('hint');
-      this.cells[0][i].classList.add('hint');
+      const rowWrap = createNode('div', ['hint_row'])
+      rowWrap.append(...hintR);
+      const colWrap = createNode('div', ['hint_column'])
+      colWrap.append(...hintC);
+      this.cells[i][0].append(rowWrap);
+      this.cells[0][i].append(colWrap);
+      // this.cells[i][0].classList.add('hint');
+      // this.cells[0][i].classList.add('hint');
     }
   }
 }
