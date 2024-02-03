@@ -14,7 +14,8 @@ export function createNode(type, classlist, attrlist, content) {
     }
   }
   if (content) {
-    node.append(...content);
+    node.textContent = content;
+    // node.append(...content);
   }
   return node;
 }

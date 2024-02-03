@@ -12,7 +12,7 @@ export class Field {
     this.rowHints = [];
     this.columnHints = [];
     this.isMove = false;
-    this.field = null;
+    this.table = null;
   };
 
   generateField() {
@@ -34,7 +34,7 @@ export class Field {
       this.cells.push(row);
       if (i !== 0) this.cellsMatrix.push(matrixRow);
     }
-    const field = createNode('div', ['field']);
+    // const field = createNode('div', ['field']);
     const table = createNode('table', ['table']);
     const rows = this.cells.map(row => {
       const newRow = createNode('tr', ['row']);
@@ -42,11 +42,11 @@ export class Field {
       return newRow;
     });
     table.append(...rows);
-    field.append(table);
+    // field.append(table);
     this.#getHints();
     this.#writeHintsIntoTable();
 
-    field.addEventListener('mousedown', (e) => {
+    table.addEventListener('mousedown', (e) => {
       if (e.target.classList.contains('cell')) {
         if (e.button === 0) {
           this.mouseButton = 0;
@@ -58,23 +58,23 @@ export class Field {
         this.#changeCellFill(e.target, this.mouseButton);
       }
     });
-    field.addEventListener('mouseover', (e) => {
+    table.addEventListener('mouseover', (e) => {
       if (this.mousedown && e.target.classList.contains('cell')) {
         this.#changeCellFill(e.target, this.mouseButton);
       }
     });
-    field.addEventListener('mouseup', () => {
+    table.addEventListener('mouseup', () => {
       this.mousedown = false;
-      this.checkResult(field);
+      this.checkResult(table);
     });
-    field.addEventListener('contextmenu', (e) => {
+    table.addEventListener('contextmenu', (e) => {
       e.preventDefault();
       this.mouseButton = 2;
       this.#changeCellFill(e.target, this.mouseButton);
     });
 
-    this.field = field;
-    return field;
+    this.table = table;
+    return table;
   }
 
   getMatrix() {
@@ -90,9 +90,9 @@ export class Field {
     // return matrix;
   }
 
-  checkResult(field) {
+  checkResult(table) {
     if (this.getMatrix().toString() === this.matrix.toString()) {
-      field.style.pointerEvents = 'none';
+      table.style.pointerEvents = 'none';
       console.log('ты выйграл');
     }
   }
@@ -102,7 +102,7 @@ export class Field {
       cell.classList.remove('cell-on');
       cell.innerHTML = '';
     }))
-    this.field.style.pointerEvents = 'auto';
+    this.table.style.pointerEvents = 'auto';
   }
 
   #changeCellFill(cell, button) {
