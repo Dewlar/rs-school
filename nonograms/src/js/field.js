@@ -118,13 +118,21 @@ export class Field {
     }
   }
 
+  #getMatrixCellsState() {
+    return this.cellsMatrix.map(row => row.map(cell => {
+      if (cell.classList.contains('cell-on')) return 1;
+      if (cell.textContent === '') return 0;
+      else return 2;
+    }));
+  }
+
   saveSolution(gameIndex, time) {
     this.table.style.pointerEvents = 'auto';
     // const currentMatrix = JSON.stringify();
     const savedGame = JSON.stringify({
       'index': gameIndex,
       'time': time,
-      'matrix': this.#getMatrix(),
+      'matrix': this.#getMatrixCellsState(),
     });
     localStorage.setItem('NonogramsSavedGame2207', savedGame);
   }
@@ -132,13 +140,17 @@ export class Field {
   loadSolution(matrix) {
     for (let i = 0; i < this.size; i++) {
       for (let j = 0; j < this.size; j++) {
-        if (matrix[i][j] === 0) {
-          this.cellsMatrix[i][j].classList.remove('cell-on');
-          this.cellsMatrix[i][j].innerHTML = '&#x2717;';
-        }
         if (matrix[i][j] === 1) {
           this.cellsMatrix[i][j].classList.add('cell-on');
           this.cellsMatrix[i][j].innerHTML = '';
+        }
+        if (matrix[i][j] === 0) {
+          this.cellsMatrix[i][j].classList.remove('cell-on');
+          this.cellsMatrix[i][j].innerHTML = '';
+        }
+        if (matrix[i][j] === 2) {
+          this.cellsMatrix[i][j].classList.remove('cell-on');
+          this.cellsMatrix[i][j].innerHTML = '&#x2717;';
         }
       }
     }
