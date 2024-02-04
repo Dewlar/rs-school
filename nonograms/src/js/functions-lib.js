@@ -1,4 +1,4 @@
-export function createNode(type, classlist, attrlist, content) {
+export function createNode(type, classlist, attrlist, text) {
   let node;
   if (type) {
     node = document.createElement(type);
@@ -13,8 +13,8 @@ export function createNode(type, classlist, attrlist, content) {
       }
     }
   }
-  if (content) {
-    node.textContent = content;
+  if (text) {
+    node.textContent = text;
     // node.append(...content);
   }
   return node;

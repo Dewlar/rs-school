@@ -1,0 +1,26 @@
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 50rem;
+  width: 100%;
+  gap: 1rem;
+  //flex-wrap: wrap;
+}
+
+.options__buttons{
+  flex: 1 1 100rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: .7rem 1rem;
+  border-radius: .7rem;
+  background-color: burlywood;
+  max-width: 10rem;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.options__buttons:hover {
+  background-color: #ac8f65;
+}

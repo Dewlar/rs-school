@@ -99,11 +99,11 @@ export class Field {
     }
   }
 
-  reset() {
+  resetSolution() {
     this.cellsMatrix.map(row => row.map(cell => {
       cell.classList.remove('cell-on');
       cell.innerHTML = '';
-    }))
+    }));
     this.table.style.pointerEvents = 'auto';
   }
 
@@ -111,30 +111,45 @@ export class Field {
     this.table.style.pointerEvents = 'none';
     for (let i = 0; i < this.size; i++) {
       for (let j = 0; j < this.size; j++) {
-        setTimeout(()=>{
-          this.#changeCellState(i,j)
-        }, i * this.size * 10 + j * 10)
+        setTimeout(() => {
+          this.#changeCellState(i, j);
+        }, i * this.size * 10 + j * 10);
       }
     }
   }
 
-  saveSolution() {
-    const currentMatrix = JSON.stringify(this.#getMatrix());
-    localStorage.setItem('NonogramsSavedGame2207', currentMatrix)
+  saveSolution(gameIndex, time) {
+    this.table.style.pointerEvents = 'auto';
+    // const currentMatrix = JSON.stringify();
+    const savedGame = JSON.stringify({
+      'index': gameIndex,
+      'time': time,
+      'matrix': this.#getMatrix(),
+    });
+    localStorage.setItem('NonogramsSavedGame2207', savedGame);
   }
 
-  loadSolution() {
-    const storageData = localStorage.getItem('NonogramsSavedGame2207');
-    const loadedMatrix = JSON.parse(storageData);
-    console.log('load:  ',loadedMatrix);
+  loadSolution(matrix) {
+    for (let i = 0; i < this.size; i++) {
+      for (let j = 0; j < this.size; j++) {
+        if (matrix[i][j] === 0) {
+          this.cellsMatrix[i][j].classList.remove('cell-on');
+          this.cellsMatrix[i][j].innerHTML = '&#x2717;';
+        }
+        if (matrix[i][j] === 1) {
+          this.cellsMatrix[i][j].classList.add('cell-on');
+          this.cellsMatrix[i][j].innerHTML = '';
+        }
+      }
+    }
   }
 
-  #changeCellState(i,j){
-    if (this.matrix[i][j] === 0){
+  #changeCellState(i, j) {
+    if (this.matrix[i][j] === 0) {
       this.cellsMatrix[i][j].classList.remove('cell-on');
       this.cellsMatrix[i][j].innerHTML = '&#x2717;';
     }
-    if (this.matrix[i][j] === 1){
+    if (this.matrix[i][j] === 1) {
       this.cellsMatrix[i][j].classList.add('cell-on');
       this.cellsMatrix[i][j].innerHTML = '';
     }

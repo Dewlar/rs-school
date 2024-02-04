@@ -14,3 +14,8 @@ html {
 body {
   font-size: 1.6rem;
 }
+.disabled {
+  pointer-events: none;
+  cursor: auto;
+  opacity: 0.7;
+}
