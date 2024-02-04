@@ -1,10 +1,11 @@
 import { createNode } from "./functions-lib";
 
 export class Field {
-  constructor(size, matrix, imageUrl) {
+  constructor(timer, size, matrix, imageUrl) {
     this.cells = [];
     this.cellsMatrix = [];
     this.size = size;
+    this.timer = timer;
     this.mousedown = false;
     this.mouseButton = 1;
     this.matrix = matrix;
@@ -13,6 +14,7 @@ export class Field {
     this.columnHints = [];
     this.isMove = false;
     this.table = null;
+    this.isGameBegin = false;
   };
 
   generateField() {
@@ -47,6 +49,10 @@ export class Field {
     this.#writeHintsIntoTable();
 
     table.addEventListener('mousedown', (e) => {
+      if (!this.isGameBegin) {
+        this.isGameBegin = true;
+        this.timer.start();
+      }
       if (e.target.classList.contains('cell')) {
         if (e.button === 0) {
           this.mouseButton = 0;

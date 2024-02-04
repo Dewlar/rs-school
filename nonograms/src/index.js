@@ -4,6 +4,7 @@ import { createNode } from "./js/functions-lib";
 import { Field } from "./js/field";
 import { Timer } from "./js/timer";
 
+let save;
 let gameField;
 const nonogramsSizes = [5, 10, 15];
 let table = null;
@@ -11,7 +12,7 @@ const tabsContent = [];
 const tabLinks = [];
 const tabs = [];
 const field = createNode('div', ['field']);
-const timerNode = createNode('div', ['timer']);
+const timerNode = createNode('div', ['timer'],null, '00:00');
 const timer = new Timer(timerNode);
 //todo: field listener context menu with `e.preventDefault();`
 let currentGameIndex;
@@ -28,14 +29,16 @@ window.onload = function () {
 };
 
 function newGame(index) {
+  save.classList.remove('disabled');
+  timer.reset();
   if (table) table.remove();
   const gameData = matricees[index];
-  gameField = new Field(gameData.matrix.length, gameData.matrix, gameData.image);
+  gameField = new Field(timer, gameData.matrix.length, gameData.matrix, gameData.image);
   table = gameField.generateField();
   field.append(table);
 
-  timer.reset();
-  timer.start();
+  // timer.reset();
+  // timer.start();
   // let cells = { 5: 87, 10: 48, 15: 33 };
   // document.documentElement.style.setProperty('--cell', cells[gameData.size]+'px');
 }
@@ -135,7 +138,7 @@ function openTab(element) {
 
 function createOptions() {
   const options = createNode('div', ['options']);
-  const save = createNode('div', ['options__buttons', 'save'], null, 'Save');
+  save = createNode('div', ['options__buttons', 'save'], null, 'Save');
   const resume = createNode('div', ['options__buttons', 'resume'], null, 'Resume');
   const solution = createNode('div', ['options__buttons', 'solution'], null, 'Solution');
   const reset = createNode('div', ['options__buttons', 'reset'], null, 'Reset');
@@ -168,7 +171,7 @@ function createOptions() {
       gameField.resetSolution();
       save.classList.remove('disabled');
       timer.reset();
-      timer.start();
+      // timer.start();
     }
   });
 
