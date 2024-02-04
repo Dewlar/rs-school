@@ -106,6 +106,7 @@ export class Field {
   }
 
   resetSolution() {
+    this.isGameBegin = false;
     this.cellsMatrix.map(row => row.map(cell => {
       cell.classList.remove('cell-on');
       cell.innerHTML = '';
@@ -114,6 +115,7 @@ export class Field {
   }
 
   getSolution() {
+    this.isGameBegin = false;
     this.table.style.pointerEvents = 'none';
     for (let i = 0; i < this.size; i++) {
       for (let j = 0; j < this.size; j++) {
@@ -144,6 +146,7 @@ export class Field {
   }
 
   loadSolution(matrix) {
+    this.isGameBegin = true;
     for (let i = 0; i < this.size; i++) {
       for (let j = 0; j < this.size; j++) {
         if (matrix[i][j] === 1) {

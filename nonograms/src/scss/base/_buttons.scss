@@ -1,0 +1,19 @@
+.btn {
+  flex: 1 1 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: .7rem 1rem;
+  border-radius: .7rem;
+  background-color: burlywood;
+  max-width: 10rem;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.btn:hover {
+  background-color: #ac8f65;
+}
+.btn.active {
+  background-color: #ac8f65;
+}

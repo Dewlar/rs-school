@@ -12,7 +12,7 @@ const tabsContent = [];
 const tabLinks = [];
 const tabs = [];
 const field = createNode('div', ['field']);
-const timerNode = createNode('div', ['timer'],null, '00:00');
+const timerNode = createNode('div', ['timer'], null, '00:00');
 const timer = new Timer(timerNode);
 //todo: field listener context menu with `e.preventDefault();`
 let currentGameIndex;
@@ -23,7 +23,7 @@ let currentGameIndex;
 
 window.onload = function () {
   const gameContainer = createNode('div', ['container']);
-  gameContainer.append(createTab(), timerNode, field, createOptions());
+  gameContainer.append(createHeader(), createTab(), field, createOptions());
   document.body.append(gameContainer);
   newGameWithIndex(0);
 };
@@ -43,13 +43,32 @@ function newGame(index) {
   // document.documentElement.style.setProperty('--cell', cells[gameData.size]+'px');
 }
 
+function createHeader() {
+  const header = createNode('div', ['header']);
+  const scores = createNode('div', ['scores', 'btn'], null, 'Scores');
+  const themes = createNode('div', ['themes']);
+
+  header.append(scores, timerNode, themes);
+
+  header.addEventListener('click', ({ target }) => {
+    if (target.classList.contains('themes')) document.body.classList.toggle('theme-dark');
+    if (target.classList.contains('scores')) showScore();
+  });
+
+  return header;
+}
+
+function showScore() {
+
+}
+
 function createTab() {
   const difficultNavigation = createNode('nav', ['difficult']);
   const tab = createNode('div', ['tabs']);
-  const small = createNode('div', ['tab-links', 'small'], { 'data-size': 5 }, 'small');
-  const medium = createNode('div', ['tab-links', 'medium'], { 'data-size': 10 }, 'medium');
-  const large = createNode('div', ['tab-links', 'large'], { 'data-size': 15 }, 'large');
-  const random = createNode('div', ['tab-links', 'random'], { 'data-size': 0 }, 'random');
+  const small = createNode('div', ['tab-links', 'small', 'btn'], { 'data-size': 5 }, 'small');
+  const medium = createNode('div', ['tab-links', 'medium', 'btn'], { 'data-size': 10 }, 'medium');
+  const large = createNode('div', ['tab-links', 'large', 'btn'], { 'data-size': 15 }, 'large');
+  const random = createNode('div', ['tab-links', 'random', 'btn'], { 'data-size': 0 }, 'random');
   tabs.push(small, medium, large, random);
   tab.append(small, medium, large, random);
   difficultNavigation.append(tab);
@@ -97,7 +116,7 @@ function createTabButtons(size) {
     tabContent = createNode('div', ['tab-content'], { id: 'large' });
 
   matrix.forEach(el => {
-    const tabLink = createNode('div', ['tab-links'], {
+    const tabLink = createNode('div', ['tab-links', 'btn'], {
       'data-size': el.size,
       'data-name': el.name,
     }, el.name);
@@ -138,10 +157,10 @@ function openTab(element) {
 
 function createOptions() {
   const options = createNode('div', ['options']);
-  save = createNode('div', ['options__buttons', 'save'], null, 'Save');
-  const resume = createNode('div', ['options__buttons', 'resume'], null, 'Resume');
-  const solution = createNode('div', ['options__buttons', 'solution'], null, 'Solution');
-  const reset = createNode('div', ['options__buttons', 'reset'], null, 'Reset');
+  save = createNode('div', ['options__buttons', 'save', 'btn'], null, 'Save');
+  const resume = createNode('div', ['options__buttons', 'resume', 'btn'], null, 'Resume');
+  const solution = createNode('div', ['options__buttons', 'solution', 'btn'], null, 'Solution');
+  const reset = createNode('div', ['options__buttons', 'reset', 'btn'], null, 'Reset');
   options.append(save, resume, solution, reset);
 
   options.addEventListener('click', ({ target }) => {

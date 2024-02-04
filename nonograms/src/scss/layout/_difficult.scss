@@ -16,23 +16,24 @@
 }
 
 .tab-links {
-  display: flex;
-  justify-content: center;
-  flex: 1 1 5rem;
-  cursor: pointer;
-  padding: .7rem 1rem;
-  font-size: 1.6rem;
-  border-radius: 1rem;
-  border: 1px solid #ccc;
-  transition: 0.3s;
+  //flex: 1 1 5rem;
+  //display: flex;
+  //justify-content: center;
+  //padding: .7rem 1rem;
+  //font-size: 1.6rem;
+  //border-radius: 1rem;
+  //border: 1px solid #ccc;
+  //max-width: 10rem;
+  //cursor: pointer;
+  //transition: 0.3s;
 }
 
 .tab-links:hover {
-  background-color: #ddd;
+  //background-color: #ddd;
 }
 
 .tab-links.active {
-  background-color: #ccc;
+  //background-color: #ccc;
 }
 
 .tab-content.active{

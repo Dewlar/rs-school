@@ -5,8 +5,10 @@
 
 // base
 @import 'base/base';
+@import "base/buttons";
 
 // layout
+@import "layout/header";
 @import "layout/difficult";
 @import 'layout/playing-field';
 @import "layout/options";
