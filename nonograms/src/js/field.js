@@ -74,10 +74,12 @@ export class Field {
     });
 
     this.table = table;
+    // this.getSolution();
+    // this.saveSolution();
     return table;
   }
 
-  getMatrix() {
+  #getMatrix() {
     return this.cellsMatrix.map(row => row.map(cell => cell.classList.contains('cell-on') ? 1 : 0));
     // const matrix = [];
     // for (let i = 1; i < this.size + 1; i++) {
@@ -91,7 +93,7 @@ export class Field {
   }
 
   checkResult(table) {
-    if (this.getMatrix().toString() === this.matrix.toString()) {
+    if (this.#getMatrix().toString() === this.matrix.toString()) {
       table.style.pointerEvents = 'none';
       console.log('ты выйграл');
     }
@@ -103,6 +105,39 @@ export class Field {
       cell.innerHTML = '';
     }))
     this.table.style.pointerEvents = 'auto';
+  }
+
+  getSolution() {
+    this.table.style.pointerEvents = 'none';
+    for (let i = 0; i < this.size; i++) {
+      for (let j = 0; j < this.size; j++) {
+        setTimeout(()=>{
+          this.#changeCellState(i,j)
+        }, i * this.size * 10 + j * 10)
+      }
+    }
+  }
+
+  saveSolution() {
+    const currentMatrix = JSON.stringify(this.#getMatrix());
+    localStorage.setItem('NonogramsSavedGame2207', currentMatrix)
+  }
+
+  loadSolution() {
+    const storageData = localStorage.getItem('NonogramsSavedGame2207');
+    const loadedMatrix = JSON.parse(storageData);
+    console.log('load:  ',loadedMatrix);
+  }
+
+  #changeCellState(i,j){
+    if (this.matrix[i][j] === 0){
+      this.cellsMatrix[i][j].classList.remove('cell-on');
+      this.cellsMatrix[i][j].innerHTML = '&#x2717;';
+    }
+    if (this.matrix[i][j] === 1){
+      this.cellsMatrix[i][j].classList.add('cell-on');
+      this.cellsMatrix[i][j].innerHTML = '';
+    }
   }
 
   #changeCellFill(cell, button) {

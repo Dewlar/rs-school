@@ -2,39 +2,33 @@ import './scss/style.scss';
 import { matricees } from "./js/matrices";
 import { createNode } from "./js/functions-lib";
 import { Field } from "./js/field";
-
+let gameField;
 const nonogramsSizes = [5, 10, 15];
 let table = null;
-const field = createNode('div', ['field']);
 const tabsContent = [];
 const tabLinks = [];
 const tabs = [];
 // let isFirstTime = true;
+const field = createNode('div', ['field']);
+//todo: field listener context menu with `e.preventDefault();`
+
+// window.addEventListener('resize', () => {
+//   const scaleRatio = parseInt(getComputedStyle(field).width) / parseInt(getComputedStyle(table).height);
+//   table.style.transform = `scale(${scaleRatio})`;
+// });
 
 window.onload = function () {
-  // const newField = new Field(matricees[0].matrix.length, matricees[0].matrix, matricees[0].image);
-  // const newField = new Field(matricees[1].matrix.length, matricees[1].matrix, matricees[1].image);
-  // const newField = new Field(matricees[2].matrix.length, matricees[2].matrix, matricees[2].image);
   const gameContainer = createNode('div', ['container']);
-  // table = newField.generateField();
-  // field.append(newGame(2))
   gameContainer.append(createTab(), field);
-  // gameContainer.append();
   document.body.append(gameContainer);
-  newGame(0);
-  console.log(matricees[0]);
-  tabs[0].classList.add('active');
-  tabsContent[0].classList.add('active');
-  tabLinks[0].classList.add('active');
-  // openCity(document.querySelector('.tab-links'), 'small');
-  // document.querySelector('.tab').addEventListener('click', e => openTab(e.target));
+  newGameWithIndex(0);
 };
 
 function newGame(index) {
   if (table) table.remove();
   const gameData = matricees[index];
-  const newField = new Field(gameData.matrix.length, gameData.matrix, gameData.image);
-  table = newField.generateField();
+  gameField = new Field(gameData.matrix.length, gameData.matrix, gameData.image);
+  table = gameField.generateField();
   field.append(table);
   // let cells = { 5: 87, 10: 48, 15: 33 };
   // document.documentElement.style.setProperty('--cell', cells[gameData.size]+'px');
@@ -61,22 +55,25 @@ function createTab() {
   tab.addEventListener('click', e => {
     if (e.target.classList.contains('tab-links'))
       // console.log(e.target.classList.contains('random'));
-      !e.target.classList.contains('random') ? openTab(e.target) : randomGame();
+      !e.target.classList.contains('random') ? openTab(e.target) : newGameWithIndex();
   });
 
   return difficultNavigation;
 }
 
-function randomGame() {
-  const randIndex = Math.floor(Math.random() * matricees.length);
-  newGame(randIndex);
+function newGameWithIndex(i) {
+  let index;
+  if (typeof i === 'number' && i >= 0) index = i;
+  else index = Math.floor(Math.random() * matricees.length);
+
+  newGame(index);
   tabLinks.forEach(el => {
-    if (el.dataset.name === matricees[randIndex].name) {
+    if (el.dataset.name === matricees[index].name) {
       switchActiveClass(el);
     }
   });
   tabs.forEach(el => {
-    if (matricees[randIndex].size === +el.dataset.size) openTab(el);
+    if (matricees[index].size === +el.dataset.size) openTab(el);
   });
 }
 
@@ -135,8 +132,9 @@ function switchActiveClass(element) {
 }
 
 function openTab(element) {
+
   // console.log('open tab');
-  console.log(element);
+  // console.log(element);
 
   // const tabContent = document.querySelectorAll(".tab-content");
   // tabsContent.forEach(tab => tab.style.display = 'none');
