@@ -5,17 +5,17 @@
   align-items: center;
   padding: .7rem 1rem;
   border-radius: .7rem;
-  background-color: burlywood;
+  background-color: var(--button-color);
   max-width: 10rem;
   cursor: pointer;
   transition: .3s;
 }
 @media (hover: hover) and (pointer: fine) {
   .btn:hover {
-    background-color: #ac8f65;
+    background-color: var(--button-hover-color);
   }
 }
 
 .btn.active {
-  background-color: #ac8f65;
+  background-color: var(--button-hover-color);
 }

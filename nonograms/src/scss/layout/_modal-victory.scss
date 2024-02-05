@@ -1,0 +1,25 @@
+.victory-message{
+  display: flex;
+  flex-direction: column;
+  //justify-content: center;
+  //align-items: center;
+
+  h2 {
+    padding: 1.6rem 0;
+
+    &:nth-child(1){
+      align-self: center;
+    }
+  }
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    font-size: 2.4rem;
+    font-weight: bold;
+  }
+
+  .accent-text {
+    color: var(--accent-color);
+  }
+}

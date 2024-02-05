@@ -8,7 +8,7 @@
 }
 
 .modal__table {
-  border: 1px solid #000;
+  border: 3px solid var(--border-color-light);
 
   display: flex;
   justify-content: center;
@@ -37,5 +37,5 @@
 }
 
 .modal__table-header {
-  border-bottom: 1px solid #000;
+  border-bottom: 3px solid var(--border-color-light);
 }

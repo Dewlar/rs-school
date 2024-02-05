@@ -1,4 +1,6 @@
 import { createNode } from "./functions-lib";
+import { createVictoryMessage } from "./functions-lib";
+import { Modal } from "./modal";
 
 export class Field {
   constructor(timer, timerNode, gameData, saveGameKeyStorage, bestScoreKeyStorage) {
@@ -125,6 +127,10 @@ export class Field {
       } else {
         localStorage.setItem(this.bestScoreKeyStorage, JSON.stringify([currentScore]));
       }
+
+      const modal = new Modal();
+      modal.buildModal(createVictoryMessage(this.gameData.name, this.timerNode.textContent))
+      ;
     }
   }
 

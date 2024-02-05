@@ -5,10 +5,13 @@
   --border-color-dark: #000000c2;
   --background: #ffe2a3;
   --text-color: #000000;
-  --hint-bg: #eeeeee;
+  --hint-bg: #FFDAB9;
   --x-color: red;
-  --modal-background-color: #ffffff;
+  --accent-color: #d2691e;
+  --modal-background-color: #f5deb3;
   --color-overlay: rgba(80, 80, 80, 0.4);
+  --button-color: #DEB887;
+  --button-hover-color: #C1A075;
 }
 
 .theme-dark {
@@ -17,4 +20,9 @@
   --background: #4b3564;
   --text-color: #e3bfbf;
   --hint-bg: #2c2a346e;
+
+  --accent-color: #4B0082;
+  --modal-background-color: #9370DB;
+  --button-color: #4B0082;
+  --button-hover-color: #483D8B;
 }
