@@ -78,10 +78,10 @@ function showScore() {
 function createTab() {
   const difficultNavigation = createNode('nav', ['difficult']);
   const tab = createNode('div', ['tabs']);
-  const small = createNode('div', ['tab-links', 'small', 'btn'], { 'data-size': 5 }, 'small');
-  const medium = createNode('div', ['tab-links', 'medium', 'btn'], { 'data-size': 10 }, 'medium');
-  const large = createNode('div', ['tab-links', 'large', 'btn'], { 'data-size': 15 }, 'large');
-  const random = createNode('div', ['tab-links', 'random', 'btn'], { 'data-size': 0 }, 'random');
+  const small = createNode('div', ['tab-links', 'small', 'btn'], { 'data-size': 5 }, 'Small');
+  const medium = createNode('div', ['tab-links', 'medium', 'btn'], { 'data-size': 10 }, 'Medium');
+  const large = createNode('div', ['tab-links', 'large', 'btn'], { 'data-size': 15 }, 'Large');
+  const random = createNode('div', ['tab-links', 'random', 'btn'], { 'data-size': 0 }, 'Random');
   tabs.push(small, medium, large, random);
   tab.append(small, medium, large, random);
   difficultNavigation.append(tab);

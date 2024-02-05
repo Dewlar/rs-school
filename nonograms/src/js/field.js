@@ -84,8 +84,8 @@ export class Field {
       if (e.target.classList.contains('cell')){
         if (this.mouseButton === 2) this.miss.play();
         else {
-          if (e.target.classList.contains('cell-on')) this.click1.play();
-          else this.click2.play();
+          if (e.target.classList.contains('cell-on')) this.click2.play();
+          else this.click1.play();
         }
       }
 
