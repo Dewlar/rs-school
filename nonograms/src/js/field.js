@@ -81,20 +81,23 @@ export class Field {
       }
     });
     table.addEventListener('mouseup', (e) => {
-      if (this.mouseButton === 2) this.miss.play();
-      else {
-        if (e.target.classList.contains('cell-on')) this.click1.play();
-        else this.click2.play();
+      if (e.target.classList.contains('cell')){
+        if (this.mouseButton === 2) this.miss.play();
+        else {
+          if (e.target.classList.contains('cell-on')) this.click1.play();
+          else this.click2.play();
+        }
       }
 
       this.mousedown = false;
       this.checkResult(table);
     });
     table.addEventListener('contextmenu', (e) => {
-      // this.miss.play();
-      e.preventDefault();
-      this.mouseButton = 2;
-      this.#changeCellFill(e.target, this.mouseButton);
+      if (e.target.classList.contains('cell')){
+        e.preventDefault();
+        this.mouseButton = 2;
+        this.#changeCellFill(e.target, this.mouseButton);
+      }
     });
 
     this.table = table;

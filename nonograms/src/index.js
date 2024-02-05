@@ -43,6 +43,9 @@ function newGame(index) {
   gameField = new Field(timer, timerNode, gameData, saveGameKeyStorage, bestScoreKeyStorage);
   table = gameField.generateField();
   field.append(table);
+  field.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+  });
 
   // timer.reset();
   // timer.start();
