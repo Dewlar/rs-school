@@ -10,10 +10,12 @@
   cursor: pointer;
   transition: .3s;
 }
-
-.btn:hover {
-  background-color: #ac8f65;
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover {
+    background-color: #ac8f65;
+  }
 }
+
 .btn.active {
   background-color: #ac8f65;
 }
