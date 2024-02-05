@@ -104,8 +104,34 @@ export class Field {
       table.style.pointerEvents = 'none';
       console.log('ты выйграл', this.gameData.size, this.gameData.name, this.timerNode.textContent);
       this.timer.pause();
-      console.log(localStorage.getItem(this.bestScoreKeyStorage))
+      const currentScore = {
+        size: this.gameData.size + 'x' + this.gameData.size,
+        name: this.gameData.name,
+        time: this.timerNode.textContent,
+        date: new Date().getTime(),
+      };
+
+      if (localStorage.getItem(this.bestScoreKeyStorage)) {
+        const bestScore = JSON.parse(localStorage.getItem(this.bestScoreKeyStorage));
+        bestScore.push(currentScore);
+        if (bestScore.length > 5) {
+          const min = bestScore.reduce((min, el) => min.date < el.date ? min : el)
+          const minIndex = bestScore.indexOf(min);
+          bestScore.splice(minIndex, 1);
+        }
+        bestScore.sort((a, b) => this.#getSeconds(a.time) - this.#getSeconds(b.time));
+
+        localStorage.setItem(this.bestScoreKeyStorage, JSON.stringify(bestScore));
+      } else {
+        localStorage.setItem(this.bestScoreKeyStorage, JSON.stringify([currentScore]));
+      }
     }
+  }
+
+  #getSeconds(str) {
+    console.log(str);
+    const seconds = str.split(':').map(t => parseInt(t));
+    return seconds[0] * 60 + seconds[1];
   }
 
   resetSolution() {

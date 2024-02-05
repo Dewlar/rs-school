@@ -61,7 +61,7 @@ function createHeader() {
 }
 
 function showScore() {
-
+  console.log('local', JSON.parse(localStorage.getItem(bestScoreKeyStorage)))
 }
 
 function createTab() {
