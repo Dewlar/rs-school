@@ -33,7 +33,7 @@ function newGame(index) {
   timer.reset();
   if (table) table.remove();
   const gameData = matricees[index];
-  gameField = new Field(timer, gameData.matrix.length, gameData.matrix, gameData.image);
+  gameField = new Field(timer, gameData);
   table = gameField.generateField();
   field.append(table);
 

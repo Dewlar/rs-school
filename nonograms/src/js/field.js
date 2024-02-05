@@ -1,27 +1,25 @@
 import { createNode } from "./functions-lib";
 
 export class Field {
-  constructor(timer, size, matrix, imageUrl) {
+  constructor(timer, gameData) {
     this.cells = [];
     this.cellsMatrix = [];
-    this.size = size;
     this.timer = timer;
     this.mousedown = false;
     this.mouseButton = 1;
-    this.matrix = matrix;
-    this.imageUrl = imageUrl;
     this.rowHints = [];
     this.columnHints = [];
     this.isMove = false;
     this.table = null;
     this.isGameBegin = false;
+    this.gameData = gameData;
   };
 
   generateField() {
-    for (let i = 0; i < this.size + 1; i++) {
+    for (let i = 0; i < this.gameData.size + 1; i++) {
       const row = [];
       const matrixRow = [];
-      for (let j = 0; j < this.size + 1; j++) {
+      for (let j = 0; j < this.gameData.size + 1; j++) {
         let cell;
         if (i === 0) {
           cell = createNode('th', ['hint', 'hint-c']);
@@ -88,9 +86,9 @@ export class Field {
   #getMatrix() {
     return this.cellsMatrix.map(row => row.map(cell => cell.classList.contains('cell-on') ? 1 : 0));
     // const matrix = [];
-    // for (let i = 1; i < this.size + 1; i++) {
+    // for (let i = 1; i < this.gameData.size + 1; i++) {
     //   const row = [];
-    //   for (let j = 1; j < this.size + 1; j++) {
+    //   for (let j = 1; j < this.gameData.size + 1; j++) {
     //     row.push(this.cells[i][j].classList.contains('cell-on') ? 1 : 0);
     //   }
     //   matrix.push(row);
@@ -99,7 +97,7 @@ export class Field {
   }
 
   checkResult(table) {
-    if (this.#getMatrix().toString() === this.matrix.toString()) {
+    if (this.#getMatrix().toString() === this.gameData.matrix.toString()) {
       table.style.pointerEvents = 'none';
       console.log('ты выйграл');
     }
@@ -117,11 +115,11 @@ export class Field {
   getSolution() {
     this.isGameBegin = false;
     this.table.style.pointerEvents = 'none';
-    for (let i = 0; i < this.size; i++) {
-      for (let j = 0; j < this.size; j++) {
+    for (let i = 0; i < this.gameData.size; i++) {
+      for (let j = 0; j < this.gameData.size; j++) {
         setTimeout(() => {
           this.#changeCellState(i, j);
-        }, i * this.size * 10 + j * 10);
+        }, i * this.gameData.size * 10 + j * 10);
       }
     }
   }
@@ -147,8 +145,8 @@ export class Field {
 
   loadSolution(matrix) {
     this.isGameBegin = true;
-    for (let i = 0; i < this.size; i++) {
-      for (let j = 0; j < this.size; j++) {
+    for (let i = 0; i < this.gameData.size; i++) {
+      for (let j = 0; j < this.gameData.size; j++) {
         if (matrix[i][j] === 1) {
           this.cellsMatrix[i][j].classList.add('cell-on');
           this.cellsMatrix[i][j].innerHTML = '';
@@ -166,11 +164,11 @@ export class Field {
   }
 
   #changeCellState(i, j) {
-    if (this.matrix[i][j] === 0) {
+    if (this.gameData.matrix[i][j] === 0) {
       this.cellsMatrix[i][j].classList.remove('cell-on');
       this.cellsMatrix[i][j].innerHTML = '&#x2717;';
     }
-    if (this.matrix[i][j] === 1) {
+    if (this.gameData.matrix[i][j] === 1) {
       this.cellsMatrix[i][j].classList.add('cell-on');
       this.cellsMatrix[i][j].innerHTML = '';
     }
@@ -189,9 +187,9 @@ export class Field {
   }
 
   #writeHintsIntoTable() {
-    const img = createNode('img', ['preview'], { src: this.imageUrl, alt: 'preview image' });
+    const img = createNode('img', ['preview'], { src: this.gameData.image, alt: 'preview image' });
     this.cells[0][0].append(img);
-    for (let i = 1; i < this.size + 1; i++) {
+    for (let i = 1; i < this.gameData.size + 1; i++) {
       let hintR = [];
       let hintC = [];
       for (let j = 0; j < this.rowHints[i - 1].length; j++) {
@@ -216,8 +214,8 @@ export class Field {
   }
 
   #getHints() {
-    this.rowHints = this.matrix.map(getRowHints);
-    this.columnHints = Array.from({ length: this.matrix[0].length }, (_, i) => getColumnHints(this.matrix, i));
+    this.rowHints = this.gameData.matrix.map(getRowHints);
+    this.columnHints = Array.from({ length: this.gameData.matrix[0].length }, (_, i) => getColumnHints(this.gameData.matrix, i));
 
     function getRowHints(row) {
       const hints = [];
