@@ -35,6 +35,7 @@ window.onload = function () {
 };
 
 function newGame(index) {
+  currentGameIndex = index;
   save.classList.remove('disabled');
   timer.reset();
   if (table) table.remove();
@@ -102,7 +103,6 @@ function newGameWithIndex(i) {
   else index = Math.floor(Math.random() * matricees.length);
 
   newGame(index);
-  currentGameIndex = index;
   tabLinks.forEach(tabLink => {
     if (tabLink.dataset.name === matricees[index].name) {
       switchActiveClass(tabLink);
