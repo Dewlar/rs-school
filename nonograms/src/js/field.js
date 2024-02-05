@@ -1,6 +1,10 @@
 import { createNode } from "./functions-lib";
 import { createVictoryMessage } from "./functions-lib";
 import { Modal } from "./modal";
+import click1 from '../assets/sounds/click1.mp3';
+import click2 from '../assets/sounds/click2.mp3';
+import miss from '../assets/sounds/miss.mp3';
+import yes from '../assets/sounds/yes.mp3';
 
 export class Field {
   constructor(timer, timerNode, gameData, saveGameKeyStorage, bestScoreKeyStorage) {
@@ -18,6 +22,10 @@ export class Field {
     this.gameData = gameData;
     this.saveGameKeyStorage = saveGameKeyStorage;
     this.bestScoreKeyStorage = bestScoreKeyStorage;
+    this.click1 = new Audio(click1);
+    this.click2 = new Audio(click2);
+    this.miss = new Audio(miss);
+    this.yes = new Audio(yes);
   };
 
   generateField() {
@@ -72,11 +80,18 @@ export class Field {
         this.#changeCellFill(e.target, this.mouseButton);
       }
     });
-    table.addEventListener('mouseup', () => {
+    table.addEventListener('mouseup', (e) => {
+      if (this.mouseButton === 2) this.miss.play();
+      else {
+        if (e.target.classList.contains('cell-on')) this.click1.play();
+        else this.click2.play();
+      }
+
       this.mousedown = false;
       this.checkResult(table);
     });
     table.addEventListener('contextmenu', (e) => {
+      // this.miss.play();
       e.preventDefault();
       this.mouseButton = 2;
       this.#changeCellFill(e.target, this.mouseButton);
@@ -105,6 +120,7 @@ export class Field {
     if (this.#getMatrix().toString() === this.gameData.matrix.toString()) {
       table.style.pointerEvents = 'none';
       console.log('ты выйграл', this.gameData.size, this.gameData.name, this.timerNode.textContent);
+      this.yes.play();
       this.timer.pause();
       const currentScore = {
         size: this.gameData.size + 'x' + this.gameData.size,
@@ -117,7 +133,7 @@ export class Field {
         const bestScore = JSON.parse(localStorage.getItem(this.bestScoreKeyStorage));
         bestScore.push(currentScore);
         if (bestScore.length > 5) {
-          const min = bestScore.reduce((min, el) => min.date < el.date ? min : el)
+          const min = bestScore.reduce((min, el) => min.date < el.date ? min : el);
           const minIndex = bestScore.indexOf(min);
           bestScore.splice(minIndex, 1);
         }
