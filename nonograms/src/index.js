@@ -16,6 +16,8 @@ const timerNode = createNode('div', ['timer'], null, '00:00');
 const timer = new Timer(timerNode);
 //todo: field listener context menu with `e.preventDefault();`
 let currentGameIndex;
+const saveGameKeyStorage = 'NonogramsSavedGame2207';
+const bestScoreKeyStorage = 'NonogramsBestSc0res2207';
 // window.addEventListener('resize', () => {
 //   const scaleRatio = parseInt(getComputedStyle(field).width) / parseInt(getComputedStyle(table).height);
 //   table.style.transform = `scale(${scaleRatio})`;
@@ -33,7 +35,7 @@ function newGame(index) {
   timer.reset();
   if (table) table.remove();
   const gameData = matricees[index];
-  gameField = new Field(timer, timerNode, gameData);
+  gameField = new Field(timer, timerNode, gameData, saveGameKeyStorage, bestScoreKeyStorage);
   table = gameField.generateField();
   field.append(table);
 
@@ -169,7 +171,7 @@ function createOptions() {
     }
 
     if (target.classList.contains('resume')) {
-      const storageData = localStorage.getItem('NonogramsSavedGame2207');
+      const storageData = localStorage.getItem(saveGameKeyStorage);
       const { index, time, matrix } = JSON.parse(storageData);
       newGameWithIndex(index);
       const [minutes, seconds] = time.split(':').map(t => +t);

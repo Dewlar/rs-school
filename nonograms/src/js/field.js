@@ -1,7 +1,7 @@
 import { createNode } from "./functions-lib";
 
 export class Field {
-  constructor(timer, timerNode, gameData) {
+  constructor(timer, timerNode, gameData, saveGameKeyStorage, bestScoreKeyStorage) {
     this.cells = [];
     this.cellsMatrix = [];
     this.timer = timer;
@@ -14,6 +14,8 @@ export class Field {
     this.table = null;
     this.isGameBegin = false;
     this.gameData = gameData;
+    this.saveGameKeyStorage = saveGameKeyStorage;
+    this.bestScoreKeyStorage = bestScoreKeyStorage;
   };
 
   generateField() {
@@ -102,6 +104,7 @@ export class Field {
       table.style.pointerEvents = 'none';
       console.log('ты выйграл', this.gameData.size, this.gameData.name, this.timerNode.textContent);
       this.timer.pause();
+      console.log(localStorage.getItem(this.bestScoreKeyStorage))
     }
   }
 
@@ -142,7 +145,7 @@ export class Field {
       'time': time,
       'matrix': this.#getMatrixCellsState(),
     });
-    localStorage.setItem('NonogramsSavedGame2207', savedGame);
+    localStorage.setItem(this.saveGameKeyStorage, savedGame);
   }
 
   loadSolution(matrix) {
