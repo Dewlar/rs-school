@@ -1,10 +1,11 @@
 import { createNode } from "./functions-lib";
 
 export class Field {
-  constructor(timer, gameData) {
+  constructor(timer, timerNode, gameData) {
     this.cells = [];
     this.cellsMatrix = [];
     this.timer = timer;
+    this.timerNode = timerNode;
     this.mousedown = false;
     this.mouseButton = 1;
     this.rowHints = [];
@@ -99,7 +100,8 @@ export class Field {
   checkResult(table) {
     if (this.#getMatrix().toString() === this.gameData.matrix.toString()) {
       table.style.pointerEvents = 'none';
-      console.log('ты выйграл');
+      console.log('ты выйграл', this.gameData.size, this.gameData.name, this.timerNode.textContent);
+      this.timer.pause();
     }
   }
 
