@@ -28,7 +28,9 @@ const modal = new Modal();
 
 window.onload = function () {
   const gameContainer = createNode('div', ['container']);
-  gameContainer.append(createHeader(), createTab(), field, createOptions());
+  const fieldWrapper = createNode('div',['field-wrapper'])
+  fieldWrapper.append(field, createOptions());
+  gameContainer.append(createHeader(), createTab(), fieldWrapper);
   document.body.append(gameContainer);
   newGameWithIndex(0);
   // modal.buildModal('asd')
@@ -169,10 +171,10 @@ function openTab(element) {
 
 function createOptions() {
   const options = createNode('div', ['options']);
-  save = createNode('div', ['options__buttons', 'save', 'btn'], null, 'Save');
-  const resume = createNode('div', ['options__buttons', 'resume', 'btn'], null, 'Resume');
-  const solution = createNode('div', ['options__buttons', 'solution', 'btn'], null, 'Solution');
-  const reset = createNode('div', ['options__buttons', 'reset', 'btn'], null, 'Reset');
+  save = createNode('div', ['options__buttons', 'save', 'btn'], null, 'Save game');
+  const resume = createNode('div', ['options__buttons', 'resume', 'btn'], null, 'Resume saved game');
+  const solution = createNode('div', ['options__buttons', 'solution', 'btn'], null, 'Show solution');
+  const reset = createNode('div', ['options__buttons', 'reset', 'btn'], null, 'Reset game field');
   options.append(save, resume, solution, reset);
 
   options.addEventListener('click', ({ target }) => {

@@ -1,23 +1,28 @@
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  //justify-content: space-between;
   align-items: center;
   min-height: 100dvh;
   background-color: var(--background);
-  gap: 2dvh;
+  //gap: 2dvh;
   color: var(--text-color);
-  padding: .5rem;
+  padding: .5rem .5rem 2rem .5rem;
+}
+
+.field-wrapper {
+  display: flex;
+  height: 58rem;
 }
 
 .field {
-  //border: 1px solid #000;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 58rem;
   width: 100%;
   aspect-ratio: 1;
-  max-width: 600px;
+  //max-width: 58rem;
 }
 
 .cell {
@@ -71,5 +76,25 @@
     flex-direction: column;
     justify-content: flex-end;
     height: 100%;
+  }
+}
+@media (width <= 768px){
+  .field-wrapper {
+    //display: flex;
+    //height: 58rem;
+    flex-direction: column;
+    height: auto;
+  }
+  .field {
+    //display: flex;
+    //justify-content: center;
+    //align-items: center;
+    height: auto;
+    //width: 100%;
+    //aspect-ratio: 1;
+    max-width: 58rem;
+  }
+  .container{
+    justify-content: space-between;
   }
 }
