@@ -121,6 +121,7 @@ export class Field {
       table.style.pointerEvents = 'none';
       console.log('ты выйграл', this.gameData.size, this.gameData.name, this.timerNode.textContent);
       this.yes.play();
+      document.querySelector('.options__buttons.save.btn').classList.add('disabled');
       this.timer.pause();
       const currentScore = {
         size: this.gameData.size + 'x' + this.gameData.size,
