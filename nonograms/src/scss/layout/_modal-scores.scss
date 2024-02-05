@@ -1,0 +1,41 @@
+.modal__scores {
+  //border: 1px solid #000;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.modal__table {
+  border: 1px solid #000;
+
+  display: flex;
+  justify-content: center;
+  //align-items: center;
+  flex-direction: column;
+
+}
+
+.modal__title {
+  padding: 2rem 0;
+}
+
+.modal__table-header,
+.modal__table-row {
+  display: grid;
+  grid-template-columns: 2rem repeat(3, 1fr);
+
+  gap: 3rem;
+  padding: 1rem;
+
+  span {
+    display: flex;
+    justify-content: center;
+    //border: 1px solid #000;
+  }
+}
+
+.modal__table-header {
+  border-bottom: 1px solid #000;
+}

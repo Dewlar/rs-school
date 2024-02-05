@@ -3,6 +3,8 @@ import { matricees } from "./js/matrices";
 import { createNode } from "./js/functions-lib";
 import { Field } from "./js/field";
 import { Timer } from "./js/timer";
+import { Modal } from "./js/modal";
+import { RankTable } from "./js/rank-table";
 
 let save;
 let gameField;
@@ -18,6 +20,7 @@ const timer = new Timer(timerNode);
 let currentGameIndex;
 const saveGameKeyStorage = 'NonogramsSavedGame2207';
 const bestScoreKeyStorage = 'NonogramsBestSc0res2207';
+const modal = new Modal();
 // window.addEventListener('resize', () => {
 //   const scaleRatio = parseInt(getComputedStyle(field).width) / parseInt(getComputedStyle(table).height);
 //   table.style.transform = `scale(${scaleRatio})`;
@@ -28,6 +31,7 @@ window.onload = function () {
   gameContainer.append(createHeader(), createTab(), field, createOptions());
   document.body.append(gameContainer);
   newGameWithIndex(0);
+  // modal.buildModal('asd')
 };
 
 function newGame(index) {
@@ -61,7 +65,10 @@ function createHeader() {
 }
 
 function showScore() {
-  console.log('local', JSON.parse(localStorage.getItem(bestScoreKeyStorage)))
+  const scoreTable = new RankTable();
+  const rankingArray = JSON.parse(localStorage.getItem(bestScoreKeyStorage));
+  modal.buildModal(scoreTable.getRankTable(rankingArray))
+  // console.log('local', JSON.parse(localStorage.getItem(bestScoreKeyStorage)))
 }
 
 function createTab() {

@@ -6,9 +6,11 @@
 // base
 @import 'base/base';
 @import "base/buttons";
+@import "base/modal";
 
 // layout
 @import "layout/header";
 @import "layout/difficult";
 @import 'layout/playing-field';
 @import "layout/options";
+@import "layout/modal-scores";

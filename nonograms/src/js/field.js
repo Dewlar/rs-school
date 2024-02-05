@@ -129,7 +129,7 @@ export class Field {
   }
 
   #getSeconds(str) {
-    console.log(str);
+    // console.log(str);
     const seconds = str.split(':').map(t => parseInt(t));
     return seconds[0] * 60 + seconds[1];
   }
