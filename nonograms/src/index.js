@@ -21,14 +21,19 @@ let currentGameIndex;
 const saveGameKeyStorage = 'NonogramsSavedGame2207';
 const bestScoreKeyStorage = 'NonogramsBestSc0res2207';
 const modal = new Modal();
-// window.addEventListener('resize', () => {
-//   const scaleRatio = parseInt(getComputedStyle(field).width) / parseInt(getComputedStyle(table).height);
-//   table.style.transform = `scale(${scaleRatio})`;
-// });
+// let tableWidth;
+let tableSize;
+window.addEventListener('resize', () => {
+  // console.log(parseInt(getComputedStyle(field).width) - parseInt(getComputedStyle(table).width));
+  // console.log('table', tableWidth, 'field', parseInt(getComputedStyle(field).width));
+  // const scaleRatio = parseInt(getComputedStyle(field).width) / tableWidth;
+  // table.style.transform = `scale(${scaleRatio})`;
+  setTableCellsSize();
+});
 
 window.onload = function () {
   const gameContainer = createNode('div', ['container']);
-  const fieldWrapper = createNode('div',['field-wrapper'])
+  const fieldWrapper = createNode('div', ['field-wrapper']);
   fieldWrapper.append(field, createOptions());
   gameContainer.append(createHeader(), createTab(), fieldWrapper);
   document.body.append(gameContainer);
@@ -51,8 +56,26 @@ function newGame(index) {
 
   // timer.reset();
   // timer.start();
-  // let cells = { 5: 87, 10: 48, 15: 33 };
-  // document.documentElement.style.setProperty('--cell', cells[gameData.size]+'px');
+  // let cells = { 5: 7, 10: 4, 15: 2.8 };
+  // document.documentElement.style.setProperty('--cell', cells[gameData.size]+'rem');
+  // tableWidth = parseInt(getComputedStyle(table).width);
+  tableSize = gameData.size;
+  setTableCellsSize();
+}
+
+function setTableCellsSize() {
+  if (window.matchMedia('(width > 500px)').matches) {
+    let cells = { 5: 7, 10: 4, 15: 2.8 };
+    document.documentElement.style.setProperty('--cell', cells[tableSize] + 'rem');
+  }
+  if (window.matchMedia('(max-width: 500px)').matches) {
+    let cells = { 5: 6, 10: 3, 15: 2.4 };
+    document.documentElement.style.setProperty('--cell', cells[tableSize] + 'rem');
+  }
+  if (window.matchMedia('(max-width: 430px)').matches) {
+    let cells = { 5: 6, 10: 3, 15: 1.9 };
+    document.documentElement.style.setProperty('--cell', cells[tableSize] + 'rem');
+  }
 }
 
 function createHeader() {
@@ -73,7 +96,7 @@ function createHeader() {
 function showScore() {
   const scoreTable = new RankTable();
   const rankingArray = JSON.parse(localStorage.getItem(bestScoreKeyStorage));
-  modal.buildModal(scoreTable.getRankTable(rankingArray))
+  modal.buildModal(scoreTable.getRankTable(rankingArray));
   // console.log('local', JSON.parse(localStorage.getItem(bestScoreKeyStorage)))
 }
 

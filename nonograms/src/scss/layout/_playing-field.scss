@@ -95,6 +95,15 @@
     max-width: 58rem;
   }
   .container{
-    justify-content: space-between;
+    //justify-content: space-between;
+    gap: 0;
+  }
+}
+@media (width <= 550px){
+  .field{
+    container-type: inline-size;
+  }
+  .table {
+    font-size: clamp(12px, 3cqi, 16px)
   }
 }
