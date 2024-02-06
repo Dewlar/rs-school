@@ -27,3 +27,9 @@
   border-radius: 50%;
   cursor: pointer;
 }
+
+@media (width <= 550px){
+  .header {
+    padding: .5rem 0 1rem 0;
+  }
+}
