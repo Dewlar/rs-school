@@ -97,6 +97,7 @@ export class Field {
         e.preventDefault();
         this.mouseButton = 2;
         this.#changeCellFill(e.target, this.mouseButton);
+        this.miss.play();
       }
     });
 
