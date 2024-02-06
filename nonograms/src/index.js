@@ -96,7 +96,7 @@ function createHeader() {
 function showScore() {
   const scoreTable = new RankTable();
   const rankingArray = JSON.parse(localStorage.getItem(bestScoreKeyStorage));
-  modal.buildModal(scoreTable.getRankTable(rankingArray));
+  modal.buildModal(scoreTable.getRankTable(rankingArray ? rankingArray : []));
   // console.log('local', JSON.parse(localStorage.getItem(bestScoreKeyStorage)))
 }
 
