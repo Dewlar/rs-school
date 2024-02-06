@@ -81,9 +81,9 @@ function setTableCellsSize() {
 function createHeader() {
   const header = createNode('div', ['header']);
   const scores = createNode('div', ['scores', 'btn'], null, 'Scores');
-  const themes = createNode('div', ['themes']);
-
-  header.append(scores, timerNode, themes);
+  // const themes = createNode('div', ['themes']);
+  // themes.append(createTogglerTheme());
+  header.append(scores, timerNode, createTogglerTheme());
 
   header.addEventListener('click', ({ target }) => {
     if (target.classList.contains('themes')) document.body.classList.toggle('theme-dark');
@@ -232,4 +232,14 @@ function createOptions() {
   });
 
   return options;
+}
+
+function createTogglerTheme() {
+  const togler = createNode('label', ['switch']);
+  const checkBox = createNode('input', ['themes'], { type: 'checkbox' });
+  const slider = createNode('span', ['slider', 'round']);
+
+  togler.append(checkBox, slider);
+
+  return togler;
 }
