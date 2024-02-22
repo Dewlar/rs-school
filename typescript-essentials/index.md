@@ -7,8 +7,8 @@ Here is a collection of badges I earned from completing Microsoft Learn's TypeSc
 | №  | module                                             | badge-link                                                                                                        |  
 |:--:|----------------------------------------------------|:------------------------------------------------------------------------------------------------------------------|  
 | 1. | **Getting Started with TypeScript**:               | [Badge](https://learn.microsoft.com/api/achievements/share/en-us/Dewlar-6162/PTZSUVF4?sharingId=7C2B9BED9115CB12) |
-| 2. | **Declare Variable Types in TypeScript**:          | [Badge](https://asd.com)                                                                                          |
-| 3. | **Implement Interfaces in TypeScript**:            | [Badge](https://asd.com)                                                                                          |
+| 2. | **Declare Variable Types in TypeScript**:          | [Badge](https://learn.microsoft.com/api/achievements/share/en-us/Dewlar-6162/9NSF9ZSU?sharingId=7C2B9BED9115CB12)                                                                                          |
+| 3. | **Implement Interfaces in TypeScript**:            | [Badge](https://learn.microsoft.com/api/achievements/share/ru-ru/Dewlar-6162/YV8PL7KR?sharingId=7C2B9BED9115CB12)                                                                                          |
 | 4. | **Develop Typed Functions in TypeScript**:         | [Badge](https://asd.com)                                                                                          |
 | 5. | **Declare and Instantiate Classes in TypeScript**: | [Badge](https://asd.com)                                                                                          |
 | 6. | **Generics in TypeScript**:                        | [Badge](https://asd.com)                                                                                          |
