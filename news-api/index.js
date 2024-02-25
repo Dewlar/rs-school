@@ -197,7 +197,7 @@
       }
     }, n = class extends e {
       constructor() {
-        super("https://newsapi.org/v2/", { apiKey: "94432d5765604c7d9b8f23e103218d2a" });
+        super("https://rss-news-api.onrender.com/", { apiKey: "94432d5765604c7d9b8f23e103218d2a" });
       }
     }, r = class extends n {
       getSources(e) {
