@@ -9,7 +9,6 @@ export class AppView {
     ) {}
 
     drawNews(data: IResponseNews) {
-        console.log(data);
         const values: INews[] = data?.articles ? data?.articles : [];
         this.news.draw(values);
     }

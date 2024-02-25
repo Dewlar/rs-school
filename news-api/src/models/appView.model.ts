@@ -1,6 +1,6 @@
-import { Status } from "./enum";
-import { INews } from "./news.model";
-import {IArticle} from "./source.model";
+import { Status } from './enum';
+import { INews } from './news.model';
+import { IArticle } from './source.model';
 
 export interface IResponseNews {
     status: Status;
