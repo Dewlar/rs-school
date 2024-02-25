@@ -3,7 +3,7 @@ import { Status } from '../../models/enum';
 
 class Loader {
     constructor(
-        private readonly baseLink: string,
+        private baseLink: string,
         private options: { apiKey: string }
     ) {}
 
@@ -27,6 +27,8 @@ class Loader {
     }
 
     makeUrl({ options, endpoint }: IResponseConfig) {
+        if (!this.options || !this.baseLink) throw new Error(`baseLink or apiKey was not found`);
+
         const urlOptions: { [key: string]: string } = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
