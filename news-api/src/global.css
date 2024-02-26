@@ -1,4 +1,7 @@
 body {
+    display: flex;
+    flex-direction: column;
+    min-height: 94dvh;
     color: #fff;
     background: #17181c;
     font-family: sans-serif;
@@ -19,18 +22,34 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 30px;
+    margin-top: auto;
 }
 footer .copyright {
     font-size: 14px;
-    color: #333;
+    color: #949494;
     text-align: center;
 }
 footer .copyright a {
-    color: #444;
+    color: #949494;
 }
 footer .copyright a:hover {
     color: #555;
 }
 footer .copyright:before {
     content: '©';
+}
+
+footer .rs-logo {
+    width: 80px;
+    height: 33px;
+}
+footer .github {
+    width: 32px;
+    height: 32px;
+}
+
+footer .rs-logo object,
+footer .github object {
+    pointer-events: none;
 }
