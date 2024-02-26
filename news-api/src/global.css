@@ -5,11 +5,13 @@ body {
     color: #fff;
     background: #17181c;
     font-family: sans-serif;
+    box-sizing: border-box;
 }
 
 header {
     padding: 10px 30px;
     text-align: center;
+    user-select: none;
 }
 
 header h1 {
