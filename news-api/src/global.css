@@ -12,6 +12,16 @@ header {
     padding: 10px 30px;
     text-align: center;
     user-select: none;
+    background: linear-gradient(90deg, #00d4ff, #c128df, #00d4ff );
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textflow 5s linear infinite;
+}
+@keyframes textflow {
+  from {background-position: 0 center}
+  to {background-position: 200% center}
 }
 
 header h1 {
