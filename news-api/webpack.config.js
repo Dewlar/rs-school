@@ -12,16 +12,16 @@ const baseConfig = {
     module: {
         rules: [
             {
-              test: /\.ts$/i,
-              use: 'ts-loader'
+                test: /\.ts$/i,
+                use: 'ts-loader',
             },
             {
                 test: /\.css$/i,
                 use: ['style-loader', 'css-loader'],
             },
             {
-              test: /\.(png|svg|jpg|jpeg|gif)$/i,
-              type: 'asset/resource',
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                type: 'asset/resource',
             },
         ],
     },
@@ -31,7 +31,7 @@ const baseConfig = {
     output: {
         filename: 'index.js',
         path: path.resolve(__dirname, './dist'),
-        assetModuleFilename: "assets/[hash][ext][query]",
+        assetModuleFilename: 'assets/[hash][ext][query]',
         clean: true,
     },
     plugins: [
@@ -42,9 +42,9 @@ const baseConfig = {
         }),
         new CleanWebpackPlugin(),
         new CopyPlugin({
-          patterns: [{ from: 'src/assets', to: 'assets' }],
+            patterns: [{ from: 'src/assets', to: 'assets' }],
         }),
-        new EslintPlugin({ extensions: ['.ts'] })
+        new EslintPlugin({ extensions: ['.ts'] }),
     ],
 };
 
