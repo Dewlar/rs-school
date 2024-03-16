@@ -2,7 +2,7 @@ const path = require('path');
 const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-// const DotenvWebpackPlugin = require('dotenv-webpack');
+const DotenvWebpackPlugin = require('dotenv-webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 const EslintPlugin = require('eslint-webpack-plugin');
 
@@ -35,12 +35,12 @@ const baseConfig = {
     clean: true,
   },
   plugins: [
-    // new DotenvWebpackPlugin(),
+    new DotenvWebpackPlugin(),
     // new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './src/index.html'),
-      filename: '[name].[contenthash].html',
-      title: 'Caching',
+      filename: 'index.html',
+      // title: 'Caching',
     }),
     new CopyPlugin({
       patterns: [{ from: 'src/assets', to: 'assets' }],
