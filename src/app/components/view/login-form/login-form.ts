@@ -1,5 +1,6 @@
 import './login-form.scss';
 import createElement from '../../../utils/lib';
+import { USER_DATA_KEY } from '../../../models/const';
 
 export default class LoginForm {
   private readonly firstNameInput: HTMLInputElement;
@@ -12,6 +13,8 @@ export default class LoginForm {
 
   private readonly lastNameErrorMessage: HTMLElement;
 
+  private readonly formWrapper: HTMLElement;
+
   constructor() {
     this.firstNameInput = createElement('input', {
       classList: ['first-name-input'],
@@ -23,9 +26,10 @@ export default class LoginForm {
     });
     this.loginButton = createElement('button', {
       classList: ['Login'],
-      attrList: { disabled: 'true' },
+      attrList: { type: 'button', disabled: 'true' },
       textContent: 'Login',
     });
+    this.formWrapper = createElement('div', { classList: ['form-wrapper'] });
     this.firstNameErrorMessage = createElement('div', { classList: ['error-messages', 'first-error'] });
     this.lastNameErrorMessage = createElement('div', { classList: ['error-messages', 'first-error'] });
   }
@@ -44,10 +48,10 @@ export default class LoginForm {
       classList: ['login-form'],
       childNodeList: [firstNameContainer, lastNameContainer, this.loginButton],
     });
-    const formWrapper = createElement('div', { classList: ['form-wrapper'], childNodeList: [form] });
+    this.formWrapper.append(form);
 
     this.addEventListeners();
-    return formWrapper;
+    return this.formWrapper;
   }
 
   private addEventListeners(): void {
@@ -93,7 +97,8 @@ export default class LoginForm {
     return [true, ''];
   }
 
-  private handleLogin(): void {
+  private handleLogin(event: Event): void {
+    event.preventDefault();
     const firstName = this.firstNameInput.value.trim();
     const lastName = this.lastNameInput.value.trim();
 
@@ -102,6 +107,11 @@ export default class LoginForm {
       lastName,
     };
 
-    localStorage.setItem('userData', JSON.stringify(userData));
+    localStorage.setItem(USER_DATA_KEY, JSON.stringify(userData));
+
+    this.formWrapper.classList.add('hidden');
+    setTimeout(() => {
+      this.formWrapper.remove();
+    }, 300);
   }
 }
