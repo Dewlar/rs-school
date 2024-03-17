@@ -55,9 +55,8 @@ export default class StartScreen {
     return greetingWrapper;
   }
 
-  private getUserData() {
-    const userData: UserData | null = this.localStorageData ? JSON.parse(this.localStorageData) : null;
-    return userData;
+  private getUserData(): UserData | null {
+    return this.localStorageData ? JSON.parse(this.localStorageData) : null;
   }
 
   private createHeaderContent(): void {
@@ -71,7 +70,6 @@ export default class StartScreen {
     }
 
     const logoutButton = createElement('button', { classList: ['logout-button'], textContent: 'Logout' });
-    // logoutButton.textContent = 'Logout';
     logoutButton.addEventListener('click', () => {
       localStorage.removeItem(USER_DATA_KEY);
 

@@ -19,6 +19,7 @@
   padding: 0 20px;
   color: #fff;
   font-size: 1.6rem;
+  font-family: "Stylish", serif;
 }
 
 .game-wrapper {
@@ -32,21 +33,23 @@
 .start-game-button,
 .logout-button {
   padding: 1.2rem 3.2rem;
-  background-color: #007bff;
+  background-color: var(--button-bg-color);
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
+  font-family: "Stylish", serif;
   transition: background-color 0.3s ease-in-out;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: var(--button-hover-bg-color);
   }
 }
 
 .user-name {
-  font-size: 2.2rem;
+  font-size: 2.4rem;
+  font-family: "Stylish", serif;
 }
 
 .hidden {
@@ -62,12 +65,14 @@
   background-color: rgba(205, 214, 219, 0.6);;
   gap: 1.6rem;
   max-width: 40rem;
-  font-size: 2rem;
+  font-size: 2.4rem;
   border-radius: 1rem;
   padding: 2rem;
-  font-weight: bold;
   color: #3d3d3d;
   transition: opacity 0.2s ease;
+
+  font-family: "Stylish", serif;
+  font-weight: bold;
 
   p {
     text-align: center;
