@@ -1,14 +1,15 @@
 import './app.scss';
-import LoginForm from './components/view/login-form/login-form';
+import AuthManager from './services/auth-manager';
+import { USER_DATA_KEY } from './models';
 
 class App {
   start() {
-    const login: LoginForm = new LoginForm();
-    document.body.append(login.createLoginForm());
-
-    const userData = localStorage.getItem('userData-dewlar');
+    AuthManager.initialize();
+    const userData = localStorage.getItem(USER_DATA_KEY);
     if (userData !== null) {
-      console.log(JSON.parse(userData));
+      AuthManager.login();
+    } else {
+      AuthManager.logout();
     }
   }
 }

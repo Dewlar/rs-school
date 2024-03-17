@@ -1,6 +1,7 @@
 import './login-form.scss';
 import createElement from '../../../utils/lib';
 import { USER_DATA_KEY } from '../../../models/const';
+import EventBus from '../../../services/event-bus';
 
 export default class LoginForm {
   private readonly firstNameInput: HTMLInputElement;
@@ -29,7 +30,7 @@ export default class LoginForm {
       attrList: { type: 'button', disabled: 'true' },
       textContent: 'Login',
     });
-    this.formWrapper = createElement('div', { classList: ['form-wrapper'] });
+    this.formWrapper = createElement('div', { classList: ['form-wrapper', 'hidden'] });
     this.firstNameErrorMessage = createElement('div', { classList: ['error-messages', 'first-error'] });
     this.lastNameErrorMessage = createElement('div', { classList: ['error-messages', 'first-error'] });
   }
@@ -51,6 +52,9 @@ export default class LoginForm {
     this.formWrapper.append(form);
 
     this.addEventListeners();
+    setTimeout(() => {
+      this.formWrapper.classList.remove('hidden');
+    }, 200);
     return this.formWrapper;
   }
 
@@ -112,6 +116,7 @@ export default class LoginForm {
     this.formWrapper.classList.add('hidden');
     setTimeout(() => {
       this.formWrapper.remove();
-    }, 300);
+      EventBus.publish('login');
+    }, 200);
   }
 }

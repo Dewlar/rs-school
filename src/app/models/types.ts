@@ -10,3 +10,4 @@ interface AttrList {
 }
 
 type ClassList = string[];
+export type Callback = (...args: unknown[]) => void;
