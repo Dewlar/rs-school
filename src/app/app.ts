@@ -1,15 +1,15 @@
 import './app.scss';
-import AuthManager from './services/auth-manager';
+import PageManager from './services/page-manager';
 import { USER_DATA_KEY } from './models';
 
 class App {
   start() {
-    AuthManager.initialize();
+    PageManager.initialize();
     const userData = localStorage.getItem(USER_DATA_KEY);
     if (userData !== null) {
-      AuthManager.login();
+      PageManager.login();
     } else {
-      AuthManager.logout();
+      PageManager.logout();
     }
   }
 }

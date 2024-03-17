@@ -47,7 +47,7 @@ export default class StartScreen {
         greetingWrapper.classList.add('hidden');
         setTimeout(() => {
           greetingWrapper.remove();
-          EventBus.publish('StartGame');
+          EventBus.publish('startGame', this.gameWrapper);
         }, 200);
       });
       greetingWrapper.append(welcome, title, description, button);
