@@ -1,5 +1,5 @@
 import './start-screen.scss';
-import { USER_DATA_KEY } from '../../../models';
+import { USER_DATA_KEY, UserData } from '../../../models';
 import EventBus from '../../../services/event-bus';
 import createElement from '../../../utils/lib';
 
@@ -25,25 +25,53 @@ export default class StartScreen {
   }
 
   public createStartScreen(): HTMLElement {
+    this.gameWrapper.append(this.createGreetingScreen());
     this.wrapper.append(this.header, this.gameWrapper);
     return this.wrapper;
   }
 
+  private createGreetingScreen(): HTMLElement {
+    const greetingWrapper = createElement('div', { classList: ['greeting'] });
+    const userData = this.getUserData();
+    if (userData) {
+      const { firstName, lastName } = userData;
+      const welcome = createElement('p', { classList: ['welcome'], textContent: `Welcome, ${firstName} ${lastName}` });
+      const title = createElement('p', { textContent: 'RSS-Puzzle' });
+      const description = createElement('p', {
+        textContent:
+          'RSS Puzzle is an interactive mini game aimed at enhancing English language skills. The game integrates various levels of difficulty, hint options and a unique puzzle-like experience with artwork',
+      });
+      const button = createElement('button', { classList: ['start-game-button'], textContent: 'Start game' });
+      button.addEventListener('click', () => {
+        console.log('Start game');
+        greetingWrapper.classList.add('hidden');
+        setTimeout(() => {
+          greetingWrapper.remove();
+          EventBus.publish('StartGame');
+        }, 200);
+      });
+      greetingWrapper.append(welcome, title, description, button);
+    } else throw new Error('No user data found in greeting');
+    return greetingWrapper;
+  }
+
+  private getUserData() {
+    const userData: UserData | null = this.localStorageData ? JSON.parse(this.localStorageData) : null;
+    return userData;
+  }
+
   private createHeaderContent(): void {
-    let userData;
+    const userData: UserData | null = this.getUserData();
     const title = createElement('h1', { classList: ['title'], textContent: 'RSS-PUZZLE' });
 
     const userInfo = createElement('div', { classList: ['user-name'] });
-    if (this.localStorageData !== null) {
-      userData = JSON.parse(this.localStorageData);
-    }
 
     if (userData && userData.firstName && userData.lastName) {
       userInfo.textContent = `${userData.firstName} ${userData.lastName}`;
     }
 
-    const logoutButton = createElement('button', { classList: ['logout-button'] });
-    logoutButton.textContent = 'Logout';
+    const logoutButton = createElement('button', { classList: ['logout-button'], textContent: 'Logout' });
+    // logoutButton.textContent = 'Logout';
     logoutButton.addEventListener('click', () => {
       localStorage.removeItem(USER_DATA_KEY);
 

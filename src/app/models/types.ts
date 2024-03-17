@@ -11,3 +11,8 @@ interface AttrList {
 
 type ClassList = string[];
 export type Callback = (...args: unknown[]) => void;
+
+export type UserData = {
+  firstName: string;
+  lastName: string;
+};
