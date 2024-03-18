@@ -1,8 +1,6 @@
 import './game.scss';
 import createElement from '../../../utils/lib';
-import CanvasPuzzle from './game';
-import { PuzzleBoard } from './tmp';
-// import GameBoard from './game';
+import { PuzzleBoard } from './puzzle-board';
 
 export default class GameContainer {
   private readonly gameContainer: HTMLElement;
@@ -32,18 +30,10 @@ export default class GameContainer {
       { textExample: 'She gave pink   to her grandmother' },
     ];
 
-    // const canvas = document.createElement('canvas');
-    // const puzzleBoard = new PuzzleBoard(canvas, wordsExample);
-    // console.log(puzzleBoard);
-    // puzzleBoard.animate();
-    const puzzleBoard = new PuzzleBoard(wordsExample, 700, 500);
-    // const gameBoard = new GameBoard(600, 450);
-    // const canvasElement = gameBoard.getCanvas();
+    const puzzleBoard = new PuzzleBoard(wordsExample, 700, 620);
 
-    const canvasPuzzle = new CanvasPuzzle(200, 200);
-    // const canvasElement = canvasPuzzle.getCanvas();
-    this.gameContainer.append(canvasPuzzle.getCanvas(), puzzleBoard.getCanvas());
-    // this.gameContainer.append(gameBoard.getCanvas());
+    // const canvasPuzzle = new CanvasPuzzle(200, 200);
+    this.gameContainer.append(puzzleBoard.getCanvas());
     return this.gameContainer;
   }
 }

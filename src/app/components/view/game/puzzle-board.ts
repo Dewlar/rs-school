@@ -68,7 +68,7 @@ export class PuzzleItem {
   }
 
   draw(context: CanvasRenderingContext2D): void {
-    const pimplSize = 22;
+    const pimplSize = 15;
     context.save();
     context.beginPath();
     context.moveTo(this.x, this.y);
@@ -108,6 +108,7 @@ export class PuzzleItem {
       };
       context.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, end.x, end.y);
     }
+    context.lineTo(this.x, this.y);
     context.stroke();
     context.clip();
     context.drawImage(
@@ -122,12 +123,13 @@ export class PuzzleItem {
       this.size.h
     );
 
-    context.font = '24px';
+    // context.font = '24px';
+
     const wordWidth = context.measureText(this.word).width;
     const wordOffset = this.left
       ? this.x + (this.size.w - wordWidth) / 2 + pimplSize / 2
       : this.x + (this.size.w - wordWidth) / 2;
-    context.strokeText(this.word, wordOffset, this.y + this.size.h / 2);
+    context.fillText(this.word, wordOffset, this.y + this.size.h / 2);
     context.closePath();
     context.restore();
   }
@@ -174,16 +176,17 @@ export class PuzzleBoard {
     this.canvas.height = height;
     this.ctx.lineWidth = 1;
     this.image = new Image();
-    this.image.src = './assets/276f23b84137a0b964b1.png';
+    // this.image.src = './assets/276f23b84137a0b964b1.png';
+    this.image.src = './assets/images/level1/abbati2.jpg';
     this.scale = 0; // 500 высота области отрисовки
     this.puzzle = [];
 
     this.image.addEventListener('load', () => {
+      const horizontalScale = this.canvas.width / this.image.width;
+      const verticalScale = 500 / this.image.height;
+      this.scale = Math.max(horizontalScale, verticalScale);
+      // this.scale = this.canvas.height / this.image.height;
       let startY = 0;
-      // let row = 1;
-      // let puzzle = [];
-      this.scale = this.canvas.height / this.image.height;
-      console.log('картинка загрузилась', this.scale);
 
       wordsExample.forEach((line) => {
         const lineWords = line.textExample.split(/\s+/gm);
@@ -217,77 +220,144 @@ export class PuzzleBoard {
         startY += puzzleH;
       });
 
-      this.canvas.addEventListener('mousedown', (e) => {
-        const mouse = this.getMouseCoords(this.canvas, e);
-        // Находим элементы, которые находятся под указателем мыши
-        const elementsUnderMouse = this.puzzle.filter((el) =>
-          this.cursorInRect(mouse.x, mouse.y, el.x, el.y, el.size.w, el.size.h)
-        );
+      // this.canvas.addEventListener('mousedown', (e) => {
+      //   const mouse = this.getMouseCoords(e);
+      //   // Находим элементы, которые находятся под указателем мыши
+      //   const elementsUnderMouse = this.puzzle.filter((el) =>
+      //     this.cursorInRect(mouse.x, mouse.y, el.x, el.y, el.size.w, el.size.h)
+      //   );
+      //
+      //   // Если есть элементы под мышью, помечаем только последний из них
+      //   if (elementsUnderMouse.length > 0) {
+      //     const topElement = elementsUnderMouse.at(-1);
+      //     if (topElement === undefined) throw new Error('Element under mouse is undefined');
+      //     topElement.selected = true;
+      //     topElement.offset = this.getOffsetCoords(mouse, topElement);
+      //     this.selectedElement = topElement;
+      //   } else {
+      //     this.puzzle.forEach((el) => {
+      //       const puzzleItem = el;
+      //       puzzleItem.selected = false;
+      //     });
+      //   }
+      // });
+      //
+      // this.canvas.addEventListener('mousemove', (e) => {
+      //   const mouse = this.getMouseCoords(e);
+      //
+      //   const arr = this.puzzle.map((el) => this.cursorInRect(mouse.x, mouse.y, el.x, el.y, el.size.w, el.size.h));
+      //   // !arr.every((el) => !el) ? canvas.classList.add('pointer') : canvas.classList.remove('pointer');
+      //   if (!arr.every((el) => !el)) {
+      //     this.canvas.classList.add('pointer');
+      //   } else {
+      //     this.canvas.classList.remove('pointer');
+      //   }
+      //
+      //   this.puzzle.forEach((el) => {
+      //     const puzzleItem = el;
+      //     if (puzzleItem.selected) {
+      //       if (puzzleItem.offset === null) throw new Error('puzzleItem.offset is null');
+      //       puzzleItem.x = mouse.x - puzzleItem.offset.x;
+      //       puzzleItem.y = mouse.y - puzzleItem.offset.y;
+      //     }
+      //
+      //     if (this.cursorInRect(mouse.x, mouse.y, puzzleItem.x, puzzleItem.y, puzzleItem.size.w, puzzleItem.size.h)) {
+      //       if (!puzzleItem.active) {
+      //         puzzleItem.activate();
+      //       }
+      //     } else {
+      //       puzzleItem.active = false;
+      //     }
+      //   });
+      // });
+      //
+      // this.canvas.addEventListener('mouseup', () => {
+      //   this.puzzle.forEach((e) => {
+      //     if (e.selected) {
+      //       this.animatePuzzleReturnToOriginalPosition(e, e.initialX, e.initialY);
+      //       e.selected = false;
+      //     }
+      //   });
+      // });
 
-        // Если есть элементы под мышью, помечаем только последний из них
-        if (elementsUnderMouse.length > 0) {
-          const topElement = elementsUnderMouse.at(-1);
-          if (topElement === undefined) throw new Error('Element under mouse is undefined');
-          topElement.selected = true;
-          topElement.offset = this.getOffsetCoords(mouse, topElement);
-          this.selectedElement = topElement;
-        } else {
-          this.puzzle.forEach((el) => {
-            const puzzleItem = el;
-            puzzleItem.selected = false;
-          });
-          // this.puzzle.map(function (el) {
-          //   const item = el;
-          //   item.selected = false;
-          //   return item;
-          // });
-        }
-      });
-
-      this.canvas.addEventListener('mousemove', (e) => {
-        const mouse = this.getMouseCoords(this.canvas, e);
-
-        const arr = this.puzzle.map((el) => this.cursorInRect(mouse.x, mouse.y, el.x, el.y, el.size.w, el.size.h));
-        // !arr.every((el) => !el) ? canvas.classList.add('pointer') : canvas.classList.remove('pointer');
-        if (!arr.every((el) => !el)) {
-          this.canvas.classList.add('pointer');
-        } else {
-          this.canvas.classList.remove('pointer');
-        }
-
-        this.puzzle.forEach((el) => {
-          const puzzleItem = el;
-          if (puzzleItem.selected) {
-            if (puzzleItem.offset === null) throw new Error('puzzleItem.offset is null');
-            puzzleItem.x = mouse.x - puzzleItem.offset.x;
-            puzzleItem.y = mouse.y - puzzleItem.offset.y;
-          }
-
-          if (this.cursorInRect(mouse.x, mouse.y, puzzleItem.x, puzzleItem.y, puzzleItem.size.w, puzzleItem.size.h)) {
-            if (!puzzleItem.active) {
-              puzzleItem.activate();
-            }
-          } else {
-            puzzleItem.active = false;
-          }
-        });
-      });
-
-      this.canvas.addEventListener('mouseup', () => {
-        this.puzzle.forEach((e) => {
-          if (e.selected) {
-            this.animatePuzzleReturnToOriginalPosition(e, e.initialX, e.initialY);
-            e.selected = false;
-          }
-        });
-      });
-
+      this.setupCanvas();
+      this.initListeners();
       this.animate();
     });
   }
 
   getCanvas() {
     return this.canvas;
+  }
+
+  initListeners(): void {
+    this.canvas.addEventListener('mousedown', (e) => this.onMouseDown(e));
+    this.canvas.addEventListener('mousemove', (e) => this.onMouseMove(e));
+    this.canvas.addEventListener('mouseup', () => this.onMouseUp());
+  }
+
+  private setupCanvas(): void {
+    this.canvas.style.backgroundColor = 'var(--transparent-bg)';
+    // this.ctx.lineWidth = 1;
+    // this.ctx.textAlign = 'center';
+    this.ctx.textBaseline = 'middle';
+    this.ctx.font = '18px Stylish';
+    this.ctx.fillStyle = 'white';
+  }
+
+  private onMouseDown(event: MouseEvent): void {
+    const mouse = this.getMouseCoords(event);
+    const elementsUnderMouse = this.puzzle.filter((el) =>
+      this.cursorInRect(mouse.x, mouse.y, el.x, el.y, el.size.w, el.size.h)
+    );
+    // Если есть элементы под мышью, помечаем только последний из них
+    if (elementsUnderMouse.length > 0) {
+      const topElement = elementsUnderMouse.at(-1);
+      if (topElement === undefined) throw new Error('Element under mouse is undefined');
+      topElement.selected = true;
+      topElement.offset = this.getOffsetCoords(mouse, topElement);
+      this.selectedElement = topElement;
+    } else {
+      this.puzzle.forEach((el) => {
+        const puzzleItem = el;
+        puzzleItem.selected = false;
+      });
+    }
+  }
+
+  private onMouseMove(event: MouseEvent): void {
+    const mouse = this.getMouseCoords(event);
+
+    const arr = this.puzzle.map((el) => this.cursorInRect(mouse.x, mouse.y, el.x, el.y, el.size.w, el.size.h));
+    if (!arr.every((el) => !el)) {
+      this.canvas.classList.add('pointer');
+    } else {
+      this.canvas.classList.remove('pointer');
+    }
+
+    this.puzzle.forEach((el) => {
+      const puzzleItem = el;
+      if (puzzleItem.selected) {
+        if (puzzleItem.offset === null) throw new Error('puzzleItem.offset is null');
+        puzzleItem.x = mouse.x - puzzleItem.offset.x;
+        puzzleItem.y = mouse.y - puzzleItem.offset.y;
+      }
+
+      if (this.cursorInRect(mouse.x, mouse.y, puzzleItem.x, puzzleItem.y, puzzleItem.size.w, puzzleItem.size.h)) {
+        if (!puzzleItem.active) puzzleItem.activate();
+      } else {
+        puzzleItem.active = false;
+      }
+    });
+  }
+
+  private onMouseUp(/* event: MouseEvent */): void {
+    this.puzzle.forEach((e) => {
+      if (e.selected) {
+        this.animatePuzzleReturnToOriginalPosition(e, e.initialX, e.initialY);
+        e.selected = false;
+      }
+    });
   }
 
   animate(): void {
@@ -302,8 +372,8 @@ export class PuzzleBoard {
     window.requestAnimationFrame(() => this.animate());
   }
 
-  getMouseCoords(canvas: HTMLCanvasElement, event: MouseEvent) {
-    const canvasCoords = canvas.getBoundingClientRect();
+  getMouseCoords(event: MouseEvent) {
+    const canvasCoords = this.canvas.getBoundingClientRect();
     return {
       x: event.pageX - canvasCoords.left,
       y: event.pageY - canvasCoords.top,
@@ -347,20 +417,3 @@ export class PuzzleBoard {
     }, fps);
   }
 }
-
-// const wordsExample: WordExample[] = [
-//   { textExample: 'We need to study because we have a test tomorrow' },
-//   { textExample: 'My friend drives an expensive sports car' },
-//   { textExample: 'She gave pink flowers to her grandmother' },
-//   { textExample: 'We need to study because we have a test tomorrow' },
-//   { textExample: 'My friend drives an expensive sports car' },
-//   { textExample: 'She pink flowers to her bb' },
-//   { textExample: 'We need to aa because we have a test tomorrow' },
-//   { textExample: 'My friend drives an expensive sports car' },
-//   { textExample: 'She gave pink flowers to her grandmother' },
-//   { textExample: 'She gave pink   to her grandmother' },
-// ];
-
-// const canvas = document.createElement('canvas');
-// const puzzleBoard = new PuzzleBoard(canvas, wordsExample);
-// console.log(puzzleBoard);
