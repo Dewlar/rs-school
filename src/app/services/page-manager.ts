@@ -2,7 +2,7 @@ import { USER_DATA_KEY } from '../models';
 import EventBus from './event-bus';
 import StartScreen from '../components/view/start-screen/start-screen';
 import LoginForm from '../components/view/login-form/login-form';
-import GameContainer from '../components/view/game/game';
+import GameContainer from '../components/view/game/game-container';
 
 export default class PageManager {
   static initialize(): void {
