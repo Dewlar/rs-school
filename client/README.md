@@ -1,4 +1,4 @@
-# rss-puzzle
+# async-race
 
 Run application:
 
