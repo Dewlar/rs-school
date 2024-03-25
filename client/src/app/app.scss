@@ -1,0 +1,28 @@
+.page-buttons-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  width: 30rem;
+}
+
+.page-button {
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: .8rem 3rem;
+  border: none;
+  border-radius: .5rem;
+  background-color: #fff;
+  cursor: pointer;
+  transition: .2s;
+
+  &:hover {
+    color: #fff;
+    background-color: blueviolet;
+  }
+
+  &.active {
+    color: #fff;
+    background-color: blueviolet;
+  }
+}
