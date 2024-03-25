@@ -1,7 +1,7 @@
 import { ICar } from '../api/interface';
 
 export default class Car {
-  private container: HTMLDivElement;
+  private readonly container: HTMLDivElement;
 
   private title: HTMLHeadingElement;
 
@@ -20,6 +20,11 @@ export default class Car {
     this.id = car.id;
 
     this.data = car;
+    this.createCar();
+  }
+
+  createCar() {
+    this.container.append(this.title);
   }
 
   render() {

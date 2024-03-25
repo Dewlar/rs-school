@@ -57,7 +57,7 @@ export default class Garage {
 
   public render(): HTMLDivElement {
     this.garageView();
-    this.garage.append(this.data.render());
+    this.garage.append(this.data.render(), this.list);
     return this.garage;
   }
 }
