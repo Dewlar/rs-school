@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 html {
   font-size: 10px;
   font-family: "Stylish", serif;
@@ -5,4 +11,5 @@ html {
 
 body {
   background-color: #939393;
+  padding: 0 1rem;
 }

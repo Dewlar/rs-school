@@ -1,0 +1,56 @@
+.car-item {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 1rem;
+  box-shadow: 1px 1px 3px dimgray;
+  padding: .7rem;
+  border-radius: .3rem;
+  row-gap: .7rem;
+
+  h4 {
+    padding: .1rem 1rem;
+    margin-left: 1.5rem;
+    border: 1px solid #000;
+    border-radius: 4px;
+    font-size: 1.6rem;
+    user-select: none;
+  }
+
+  .car-road {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    column-gap: 1rem;
+  }
+
+  .road {
+    border-bottom: 3px dashed dimgray;
+    position: relative;
+    display: flex;
+    width: 92%;
+  }
+
+  .car svg {
+    width: 50px;
+    height: 28px;
+  }
+
+  .car {
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+    bottom: -5px
+  }
+
+  .finish svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .finish {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    right: 35px;
+  }
+}
