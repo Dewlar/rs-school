@@ -10,3 +10,19 @@ export interface GarageData {
   items: ICar[];
   count: string | null;
 }
+
+export interface ICreateCar {
+  name: string;
+  color: string;
+}
+
+export interface IEngine {
+  velocity: number;
+  distance: number;
+}
+
+export interface IWinners {
+  id: number;
+  wins: number;
+  time: number;
+}

@@ -1,5 +1,5 @@
 import './garage.scss';
-import { getCars } from '../api/garageApi';
+import { getCars } from '../api/api';
 import GarageDataCounter from './garageDataCounter';
 
 export default class Garage {
