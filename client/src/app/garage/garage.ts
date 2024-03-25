@@ -2,6 +2,7 @@ import './garage.scss';
 import { getCars } from '../api/api';
 import GarageDataCounter from './garageDataCounter';
 import Car from '../car/car';
+import ModalWinner from './modal';
 
 export default class Garage {
   private readonly garage: HTMLDivElement;
@@ -12,9 +13,11 @@ export default class Garage {
 
   private count: number;
 
-  private list: HTMLDivElement;
+  private readonly list: HTMLDivElement;
 
   private cars: Car[];
+
+  private readonly modalWinner: ModalWinner;
 
   constructor() {
     this.garage = document.createElement('div');
@@ -27,6 +30,7 @@ export default class Garage {
     this.cars = [];
 
     this.renderList();
+    this.modalWinner = new ModalWinner();
   }
 
   private async renderList(id?: number): Promise<void> {
@@ -39,12 +43,34 @@ export default class Garage {
     if (this.cars.length < 7) {
       carsOnPage.items.forEach((item) => {
         if (!carsId.includes(item.id)) {
-          this.cars.push(new Car(item, this.renderList.bind(this)));
+          this.cars.push(
+            new Car(
+              item,
+              this.renderList.bind(this),
+              this.checkRaceReset.bind(this),
+              this.modalWinner,
+              this.poorRun.bind(this)
+            )
+          );
         }
       });
       this.list.innerHTML = '';
       this.cars.forEach((car) => this.list.append(car.render()));
     }
+  }
+
+  private async checkRaceReset(): Promise<void> {
+    if (!this.modalWinner.state.race) {
+      // console.log('checkRaceReset');
+    }
+  }
+
+  private poorRun(): void {
+    const arr = this.cars.filter((el) => el.state.check);
+    if (arr.length === 0) {
+      this.modalWinner.setState = false;
+    }
+    // console.log('bad-race', arr);
   }
 
   private async garageView(): Promise<void> {
@@ -57,7 +83,7 @@ export default class Garage {
 
   public render(): HTMLDivElement {
     this.garageView();
-    this.garage.append(this.data.render(), this.list);
+    this.garage.append(this.modalWinner.render(), this.data.render(), this.list);
     return this.garage;
   }
 }
