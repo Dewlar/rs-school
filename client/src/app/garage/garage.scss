@@ -1,0 +1,17 @@
+.garage-data-counter {
+  display: flex;
+  justify-content: flex-start;
+  gap: 3rem;
+  margin-top: 1rem;
+  padding: .3rem;
+  width: 45rem;
+  font-size: 1.6rem;
+
+  p {
+    padding: .8rem 2.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 4px;
+    color: #000;
+    font-weight: bold;
+  }
+}
