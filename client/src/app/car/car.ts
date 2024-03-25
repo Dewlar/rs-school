@@ -39,7 +39,7 @@ export default class Car {
     this.select = new Button('select');
 
     this.carRoad = new CarRoad(car.color);
-    this.renderList = renderList;
+    // this.renderList = renderList;
     this.state = {
       stateCar: 'stopped',
       distance: 0,
@@ -47,8 +47,8 @@ export default class Car {
       check: false,
       btnStop: true,
     };
-    this.checkRace = checkRace;
-    this.poorRun = poorRun;
+    // this.checkRace = checkRace;
+    // this.poorRun = poorRun;
 
     this.data = car;
     this.createCar();
@@ -60,15 +60,15 @@ export default class Car {
     this.state.check = true;
     this.state.btnStop = true;
     this.carRoad.getStartStopButton.start.disabled();
+    this.carRoad.getStartStopButton.stop.enabled();
     const carStatus = await engineStatus(this.id, 'started');
     this.state.stateCar = 'started';
-    this.carRoad.getStartStopButton.stop.enabled();
     // const car: this = this;
     const drive = driveMode(this.id);
     this.state.bool = true;
     const animate = async () => {
       this.checkRace();
-      console.log(carStatus.velocity);
+      // console.log(carStatus.velocity);
       this.state.distance += carStatus.velocity / calculateVelocity(finish);
       this.carRoad.getNode.car.style.left = `${this.state.distance}px`;
       this.checkRaceStart();

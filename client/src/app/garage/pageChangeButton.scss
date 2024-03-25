@@ -1,0 +1,40 @@
+.page-change-button {
+  display: flex;
+  justify-content: start;
+  margin-top: 1rem;
+  gap: 1.75rem;
+
+  .prev:disabled,
+  .next:disabled {
+    background-color: dimgray;
+    color: #fff;
+    transform: scale(0.95);
+    cursor: not-allowed;
+
+    &:hover {
+      background-color: dimgray;
+    }
+  }
+
+  button {
+    font-family: "Stylish", serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: .5rem 1.8rem;
+    border: 0;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: .3s;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+    &.next:hover,
+    &.prev:hover {
+      background-color: blueviolet;
+      color: #fff;
+    }
+  }
+}
