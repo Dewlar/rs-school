@@ -14,7 +14,7 @@ export default class Car {
 
   public id: number;
 
-  private data: ICar;
+  // private data: ICar;
 
   private carRoad: CarRoad;
 
@@ -35,12 +35,12 @@ export default class Car {
     this.container = document.createElement('div');
     this.container.className = 'car-item';
     this.title = document.createElement('h4');
-    this.title.textContent = car.name;
-    this.id = car.id;
+    this.title.textContent = this.car.name;
+    this.id = this.car.id;
     this.remove = new Button('remove');
     this.select = new Button('select');
 
-    this.carRoad = new CarRoad(car.color);
+    this.carRoad = new CarRoad(this.car.color);
     // this.renderList = renderList;
     this.state = {
       stateCar: 'stopped',
@@ -52,7 +52,7 @@ export default class Car {
     // this.checkRace = checkRace;
     // this.poorRun = poorRun;
 
-    this.data = car;
+    // this.car = car;
     this.createCar();
   }
 
@@ -76,7 +76,7 @@ export default class Car {
       this.checkRaceStart();
       if (this.state.distance < finish - 50 && this.state.bool && this.state.stateCar === 'started') {
         if (this.state.distance > finish - 55) {
-          this.winner.viewWinner(this.data, carStatus.velocity);
+          this.winner.viewWinner(this.car, carStatus.velocity);
           this.winner.setState = false;
         }
         requestAnimationFrame(animate);
@@ -140,8 +140,8 @@ export default class Car {
   selectBtn() {
     this.update.enable();
     this.update.carBuilderPanelElements.name.focus();
-    this.update.carBuilderPanelElements.name.value = this.data.name;
-    this.update.carBuilderPanelElements.color.value = this.data.color;
+    this.update.carBuilderPanelElements.name.value = this.car.name;
+    this.update.carBuilderPanelElements.color.value = this.car.color;
     this.update.getId = this.id;
     this.update.selectedCar.name = this.title;
     this.update.selectedCar.color = this.carRoad.getNode.car;
