@@ -4,6 +4,7 @@ import GarageDataCounter from './garageDataCounter';
 import Car from '../car/car';
 import ModalWinner from './modal';
 import PageChangeButton from './pageChangeButton';
+import ControlPanel from './controlPanel';
 
 export default class Garage {
   private readonly garage: HTMLDivElement;
@@ -22,6 +23,8 @@ export default class Garage {
 
   private prevNextBtn: PageChangeButton;
 
+  private controlPanel: ControlPanel;
+
   constructor() {
     this.garage = document.createElement('div');
     this.garage.className = 'garage';
@@ -32,6 +35,7 @@ export default class Garage {
     this.list.className = 'garage-list';
     this.cars = [];
     this.prevNextBtn = new PageChangeButton();
+    this.controlPanel = new ControlPanel();
 
     this.renderList();
     this.modalWinner = new ModalWinner();
@@ -116,7 +120,13 @@ export default class Garage {
 
   public render(): HTMLDivElement {
     this.garageView();
-    this.garage.append(this.modalWinner.render(), this.data.render(), this.list, this.prevNextBtn.render());
+    this.garage.append(
+      this.modalWinner.render(),
+      this.controlPanel.render(),
+      this.data.render(),
+      this.list,
+      this.prevNextBtn.render()
+    );
     return this.garage;
   }
 }

@@ -13,6 +13,7 @@ export default class ModalWinner {
 
   constructor() {
     this.container = document.createElement('div');
+    // this.container.className = 'modal';
     this.title = document.createElement('h1');
     this.state = { race: false };
     this.winners = [];
