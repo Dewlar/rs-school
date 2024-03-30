@@ -36,7 +36,7 @@ const server = jsonServer.create();
 const router = jsonServer.router(db);
 const middlewares = jsonServer.defaults();
 
-const PORT = 3100;
+const PORT = 3000;
 
 const state = { velocity: {}, blocked: {} };
 

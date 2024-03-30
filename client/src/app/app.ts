@@ -1,5 +1,5 @@
 import './app.scss';
-import Button from './button/button';
+import Button from './components/button';
 import Garage from './garage/garage';
 
 export default class App {

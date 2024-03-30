@@ -1,4 +1,4 @@
-import Button from '../button/button';
+import Button from '../components/button';
 import './pageChangeButton.scss';
 
 export default class PageChangeButton {

@@ -1,7 +1,7 @@
 import './car.scss';
 import { ICar } from '../api/interface';
 import CarRoad from './carRoad';
-import Button from '../button/button';
+import Button from '../components/button';
 import ModalWinner from '../garage/modal';
 import { engineStatus, driveMode, getWinners, deleteCar, deleteWinner } from '../api/api';
 import { calculateVelocity } from '../libs/lib';

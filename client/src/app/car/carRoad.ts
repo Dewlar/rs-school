@@ -1,5 +1,5 @@
 import { svg, svgCar } from './svg/svg';
-import Button from '../button/button';
+import Button from '../components/button';
 
 export default class CarRoad {
   private readonly container: HTMLDivElement;

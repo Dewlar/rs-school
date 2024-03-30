@@ -1,4 +1,4 @@
-export const SERVER_URL = 'http://localhost:3100';
+export const SERVER_URL = 'http://localhost:3000';
 
 export interface ICar {
   id: number;
