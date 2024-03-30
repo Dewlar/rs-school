@@ -55,6 +55,7 @@ export default class Garage {
           this.cars.push(
             new Car(
               item,
+              this.controlPanel.carBuilderPanels.update,
               this.renderList.bind(this),
               this.checkRaceReset.bind(this),
               this.modalWinner,

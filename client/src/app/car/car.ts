@@ -5,6 +5,7 @@ import Button from '../components/button';
 import ModalWinner from '../garage/modal';
 import { engineStatus, driveMode, getWinners, deleteCar, deleteWinner } from '../api/api';
 import { calculateVelocity } from '../libs/lib';
+import CarBuilderPanel from '../components/carBuilderPanel';
 
 export default class Car {
   private readonly container: HTMLDivElement;
@@ -25,6 +26,7 @@ export default class Car {
 
   constructor(
     private car: ICar,
+    private update: CarBuilderPanel,
     private renderList: (id?: number) => Promise<void>,
     private checkRace: () => Promise<void>,
     private winner: ModalWinner,
@@ -135,13 +137,21 @@ export default class Car {
     await this.renderList(this.id);
   }
 
-  updateBtn() {}
+  selectBtn() {
+    this.update.enable();
+    this.update.carBuilderPanelElements.name.focus();
+    this.update.carBuilderPanelElements.name.value = this.data.name;
+    this.update.carBuilderPanelElements.color.value = this.data.color;
+    this.update.getId = this.id;
+    this.update.selectedCar.name = this.title;
+    this.update.selectedCar.color = this.carRoad.getNode.car;
+  }
 
   addListeners() {
     this.carRoad.getNode.start.addEventListener('click', () => this.startCar());
     this.carRoad.getNode.stop.addEventListener('click', () => this.stopCar());
     this.remove.node.addEventListener('click', () => this.removeBtn());
-    this.select.node.addEventListener('click', () => this.updateBtn());
+    this.select.node.addEventListener('click', () => this.selectBtn());
   }
 
   createCar() {

@@ -1,5 +1,6 @@
 import CarBuilderPanel from '../components/carBuilderPanel';
-import { createCar } from '../api/api';
+import { createCar, updateCar } from '../api/api';
+import { svgCar } from '../car/svg/svg';
 
 export default class ControlPanel {
   private readonly container: HTMLDivElement;
@@ -31,14 +32,34 @@ export default class ControlPanel {
     }
   }
 
+  private async updateBtn() {
+    await updateCar(this.updateInput.getId, {
+      name: this.updateInput.carBuilderPanelElements.name.value,
+      color: this.updateInput.carBuilderPanelElements.color.value,
+    });
+    if (this.updateInput.selectedCar.color && this.updateInput.selectedCar.name) {
+      this.updateInput.selectedCar.name.textContent = this.updateInput.carBuilderPanelElements.name.value;
+      this.updateInput.selectedCar.color.innerHTML = svgCar(this.updateInput.carBuilderPanelElements.color.value);
+    }
+    this.updateInput.disable();
+  }
+
   addListeners() {
     this.createInput.carBuilderPanelElements.button.addEventListener('click', () => this.createCar());
+    this.updateInput.carBuilderPanelElements.button.addEventListener('click', () => this.updateBtn());
   }
 
   get getNode() {
     return {
       create: this.createInput.carBuilderPanelElements,
       update: this.updateInput.carBuilderPanelElements,
+    };
+  }
+
+  get carBuilderPanels() {
+    return {
+      create: this.createInput,
+      update: this.updateInput,
     };
   }
 
