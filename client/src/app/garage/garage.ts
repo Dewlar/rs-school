@@ -35,7 +35,7 @@ export default class Garage {
     this.list.className = 'garage-list';
     this.cars = [];
     this.prevNextBtn = new PageChangeButton();
-    this.controlPanel = new ControlPanel();
+    this.controlPanel = new ControlPanel(this.renderList.bind(this), this.garageView.bind(this));
 
     this.renderList();
     this.modalWinner = new ModalWinner();
@@ -76,8 +76,8 @@ export default class Garage {
   }
 
   private async pagePrevNext(value: 'next' | 'prev'): Promise<void> {
-    this.prevNextBtn.getButton.prev.disabled();
-    this.prevNextBtn.getButton.next.disabled();
+    this.prevNextBtn.getButton.prev.disable();
+    this.prevNextBtn.getButton.next.disable();
     if (value === 'next') this.page += 1;
     else this.page -= 1;
 
@@ -90,11 +90,11 @@ export default class Garage {
   }
 
   private checkCarsCount(): void {
-    if (this.page <= 1) this.prevNextBtn.getButton.prev.disabled();
-    else this.prevNextBtn.getButton.prev.enabled();
+    if (this.page <= 1) this.prevNextBtn.getButton.prev.disable();
+    else this.prevNextBtn.getButton.prev.enable();
 
-    if (this.count / 7 <= this.page) this.prevNextBtn.getButton.next.disabled();
-    else this.prevNextBtn.getButton.next.enabled();
+    if (this.count / 7 <= this.page) this.prevNextBtn.getButton.next.disable();
+    else this.prevNextBtn.getButton.next.enable();
   }
 
   private poorRun(): void {

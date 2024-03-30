@@ -16,6 +16,7 @@ export default class CarBuilderPanel {
     this.inputCarName = new Input('text');
     this.inputColor = new Input('color');
     this.button = new Button(textBtn);
+    this.setColor();
   }
 
   setColor() {
@@ -27,7 +28,13 @@ export default class CarBuilderPanel {
   disable() {
     this.inputCarName.disable();
     this.inputColor.disable();
-    this.button.disabled();
+    this.button.disable();
+  }
+
+  enable() {
+    this.inputCarName.enable();
+    this.inputColor.enable();
+    this.button.enable();
   }
 
   get carBuilderPanelElements() {

@@ -56,11 +56,11 @@ export default class Car {
 
   async startCar() {
     const finish = this.carRoad.getNode.line.clientWidth;
-    this.remove.disabled();
+    this.remove.disable();
     this.state.check = true;
     this.state.btnStop = true;
-    this.carRoad.getStartStopButton.start.disabled();
-    this.carRoad.getStartStopButton.stop.enabled();
+    this.carRoad.getStartStopButton.start.disable();
+    this.carRoad.getStartStopButton.stop.enable();
     const carStatus = await engineStatus(this.id, 'started');
     this.state.stateCar = 'started';
     // const car: this = this;
@@ -81,10 +81,10 @@ export default class Car {
       }
       if ((await drive).status === 500) {
         this.poorRun();
-        if (this.state.check) this.carRoad.getStartStopButton.stop.enabled();
+        if (this.state.check) this.carRoad.getStartStopButton.stop.enable();
         this.state.bool = false;
         this.state.check = false;
-        this.remove.enabled();
+        this.remove.enable();
       }
     };
 
@@ -94,11 +94,11 @@ export default class Car {
   checkRaceStart() {
     if (this.state.check) {
       if (this.winner.state.race) {
-        this.carRoad.getStartStopButton.stop.disabled();
-        this.remove.disabled();
+        this.carRoad.getStartStopButton.stop.disable();
+        this.remove.disable();
       } else {
-        this.carRoad.getStartStopButton.stop.enabled();
-        this.remove.enabled();
+        this.carRoad.getStartStopButton.stop.enable();
+        this.remove.enable();
         this.state.check = false;
       }
     }
@@ -106,25 +106,25 @@ export default class Car {
 
   async stopCar() {
     this.state.btnStop = false;
-    this.carRoad.getStartStopButton.stop.disabled();
+    this.carRoad.getStartStopButton.stop.disable();
     await engineStatus(this.id, 'stopped');
     this.state.stateCar = 'stopped';
     await this.checkRace();
     this.state.distance = 0;
     this.state.check = false;
     this.state.bool = false;
-    this.carRoad.getStartStopButton.start.enabled();
+    this.carRoad.getStartStopButton.start.enable();
     if (!this.state.btnStop) {
       this.state.distance = 0;
-      this.carRoad.getStartStopButton.stop.disabled();
-      this.carRoad.getStartStopButton.start.enabled();
+      this.carRoad.getStartStopButton.stop.disable();
+      this.carRoad.getStartStopButton.start.enable();
     }
     this.carRoad.getNode.car.style.left = `${this.state.distance}%`;
   }
 
   async removeBtn() {
-    this.remove.disabled();
-    this.select.disabled();
+    this.remove.disable();
+    this.select.disable();
     const arr = await getWinners(1, 'id', 'ASC', 1000);
     const el = arr.result.find((item) => item.id === this.id);
     if (el) {

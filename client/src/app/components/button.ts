@@ -9,11 +9,11 @@ export default class Button {
     }
   }
 
-  disabled() {
+  disable() {
     this.button.disabled = true;
   }
 
-  enabled() {
+  enable() {
     this.button.disabled = false;
   }
 

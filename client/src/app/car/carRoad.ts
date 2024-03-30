@@ -33,7 +33,7 @@ export default class CarRoad {
     this.car.innerHTML = svgCar(color);
     this.finish.className = 'finish';
     this.finish.innerHTML = svg();
-    this.stop.disabled();
+    this.stop.disable();
   }
 
   get getNode() {
