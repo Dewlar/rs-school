@@ -1,4 +1,4 @@
-import { svg, svgCar } from './svg/svg';
+import { svg, /* svgCar, */ svgMoto } from './svg/svg';
 import Button from '../components/button';
 
 export default class CarRoad {
@@ -30,7 +30,7 @@ export default class CarRoad {
     this.container.className = 'car-road';
     this.road.className = 'road';
     this.car.className = 'car';
-    this.car.innerHTML = svgCar(color);
+    this.car.innerHTML = svgMoto(color);
     this.finish.className = 'finish';
     this.finish.innerHTML = svg();
     this.stop.disable();
