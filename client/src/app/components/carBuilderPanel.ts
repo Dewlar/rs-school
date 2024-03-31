@@ -1,5 +1,6 @@
 import Button from './button';
 import Input from './input';
+import { getRandomColor } from '../libs/lib';
 
 export default class CarBuilderPanel {
   private readonly container: HTMLDivElement;
@@ -26,9 +27,8 @@ export default class CarBuilderPanel {
   }
 
   setColor() {
-    const color = `${Math.random().toString(16)}000000`.slice(2, 8);
     this.inputCarName.node.value = '';
-    this.inputColor.node.value = `#${color}`;
+    this.inputColor.node.value = getRandomColor();
   }
 
   disable() {

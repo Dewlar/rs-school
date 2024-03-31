@@ -5,6 +5,7 @@ import Car from '../car/car';
 import ModalWinner from './modal';
 import PageChangeButton from './pageChangeButton';
 import ControlPanel from './controlPanel';
+import { randomCarGenerator } from '../libs/lib';
 
 export default class Garage {
   private readonly garage: HTMLDivElement;
@@ -35,7 +36,7 @@ export default class Garage {
     this.list.className = 'garage-list';
     this.cars = [];
     this.prevNextBtn = new PageChangeButton();
-    this.controlPanel = new ControlPanel(this.renderList.bind(this), this.garageView.bind(this));
+    this.controlPanel = new ControlPanel(this.renderList.bind(this));
 
     this.renderList();
     this.modalWinner = new ModalWinner();
@@ -115,6 +116,24 @@ export default class Garage {
     });
   }
 
+  private async raceReset(): Promise<void> {
+    this.cars.forEach((el) => {
+      if (el.state.btnStop) {
+        el.stopCar();
+      } else {
+        this.controlPanel.carBuilderPanels.buttons.reset.disable();
+      }
+    });
+  }
+
+  private async generatorCars() {
+    this.controlPanel.carBuilderPanels.buttons.generator.disable();
+    await randomCarGenerator();
+    await this.garageView();
+    await this.renderList();
+    this.controlPanel.carBuilderPanels.buttons.generator.enable();
+  }
+
   private async garageView(): Promise<void> {
     const res = await getCars(this.page);
     if (res.count) {
@@ -127,6 +146,8 @@ export default class Garage {
     this.prevNextBtn.getNode.next.addEventListener('click', () => this.pagePrevNext('next'));
     this.prevNextBtn.getNode.prev.addEventListener('click', () => this.pagePrevNext('prev'));
     this.controlPanel.getNode.buttons.getNode.race.addEventListener('click', () => this.raceStart());
+    this.controlPanel.getNode.buttons.getNode.reset.addEventListener('click', () => this.raceReset());
+    this.controlPanel.getNode.buttons.getNode.generator.addEventListener('click', () => this.generatorCars());
   }
 
   public render(): HTMLDivElement {
