@@ -57,6 +57,7 @@ export default class ControlPanel {
     return {
       create: this.createInput.carBuilderPanelElements,
       update: this.updateInput.carBuilderPanelElements,
+      buttons: this.controlButtons,
     };
   }
 
@@ -64,6 +65,7 @@ export default class ControlPanel {
     return {
       create: this.createInput,
       update: this.updateInput,
+      buttons: this.controlButtons.controlButtons,
     };
   }
 

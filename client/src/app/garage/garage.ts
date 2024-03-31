@@ -106,6 +106,15 @@ export default class Garage {
     // console.log('bad-race', arr);
   }
 
+  private async raceStart(): Promise<void> {
+    this.modalWinner.setState = true;
+    this.cars.forEach((car) => {
+      if (!car.state.check) {
+        car.startCar();
+      }
+    });
+  }
+
   private async garageView(): Promise<void> {
     const res = await getCars(this.page);
     if (res.count) {
@@ -117,6 +126,7 @@ export default class Garage {
   private addListeners(): void {
     this.prevNextBtn.getNode.next.addEventListener('click', () => this.pagePrevNext('next'));
     this.prevNextBtn.getNode.prev.addEventListener('click', () => this.pagePrevNext('prev'));
+    this.controlPanel.getNode.buttons.getNode.race.addEventListener('click', () => this.raceStart());
   }
 
   public render(): HTMLDivElement {
