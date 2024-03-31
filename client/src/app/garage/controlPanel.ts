@@ -1,6 +1,7 @@
 import CarBuilderPanel from '../components/carBuilderPanel';
 import { createCar, updateCar } from '../api/api';
-import { svgCar } from '../car/svg/svg';
+import { /* svgCar, */ svgMoto } from '../car/svg/svg';
+import ControlButtons from '../components/controlPanelButtons';
 
 export default class ControlPanel {
   private readonly container: HTMLDivElement;
@@ -8,6 +9,8 @@ export default class ControlPanel {
   private readonly createInput: CarBuilderPanel;
 
   private readonly updateInput: CarBuilderPanel;
+
+  private readonly controlButtons: ControlButtons;
 
   constructor(
     private renderList: (id?: number) => Promise<void>,
@@ -18,6 +21,7 @@ export default class ControlPanel {
     this.createInput = new CarBuilderPanel('create');
     this.updateInput = new CarBuilderPanel('update');
     this.updateInput.disable();
+    this.controlButtons = new ControlButtons();
 
     this.addListeners();
   }
@@ -39,7 +43,7 @@ export default class ControlPanel {
     });
     if (this.updateInput.selectedCar.color && this.updateInput.selectedCar.name) {
       this.updateInput.selectedCar.name.textContent = this.updateInput.carBuilderPanelElements.name.value;
-      this.updateInput.selectedCar.color.innerHTML = svgCar(this.updateInput.carBuilderPanelElements.color.value);
+      this.updateInput.selectedCar.color.innerHTML = svgMoto(this.updateInput.carBuilderPanelElements.color.value);
     }
     this.updateInput.disable();
   }
@@ -64,7 +68,7 @@ export default class ControlPanel {
   }
 
   public render() {
-    this.container.append(this.createInput.render(), this.updateInput.render());
+    this.container.append(this.createInput.render(), this.updateInput.render(), this.controlButtons.render());
     return this.container;
   }
 }
