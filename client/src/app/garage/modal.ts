@@ -22,7 +22,7 @@ export default class ModalWinner {
   public async viewWinner(car: ICar, velocity: number): Promise<void> {
     if (this.state.race) {
       this.removeModal();
-      const speed = +(velocity / 10).toFixed(2);
+      const speed = +(velocity / 27).toFixed(2);
       console.log(speed, velocity);
       this.container.className = 'modal';
       this.title.className = 'modal-title';

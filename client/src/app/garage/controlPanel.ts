@@ -31,6 +31,7 @@ export default class ControlPanel {
         color: this.createInput.carBuilderPanelElements.color.value,
       });
       this.renderList();
+      this.createInput.carBuilderPanelElements.name.value = '';
     }
   }
 
@@ -43,6 +44,7 @@ export default class ControlPanel {
       this.updateInput.selectedCar.name.textContent = this.updateInput.carBuilderPanelElements.name.value;
       this.updateInput.selectedCar.color.innerHTML = svgCar(this.updateInput.carBuilderPanelElements.color.value);
     }
+    this.updateInput.carBuilderPanelElements.name.value = '';
     this.updateInput.disable();
   }
 

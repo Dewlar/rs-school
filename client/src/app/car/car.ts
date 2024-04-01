@@ -74,8 +74,8 @@ export default class Car {
       this.state.distance += carStatus.velocity / calculateVelocity(finish);
       this.carRoad.getNode.car.style.left = `${this.state.distance}px`;
       this.checkRaceStart();
-      if (this.state.distance < finish - 50 && this.state.bool && this.state.stateCar === 'started') {
-        if (this.state.distance > finish - 55) {
+      if (this.state.distance < finish - 48 && this.state.bool && this.state.stateCar === 'started') {
+        if (this.state.distance > finish - 65) {
           this.winner.viewWinner(this.car, carStatus.velocity);
           this.winner.setState = false;
         }

@@ -77,12 +77,12 @@
       transform: scale(1.05);
     }
   }
-  .stop:disabled {
-    transform: scale(0.95);
-    background-color: dimgray;
-    cursor: not-allowed;
-    color: #fff;
-  }
+  //.stop:disabled {
+  //  transform: scale(0.95);
+  //  background-color: dimgray;
+  //  cursor: not-allowed;
+  //  color: #fff;
+  //}
 
   button {
     font-family: "Stylish", serif;
@@ -99,8 +99,18 @@
 
     &:hover {
       background-color: mediumspringgreen;
-      box-shadow: 0 0 0;
       color: #2b2b2b;
+    }
+
+    &:disabled {
+      transform: scale(0.95);
+      background-color: dimgray;
+      cursor: not-allowed;
+      color: #fff;
+
+      &:hover {
+        transform: scale(0.95);
+      }
     }
   }
 }

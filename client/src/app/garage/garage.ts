@@ -73,7 +73,20 @@ export default class Garage {
 
   private async checkRaceReset(): Promise<void> {
     if (!this.modalWinner.state.race) {
-      // console.log('checkRaceReset');
+      const map = this.cars.filter((car) => car.state.stateCar === 'started');
+      if (map.length > 0) {
+        this.controlPanel.carBuilderPanels.buttons.reset.enable();
+        this.controlPanel.carBuilderPanels.buttons.race.disable();
+      } else {
+        this.controlPanel.carBuilderPanels.buttons.reset.disable();
+        this.controlPanel.carBuilderPanels.buttons.race.enable();
+      }
+      this.checkCarsCount();
+    } else {
+      this.controlPanel.carBuilderPanels.buttons.reset.disable();
+      this.controlPanel.carBuilderPanels.buttons.race.disable();
+      this.prevNextBtn.getButton.prev.disable();
+      this.prevNextBtn.getButton.next.disable();
     }
   }
 
@@ -83,9 +96,14 @@ export default class Garage {
     if (value === 'next') this.page += 1;
     else this.page -= 1;
 
-    this.cars.forEach(async (el) => {
-      await el.stopCar();
+    this.cars.forEach(async (car) => {
+      await car.stopCar();
     });
+    // await Promise.all(
+    //   this.cars.map(async (car) => {
+    //     await car.stopCar();
+    //   })
+    // );
     this.cars.length = 0;
     await this.renderList();
     this.checkCarsCount();
@@ -100,8 +118,8 @@ export default class Garage {
   }
 
   private poorRun(): void {
-    const arr = this.cars.filter((el) => el.state.check);
-    if (arr.length === 0) {
+    const cars: Car[] = this.cars.filter((car) => car.state.check);
+    if (cars.length === 0) {
       this.modalWinner.setState = false;
     }
     // console.log('bad-race', arr);
@@ -117,9 +135,9 @@ export default class Garage {
   }
 
   private async raceReset(): Promise<void> {
-    this.cars.forEach((el) => {
-      if (el.state.btnStop) {
-        el.stopCar();
+    this.cars.forEach((car) => {
+      if (car.state.btnStop) {
+        car.stopCar();
       } else {
         this.controlPanel.carBuilderPanels.buttons.reset.disable();
       }
@@ -135,10 +153,10 @@ export default class Garage {
   }
 
   private async garageView(): Promise<void> {
-    const res = await getCars(this.page);
-    if (res.count) {
-      this.data.updateState(this.page, Number(res.count));
-      this.count = Number(res.count);
+    const carsOnPage = await getCars(this.page);
+    if (carsOnPage.count) {
+      this.data.updateState(this.page, Number(carsOnPage.count));
+      this.count = Number(carsOnPage.count);
     }
   }
 
