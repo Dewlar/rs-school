@@ -2,6 +2,7 @@ import CarBuilderPanel from '../components/carBuilderPanel';
 import { createCar, updateCar } from '../api/api';
 import { svgCar /* , svgMoto */ } from '../car/svg/svg';
 import ControlButtons from '../components/controlPanelButtons';
+import './controlPanel.scss';
 
 export default class ControlPanel {
   private readonly container: HTMLDivElement;

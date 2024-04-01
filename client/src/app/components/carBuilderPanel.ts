@@ -1,6 +1,7 @@
 import Button from './button';
 import Input from './input';
 import { getRandomColor } from '../libs/lib';
+import './carBuilderPanel.scss';
 
 export default class CarBuilderPanel {
   private readonly container: HTMLDivElement;
@@ -23,12 +24,14 @@ export default class CarBuilderPanel {
     this.button = new Button(textBtn);
     this.getId = 0;
     this.selectedCar = { name: undefined, color: undefined };
-    this.setColor();
+    this.setAttribute();
   }
 
-  setColor() {
+  setAttribute() {
     this.inputCarName.node.value = '';
     this.inputColor.node.value = getRandomColor();
+    this.inputCarName.node.className = 'input-car-name';
+    this.inputColor.node.className = 'input-color-picker';
   }
 
   disable() {

@@ -1,0 +1,38 @@
+.control-buttons {
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    font-size: 16px;
+    font-weight: 700;
+    font-family: "Stylish", serif;
+    text-transform: uppercase;
+    padding: .5rem 2.5rem;
+    border-radius: 4px;
+    border: none;
+    background: white;
+    color: black;
+    cursor: pointer;
+    transition: .3s;
+
+    &:hover {
+      color: white;
+      background-color: blueviolet;
+      transform: scale(1.05);
+    }
+
+    &:disabled {
+      color: white;
+      background-color: dimgray;
+      transform: scale(1);
+      cursor: not-allowed;
+    }
+  }
+
+  .cars-generator {
+    width: 21rem;
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import { carBrand, carModel } from './carBrand';
 import { createCar } from '../api/api';
+// import carBrand from './carBrand';
 
 export const calculateVelocity = (distance: number): number => {
   if (distance < 325) return 150;

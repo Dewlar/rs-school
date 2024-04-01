@@ -1,4 +1,5 @@
 import Button from './button';
+import './controlPanelButtons.scss';
 
 export default class ControlButtons {
   private readonly container: HTMLDivElement;

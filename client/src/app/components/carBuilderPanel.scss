@@ -1,0 +1,95 @@
+.car-builder-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  button {
+    padding: .3rem 1.5rem;
+    font-size: 1.6rem;
+    font-weight: bold;
+    font-family: "Stylish", serif;
+    text-transform: uppercase;
+    width: 9rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: black;
+    background-color: white;
+    transition: .3s;
+
+    &:hover {
+      color: white;
+      background-color: blueviolet;
+      transform: scale(1.05);
+    }
+  }
+
+  button:disabled,
+  //.input-color-picker:disabled,
+  .input-car-name:disabled {
+    transform: scale(1);
+    box-shadow: none;
+    background-color: dimgray;
+    color: #fff;
+    //transform: scale(0.95);
+    cursor: not-allowed;
+
+    &:hover {
+      background-color: dimgray;
+    }
+
+  }
+}
+
+.input-car-name {
+  font-size: 1.6rem;
+  font-weight: 600;
+  font-family: "Stylish", serif;
+  border-radius: .4rem;
+  width: 25rem;
+  padding: .3rem 1rem;
+  color: #2b2b2b;
+  border: none;
+  outline: none;
+  transition: .2s;
+
+  &:hover {
+    box-shadow: 0 2px 5px blueviolet;
+  }
+}
+
+.input-color-picker {
+  padding: 0;
+  appearance: none;
+  border: none;
+  //border: 2px solid #ccc;
+  //border-radius: 50%;
+  //box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  background-color: transparent;
+  transition: .2s;
+
+  &:hover {
+    border-color: #999;
+  }
+
+  &::-webkit-color-swatch {
+    border-radius: 50%;
+  }
+
+  &::-webkit-color-swatch:hover {
+    transform: scale(1.1);
+  }
+
+  &:disabled {
+    transform: scale(1);
+    cursor: not-allowed;
+  }
+}
+
+.input-color-picker:hover,
+.input-car-name:hover {
+  transform: scale(1.02);
+}
