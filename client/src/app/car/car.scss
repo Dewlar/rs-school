@@ -49,6 +49,23 @@
     bottom: -5px
   }
 
+  .fire {
+    opacity: 0;
+    position: absolute;
+    left: 3.6rem;
+    top: -0;
+    transition: 1s;
+  }
+
+  .smoke {
+    opacity: 0;
+    position: absolute;
+    left: 1rem;
+    top: -1.4rem;
+    transform: rotate(-25deg);
+    transition: 1.9s;
+  }
+
   .finish svg {
     width: 30px;
     height: 30px;
@@ -124,7 +141,7 @@
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 600px) {
   .car-item {
     position: relative;
 

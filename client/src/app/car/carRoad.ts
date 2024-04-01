@@ -1,4 +1,4 @@
-import { svg, svgCar /* , svgMoto */ } from './svg/svg';
+import { svg, svgCar, svgFire, svgSmoke /* , svgMoto */ } from './svg/svg';
 import Button from '../components/button';
 
 export default class CarRoad {
@@ -14,7 +14,11 @@ export default class CarRoad {
 
   private readonly stop: Button;
 
-  private btnWrapper: HTMLDivElement;
+  private readonly btnWrapper: HTMLDivElement;
+
+  private readonly fire: HTMLDivElement;
+
+  private smoke: HTMLDivElement;
 
   constructor(private color: string) {
     this.container = document.createElement('div');
@@ -23,6 +27,8 @@ export default class CarRoad {
     this.finish = document.createElement('div');
     this.start = new Button('start', 'start');
     this.stop = new Button('stop', 'stop');
+    this.fire = document.createElement('div');
+    this.smoke = document.createElement('div');
     this.road.append(this.car, this.finish);
 
     this.btnWrapper = document.createElement('div');
@@ -36,10 +42,15 @@ export default class CarRoad {
     this.road.className = 'road';
     this.car.className = 'car';
     this.car.innerHTML = svgCar(this.color);
+    this.car.append(this.fire, this.smoke);
+    this.fire.innerHTML = svgFire();
+    this.smoke.innerHTML = svgSmoke();
     this.finish.className = 'finish';
     this.finish.innerHTML = svg();
     this.stop.disable();
     this.btnWrapper.className = 'start-stop-wrapper';
+    this.fire.className = 'fire';
+    this.smoke.className = 'smoke';
   }
 
   get getNode() {
@@ -48,6 +59,8 @@ export default class CarRoad {
       stop: this.stop.node,
       car: this.car,
       line: this.road,
+      fire: this.fire,
+      smoke: this.smoke,
     };
   }
 

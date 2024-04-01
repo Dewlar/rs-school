@@ -24,7 +24,7 @@ export default class ModalWinner {
       this.addRemoveModalListener();
       this.container.className = 'modal';
       this.title.className = 'modal-title';
-      this.title.textContent = `${car.name} wins! With ${time}s!`;
+      this.title.innerHTML = `${car.name} wins! <br> With ${time}s!`;
       this.container.append(this.title);
       await this.getWinners();
       if (this.winners.includes(car.id)) {

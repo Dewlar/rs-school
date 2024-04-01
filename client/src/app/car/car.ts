@@ -86,6 +86,8 @@ export default class Car {
         this.state.bool = false;
         this.state.check = false;
         this.remove.enable();
+        this.carRoad.getNode.fire.style.opacity = '1';
+        this.carRoad.getNode.smoke.style.opacity = '1';
       }
     };
 
@@ -121,6 +123,8 @@ export default class Car {
       this.carRoad.getButtons.start.enable();
     }
     this.carRoad.getNode.car.style.left = `${this.state.distance}%`;
+    this.carRoad.getNode.fire.style.opacity = '0';
+    this.carRoad.getNode.smoke.style.opacity = '0';
   }
 
   async removeButton() {
