@@ -1,4 +1,6 @@
-export default class GarageDataCounter {
+import './pageDataCounter.scss';
+
+export default class PageDataCounter {
   private readonly pageNumber: HTMLHeadingElement;
 
   private readonly container: HTMLDivElement;
@@ -7,14 +9,14 @@ export default class GarageDataCounter {
 
   constructor() {
     this.container = document.createElement('div');
-    this.container.className = 'garage-data-counter';
+    this.container.className = 'page-data-counter';
     this.pageNumber = document.createElement('p');
     this.carCount = document.createElement('p');
   }
 
-  updateState(page: number, count: number = 0): void {
+  updateState(page: number, countTitle: string, count: number = 0): void {
     this.pageNumber.innerHTML = `Page: ${page}`;
-    this.carCount.innerHTML = `Total cars in garage: ${count}`;
+    this.carCount.innerHTML = `${countTitle}: ${count}`;
   }
 
   render() {

@@ -26,3 +26,6 @@ export interface IWinners {
   wins: number;
   time: number;
 }
+
+export type IOrder = 'ASC' | 'DESC';
+export type ISort = 'id' | 'wins' | 'time';

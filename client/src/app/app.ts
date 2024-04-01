@@ -1,6 +1,7 @@
 import './app.scss';
 import Button from './components/button';
 import Garage from './garage/garage';
+import Winners from './winners/winners';
 
 export default class App {
   private garageButton: Button;
@@ -15,6 +16,8 @@ export default class App {
 
   private garage: Garage;
 
+  private winners: Winners;
+
   constructor() {
     this.main = document.createElement('main');
     this.page = document.createElement('div');
@@ -22,6 +25,7 @@ export default class App {
     this.garageButton = new Button('garage', 'page-button');
     this.winnerButton = new Button('winners', 'page-button');
     this.garage = new Garage();
+    this.winners = new Winners();
   }
 
   addBtnListeners() {
@@ -38,6 +42,7 @@ export default class App {
 
   private renderWinner() {
     this.main.innerHTML = '';
+    this.main.append(this.winners.render());
     this.winnerButton.node.classList.add('active');
     this.garageButton.node.classList.remove('active');
   }

@@ -1,7 +1,7 @@
-import Button from '../components/button';
-import './pageChangeButton.scss';
+import Button from './button';
+import './paginationButton.scss';
 
-export default class PageChangeButton {
+export default class PaginationButton {
   private readonly prev: Button;
 
   private readonly next: Button;
@@ -10,7 +10,7 @@ export default class PageChangeButton {
 
   constructor() {
     this.container = document.createElement('div');
-    this.container.className = 'page-change-button';
+    this.container.className = 'pagination';
     this.prev = new Button('prev', 'prev');
     this.next = new Button('next', 'next');
   }

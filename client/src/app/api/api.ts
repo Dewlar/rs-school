@@ -1,4 +1,4 @@
-import { ICar, GarageData, SERVER_URL, ICreateCar, IEngine, IWinners } from './interface';
+import { GarageData, ICar, ICreateCar, IEngine, IOrder, ISort, IWinners, SERVER_URL } from './interface';
 
 const garage = `${SERVER_URL}/garage`;
 const engine = `${SERVER_URL}/engine`;
@@ -33,8 +33,7 @@ export const createCar = async (param: ICreateCar): Promise<ICar> => {
       },
       body: JSON.stringify(param),
     });
-    const car: ICar = await response.json();
-    return car;
+    return await response.json();
   } catch (error) {
     if (error instanceof Error) {
       throw new Error(`Failed to create car: ${error.message}`);
@@ -67,8 +66,7 @@ export const updateCar = async (id: number, param: ICreateCar): Promise<ICar> =>
       },
       body: JSON.stringify(param),
     });
-    const car: ICar = await response.json();
-    return car;
+    return await response.json();
   } catch (error) {
     if (error instanceof Error) {
       throw new Error(`Failed to update car: ${error.message}`);
@@ -96,10 +94,9 @@ export const engineStatus = async (id: number, status: 'started' | 'stopped'): P
 
 export const driveMode = async (id: number): Promise<Response> => {
   try {
-    const response = await fetch(`${engine}?id=${id}&status=drive`, {
+    return await fetch(`${engine}?id=${id}&status=drive`, {
       method: 'PATCH',
     });
-    return response;
   } catch (error) {
     if (error instanceof Error) {
       throw new Error(`Failed to update drive state: ${error.message}`);
@@ -111,8 +108,8 @@ export const driveMode = async (id: number): Promise<Response> => {
 
 export const getWinners = async (
   page: number,
-  sort: 'id' | 'wins' | 'time' = 'time',
-  order: 'ASC' | 'DESC' = 'ASC',
+  sort: ISort = 'time',
+  order: IOrder = 'ASC',
   limit = 10
 ): Promise<{ result: Array<IWinners>; totalCount: string }> => {
   try {
@@ -135,9 +132,7 @@ export const getWinners = async (
 export const getWinner = async (winnerId: number): Promise<IWinners> => {
   try {
     const data = await fetch(`${winners}/${winnerId}`);
-    const res: IWinners = await data.json();
-
-    return res;
+    return await data.json();
   } catch (error) {
     if (error instanceof Error) {
       throw new Error(`Failed to fetch/get winner: ${error.message}`);

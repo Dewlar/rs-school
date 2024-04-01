@@ -1,9 +1,9 @@
 import './garage.scss';
 import { getCars } from '../api/api';
-import GarageDataCounter from './garageDataCounter';
+import PageDataCounter from '../components/pageDataCounter';
 import Car from '../car/car';
 import ModalWinner from './modal';
-import PageChangeButton from './pageChangeButton';
+import PaginationButton from '../components/paginationButton';
 import ControlPanel from './controlPanel';
 import { randomCarGenerator } from '../libs/lib';
 
@@ -12,7 +12,7 @@ export default class Garage {
 
   private page: number;
 
-  private data: GarageDataCounter;
+  private pageDataCounter: PageDataCounter;
 
   private count: number;
 
@@ -22,7 +22,7 @@ export default class Garage {
 
   private readonly modalWinner: ModalWinner;
 
-  private prevNextBtn: PageChangeButton;
+  private paginationButton: PaginationButton;
 
   private controlPanel: ControlPanel;
 
@@ -31,11 +31,11 @@ export default class Garage {
     this.garage.className = 'garage';
     this.page = 1;
     this.count = 0;
-    this.data = new GarageDataCounter();
+    this.pageDataCounter = new PageDataCounter();
     this.list = document.createElement('div');
     this.list.className = 'garage-list';
     this.cars = [];
-    this.prevNextBtn = new PageChangeButton();
+    this.paginationButton = new PaginationButton();
     this.controlPanel = new ControlPanel(this.renderList.bind(this));
 
     this.renderList();
@@ -85,14 +85,14 @@ export default class Garage {
     } else {
       this.controlPanel.carBuilderPanels.buttons.reset.disable();
       this.controlPanel.carBuilderPanels.buttons.race.disable();
-      this.prevNextBtn.getButton.prev.disable();
-      this.prevNextBtn.getButton.next.disable();
+      this.paginationButton.getButton.prev.disable();
+      this.paginationButton.getButton.next.disable();
     }
   }
 
   private async pagePrevNext(value: 'next' | 'prev'): Promise<void> {
-    this.prevNextBtn.getButton.prev.disable();
-    this.prevNextBtn.getButton.next.disable();
+    this.paginationButton.getButton.prev.disable();
+    this.paginationButton.getButton.next.disable();
     if (value === 'next') this.page += 1;
     else this.page -= 1;
 
@@ -110,11 +110,11 @@ export default class Garage {
   }
 
   private checkCarsCount(): void {
-    if (this.page <= 1) this.prevNextBtn.getButton.prev.disable();
-    else this.prevNextBtn.getButton.prev.enable();
+    if (this.page <= 1) this.paginationButton.getButton.prev.disable();
+    else this.paginationButton.getButton.prev.enable();
 
-    if (this.count / 7 <= this.page) this.prevNextBtn.getButton.next.disable();
-    else this.prevNextBtn.getButton.next.enable();
+    if (this.count / 7 <= this.page) this.paginationButton.getButton.next.disable();
+    else this.paginationButton.getButton.next.enable();
   }
 
   private poorRun(): void {
@@ -155,14 +155,14 @@ export default class Garage {
   private async garageView(): Promise<void> {
     const carsOnPage = await getCars(this.page);
     if (carsOnPage.count) {
-      this.data.updateState(this.page, Number(carsOnPage.count));
+      this.pageDataCounter.updateState(this.page, 'Total cars in garage', Number(carsOnPage.count));
       this.count = Number(carsOnPage.count);
     }
   }
 
   private addListeners(): void {
-    this.prevNextBtn.getNode.next.addEventListener('click', () => this.pagePrevNext('next'));
-    this.prevNextBtn.getNode.prev.addEventListener('click', () => this.pagePrevNext('prev'));
+    this.paginationButton.getNode.next.addEventListener('click', () => this.pagePrevNext('next'));
+    this.paginationButton.getNode.prev.addEventListener('click', () => this.pagePrevNext('prev'));
     this.controlPanel.getNode.buttons.getNode.race.addEventListener('click', () => this.raceStart());
     this.controlPanel.getNode.buttons.getNode.reset.addEventListener('click', () => this.raceReset());
     this.controlPanel.getNode.buttons.getNode.generator.addEventListener('click', () => this.generatorCars());
@@ -173,9 +173,9 @@ export default class Garage {
     this.garage.append(
       this.modalWinner.render(),
       this.controlPanel.render(),
-      this.data.render(),
+      this.pageDataCounter.render(),
       this.list,
-      this.prevNextBtn.render()
+      this.paginationButton.render()
     );
     return this.garage;
   }
