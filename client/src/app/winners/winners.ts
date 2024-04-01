@@ -1,9 +1,10 @@
 import { getCars, getWinners } from '../api/api';
-import { GarageData, ICar, IOrder, ISort, IWinners } from '../api/interface';
+import { EOrder, ESort, GarageData, ICar, IOrder, ISort, IWinners } from '../api/interface';
 import { svgCar } from '../car/svg/svg';
 import './winners.scss';
 import PaginationButton from '../components/paginationButton';
 import PageDataCounter from '../components/pageDataCounter';
+import WinnersHeader from './winners-header';
 
 export default class Winners {
   private readonly container: HTMLDivElement;
@@ -22,6 +23,8 @@ export default class Winners {
 
   private pageDataCounter: PageDataCounter;
 
+  header: WinnersHeader;
+
   constructor() {
     this.container = document.createElement('div');
     this.pageWinners = document.createElement('div');
@@ -31,6 +34,7 @@ export default class Winners {
     this.order = 'ASC';
     this.sort = 'id';
     this.page = 1;
+    this.header = new WinnersHeader();
     this.addClass();
     this.addListeners();
   }
@@ -71,6 +75,30 @@ export default class Winners {
   addListeners() {
     this.paginationButton.getNode.next.addEventListener('click', () => this.changePage('next'));
     this.paginationButton.getNode.prev.addEventListener('click', () => this.changePage('prev'));
+    this.header.getNode.wins.addEventListener('click', this.sortWinners(this.header.getNode.wins, ESort.wins));
+    this.header.getNode.time.addEventListener('click', this.sortWinners(this.header.getNode.time, ESort.time));
+  }
+
+  private sortWinners(button: HTMLButtonElement, sortType: ESort) {
+    return () => {
+      this.sort = sortType;
+      const sortButton = button === this.header.getNode.wins ? this.header.getNode.time : this.header.getNode.wins;
+
+      sortButton.classList.remove(EOrder.ASC, EOrder.DESC);
+
+      if (button.className.includes(EOrder.ASC)) {
+        this.order = EOrder.DESC;
+        button.classList.add(EOrder.DESC);
+        button.classList.remove(EOrder.ASC);
+      } else {
+        this.order = EOrder.ASC;
+        button.classList.add(EOrder.ASC);
+        button.classList.remove(EOrder.DESC);
+      }
+
+      sortButton.classList.remove(this.order === EOrder.ASC ? EOrder.DESC : EOrder.ASC);
+      this.createListWinner();
+    };
   }
 
   checkPaginationButtonStatus(count: number) {
@@ -95,7 +123,12 @@ export default class Winners {
 
   render() {
     this.createListWinner();
-    this.pageWinners.append(this.pageDataCounter.render(), this.listWinner, this.paginationButton.render());
+    this.pageWinners.append(
+      this.pageDataCounter.render(),
+      this.header.render(),
+      this.listWinner,
+      this.paginationButton.render()
+    );
     this.container.append(this.pageWinners);
     return this.container;
   }

@@ -1,0 +1,26 @@
+.winner-header {
+  display: flex;
+  align-items: center;
+  font-family: "Stylish", serif;
+  margin-top: 2rem;
+  width: 95vw;
+  max-width: 80rem;
+
+  button {
+    font-family: "Stylish", serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: .3rem 0;
+    border: none;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: .3s;
+
+    &:hover {
+      background-color: blueviolet;
+      color: #fff;
+      transform: scale(1.05);
+    }
+  }
+}

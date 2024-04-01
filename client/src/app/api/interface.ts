@@ -29,3 +29,14 @@ export interface IWinners {
 
 export type IOrder = 'ASC' | 'DESC';
 export type ISort = 'id' | 'wins' | 'time';
+
+export enum EOrder {
+  'ASC' = 'ASC',
+  'DESC' = 'DESC',
+}
+
+export enum ESort {
+  'id' = 'id',
+  'wins' = 'wins',
+  'time' = 'time',
+}
