@@ -19,27 +19,25 @@ export default class ModalWinner {
     this.winners = [];
   }
 
-  public async viewWinner(car: ICar, velocity: number): Promise<void> {
+  public async viewWinner(car: ICar, time: number): Promise<void> {
     if (this.state.race) {
-      this.removeModal();
-      const speed = +(velocity / 27).toFixed(2);
-      // console.log(speed, velocity);
+      this.addRemoveModalListener();
       this.container.className = 'modal';
       this.title.className = 'modal-title';
-      this.title.textContent = `${car.name} wins! With ${speed}s!`;
+      this.title.textContent = `${car.name} wins! With ${time}s!`;
       this.container.append(this.title);
       await this.getWinners();
       if (this.winners.includes(car.id)) {
         const winnerCar = await getWinner(car.id);
         await updateWinner({
           id: car.id,
-          time: winnerCar.time < speed ? winnerCar.time : speed,
+          time: winnerCar.time < time ? winnerCar.time : time,
           wins: (winnerCar.wins += 1),
         });
       } else {
         await createWinner({
           id: car.id,
-          time: speed,
+          time,
           wins: 1,
         });
       }
@@ -52,7 +50,7 @@ export default class ModalWinner {
     this.winners = arr.result.map((winner) => winner.id);
   }
 
-  private removeModal(): void {
+  private addRemoveModalListener(): void {
     this.container.addEventListener('click', () => {
       this.container.className = '';
       this.container.innerHTML = '';

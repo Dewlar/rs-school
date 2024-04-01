@@ -3,10 +3,10 @@ import { createCar } from '../api/api';
 // import carBrand from './carBrand';
 
 export const calculateVelocity = (distance: number): number => {
-  if (distance < 325) return 150;
-  if (distance < 600) return 120;
-  if (distance < 900) return 50;
-  if (distance > 900) return 20;
+  if (distance < 400) return 4;
+  if (distance < 600) return 2.5;
+  if (distance < 900) return 1.5;
+  if (distance > 900) return 1;
   return 0;
 };
 

@@ -100,6 +100,7 @@ export default class Garage {
     this.paginationButton.getButton.prev.disable();
     this.paginationButton.getButton.next.disable();
     if (direction === IDirection.next) this.page += 1;
+    else if (this.page - 1 < 1) return;
     else this.page -= 1;
 
     this.cars.forEach(async (car) => {

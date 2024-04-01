@@ -69,17 +69,16 @@ export default class Car {
     const drive = driveMode(this.id);
     this.state.bool = true;
     const animate = async () => {
-      this.checkRace();
-      // console.log(carStatus.velocity);
-      this.state.distance += carStatus.velocity / calculateVelocity(finish);
+      await this.checkRace();
+      const time = +((finish / carStatus.velocity) * calculateVelocity(finish)).toFixed(2);
+      this.state.distance += carStatus.velocity * (0.016 / calculateVelocity(finish));
       this.carRoad.getNode.car.style.left = `${this.state.distance}px`;
       this.checkRaceStart();
       if (this.state.distance < finish - 48 && this.state.bool && this.state.stateCar === 'started') {
-        if (this.state.distance > finish - 65) {
-          this.winner.viewWinner(this.car, carStatus.velocity);
-          this.winner.setState = false;
-        }
         requestAnimationFrame(animate);
+      } else if (this.state.distance >= finish - 48) {
+        await this.winner.viewWinner(this.car, time);
+        this.winner.setState = false;
       }
       if ((await drive).status === 500) {
         this.brokenRace();
