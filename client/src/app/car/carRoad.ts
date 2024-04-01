@@ -14,23 +14,23 @@ export default class CarRoad {
 
   private readonly stop: Button;
 
-  constructor(color: string) {
+  constructor(private color: string) {
     this.container = document.createElement('div');
     this.road = document.createElement('div');
     this.car = document.createElement('div');
     this.finish = document.createElement('div');
     this.start = new Button('start', 'start');
     this.stop = new Button('stop', 'stop');
-    this.addAttribute(color);
+    this.addAttribute();
     this.road.append(this.car, this.finish);
     this.container.append(this.start.node, this.stop.node, this.road);
   }
 
-  private addAttribute(color: string) {
+  private addAttribute() {
     this.container.className = 'car-road';
     this.road.className = 'road';
     this.car.className = 'car';
-    this.car.innerHTML = svgCar(color);
+    this.car.innerHTML = svgCar(this.color);
     this.finish.className = 'finish';
     this.finish.innerHTML = svg();
     this.stop.disable();
@@ -45,7 +45,7 @@ export default class CarRoad {
     };
   }
 
-  get getStartStopButton() {
+  get getButtons() {
     return {
       start: this.start,
       stop: this.stop,

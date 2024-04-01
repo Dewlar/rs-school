@@ -6,6 +6,7 @@ import ModalWinner from './modal';
 import PaginationButton from '../components/paginationButton';
 import ControlPanel from './controlPanel';
 import { randomCarGenerator } from '../libs/lib';
+import { IDirection } from '../api/interface';
 
 export default class Garage {
   private readonly garage: HTMLDivElement;
@@ -44,8 +45,10 @@ export default class Garage {
   }
 
   private async renderList(id?: number): Promise<void> {
-    this.garageView();
+    await this.garageView();
     const carsOnPage = await getCars(this.page);
+    // console.log(carsOnPage);
+
     const carsId = this.cars.map((el) => el.id);
     if (id) {
       this.cars = this.cars.filter((item) => item.id !== id);
@@ -60,7 +63,7 @@ export default class Garage {
               this.renderList.bind(this),
               this.checkRaceReset.bind(this),
               this.modalWinner,
-              this.poorRun.bind(this)
+              this.brokenRace.bind(this)
             )
           );
         }
@@ -69,12 +72,15 @@ export default class Garage {
       this.cars.forEach((car) => this.list.append(car.render()));
     }
     this.checkCarsCount();
+    if (carsOnPage.items.length === 0) {
+      await this.pagination(IDirection.prev);
+    }
   }
 
   private async checkRaceReset(): Promise<void> {
     if (!this.modalWinner.state.race) {
-      const map = this.cars.filter((car) => car.state.stateCar === 'started');
-      if (map.length > 0) {
+      const carsInRace = this.cars.filter((car) => car.state.stateCar === 'started');
+      if (carsInRace.length > 0) {
         this.controlPanel.carBuilderPanels.buttons.reset.enable();
         this.controlPanel.carBuilderPanels.buttons.race.disable();
       } else {
@@ -90,10 +96,10 @@ export default class Garage {
     }
   }
 
-  private async pagePrevNext(value: 'next' | 'prev'): Promise<void> {
+  private async pagination(direction: IDirection): Promise<void> {
     this.paginationButton.getButton.prev.disable();
     this.paginationButton.getButton.next.disable();
-    if (value === 'next') this.page += 1;
+    if (direction === IDirection.next) this.page += 1;
     else this.page -= 1;
 
     this.cars.forEach(async (car) => {
@@ -117,12 +123,11 @@ export default class Garage {
     else this.paginationButton.getButton.next.enable();
   }
 
-  private poorRun(): void {
+  private brokenRace(): void {
     const cars: Car[] = this.cars.filter((car) => car.state.check);
     if (cars.length === 0) {
       this.modalWinner.setState = false;
     }
-    // console.log('bad-race', arr);
   }
 
   private async raceStart(): Promise<void> {
@@ -144,7 +149,7 @@ export default class Garage {
     });
   }
 
-  private async generatorCars() {
+  private async generatorCars(): Promise<void> {
     this.controlPanel.carBuilderPanels.buttons.generator.disable();
     await randomCarGenerator();
     await this.garageView();
@@ -161,8 +166,8 @@ export default class Garage {
   }
 
   private addListeners(): void {
-    this.paginationButton.getNode.next.addEventListener('click', () => this.pagePrevNext('next'));
-    this.paginationButton.getNode.prev.addEventListener('click', () => this.pagePrevNext('prev'));
+    this.paginationButton.getNode.next.addEventListener('click', () => this.pagination(IDirection.next));
+    this.paginationButton.getNode.prev.addEventListener('click', () => this.pagination(IDirection.prev));
     this.controlPanel.getNode.buttons.getNode.race.addEventListener('click', () => this.raceStart());
     this.controlPanel.getNode.buttons.getNode.reset.addEventListener('click', () => this.raceReset());
     this.controlPanel.getNode.buttons.getNode.generator.addEventListener('click', () => this.generatorCars());

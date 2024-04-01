@@ -14,9 +14,9 @@ export default class PageDataCounter {
     this.carCount = document.createElement('p');
   }
 
-  updateState(page: number, countTitle: string, count: number = 0): void {
+  updateState(page: number, counterTitle: string, count: number = 0): void {
     this.pageNumber.innerHTML = `Page: ${page}`;
-    this.carCount.innerHTML = `${countTitle}: ${count}`;
+    this.carCount.innerHTML = `${counterTitle}: ${count}`;
   }
 
   render() {

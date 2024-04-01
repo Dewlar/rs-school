@@ -16,12 +16,12 @@ export default class CarBuilderPanel {
 
   selectedCar: { name: undefined | HTMLDivElement; color: undefined | HTMLDivElement };
 
-  constructor(textBtn: string) {
+  constructor(private buttonName: string) {
     this.container = document.createElement('div');
     this.container.className = 'car-builder-panel';
     this.inputCarName = new Input('text');
     this.inputColor = new Input('color');
-    this.button = new Button(textBtn);
+    this.button = new Button(this.buttonName);
     this.getId = 0;
     this.selectedCar = { name: undefined, color: undefined };
     this.setAttribute();

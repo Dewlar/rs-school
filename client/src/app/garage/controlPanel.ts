@@ -3,6 +3,7 @@ import { createCar, updateCar } from '../api/api';
 import { svgCar /* , svgMoto */ } from '../car/svg/svg';
 import ControlButtons from '../components/controlPanelButtons';
 import './controlPanel.scss';
+import { getRandomColor } from '../libs/lib';
 
 export default class ControlPanel {
   private readonly container: HTMLDivElement;
@@ -30,8 +31,9 @@ export default class ControlPanel {
         name: this.createInput.carBuilderPanelElements.name.value,
         color: this.createInput.carBuilderPanelElements.color.value,
       });
-      this.renderList();
+      await this.renderList();
       this.createInput.carBuilderPanelElements.name.value = '';
+      this.createInput.carBuilderPanelElements.color.value = getRandomColor();
     }
   }
 

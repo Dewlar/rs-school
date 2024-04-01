@@ -1,12 +1,13 @@
 export default class Button {
   private readonly button: HTMLButtonElement;
 
-  constructor(text: string, className?: string) {
+  constructor(
+    private buttonName: string,
+    private className?: string
+  ) {
     this.button = document.createElement('button');
-    this.addButtonText(text);
-    if (className) {
-      this.addClass(className);
-    }
+    this.addButtonText();
+    this.addClass();
   }
 
   disable() {
@@ -17,12 +18,12 @@ export default class Button {
     this.button.disabled = false;
   }
 
-  private addButtonText(text: string) {
-    this.button.textContent = text;
+  private addButtonText() {
+    this.button.textContent = this.buttonName;
   }
 
-  private addClass(className: string) {
-    this.button.className = className;
+  private addClass() {
+    if (this.className) this.button.className = this.className;
   }
 
   get node() {

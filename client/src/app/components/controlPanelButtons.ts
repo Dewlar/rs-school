@@ -15,6 +15,7 @@ export default class ControlButtons {
     this.container.className = 'control-buttons';
     this.race = new Button('race', 'race');
     this.reset = new Button('reset', 'reset');
+    this.reset.disable();
     this.carsGenerator = new Button('generate 100 models', 'cars-generator');
   }
 

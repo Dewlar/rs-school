@@ -1,5 +1,5 @@
 import './car.scss';
-import { ICar } from '../api/interface';
+import { EOrder, ESort, ICar } from '../api/interface';
 import CarRoad from './carRoad';
 import Button from '../components/button';
 import ModalWinner from '../garage/modal';
@@ -30,11 +30,11 @@ export default class Car {
     private renderList: (id?: number) => Promise<void>,
     private checkRace: () => Promise<void>,
     private winner: ModalWinner,
-    private poorRun: () => void
+    private brokenRace: () => void
   ) {
     this.container = document.createElement('div');
     this.container.className = 'car-item';
-    this.title = document.createElement('h4');
+    this.title = document.createElement('p');
     this.title.textContent = this.car.name;
     this.id = this.car.id;
     this.remove = new Button('remove');
@@ -61,8 +61,8 @@ export default class Car {
     this.remove.disable();
     this.state.check = true;
     this.state.btnStop = true;
-    this.carRoad.getStartStopButton.start.disable();
-    this.carRoad.getStartStopButton.stop.enable();
+    this.carRoad.getButtons.start.disable();
+    this.carRoad.getButtons.stop.enable();
     const carStatus = await engineStatus(this.id, 'started');
     this.state.stateCar = 'started';
     // const car: this = this;
@@ -82,8 +82,8 @@ export default class Car {
         requestAnimationFrame(animate);
       }
       if ((await drive).status === 500) {
-        this.poorRun();
-        if (this.state.check) this.carRoad.getStartStopButton.stop.enable();
+        this.brokenRace();
+        if (this.state.check) this.carRoad.getButtons.stop.enable();
         this.state.bool = false;
         this.state.check = false;
         this.remove.enable();
@@ -96,10 +96,10 @@ export default class Car {
   checkRaceStart() {
     if (this.state.check) {
       if (this.winner.state.race) {
-        this.carRoad.getStartStopButton.stop.disable();
+        this.carRoad.getButtons.stop.disable();
         this.remove.disable();
       } else {
-        this.carRoad.getStartStopButton.stop.enable();
+        this.carRoad.getButtons.stop.enable();
         this.remove.enable();
         this.state.check = false;
       }
@@ -108,28 +108,28 @@ export default class Car {
 
   async stopCar() {
     this.state.btnStop = false;
-    this.carRoad.getStartStopButton.stop.disable();
+    this.carRoad.getButtons.stop.disable();
     await engineStatus(this.id, 'stopped');
     this.state.stateCar = 'stopped';
     await this.checkRace();
     this.state.distance = 0;
     this.state.check = false;
     this.state.bool = false;
-    this.carRoad.getStartStopButton.start.enable();
+    this.carRoad.getButtons.start.enable();
     if (!this.state.btnStop) {
       this.state.distance = 0;
-      this.carRoad.getStartStopButton.stop.disable();
-      this.carRoad.getStartStopButton.start.enable();
+      this.carRoad.getButtons.stop.disable();
+      this.carRoad.getButtons.start.enable();
     }
     this.carRoad.getNode.car.style.left = `${this.state.distance}%`;
   }
 
-  async removeBtn() {
+  async removeButton() {
     this.remove.disable();
     this.select.disable();
-    const arr = await getWinners(1, 'id', 'ASC', 1000);
-    const el = arr.result.find((item) => item.id === this.id);
-    if (el) {
+    const arr = await getWinners(1, ESort.id, EOrder.ASC, 9999);
+    const winners = arr.result.find((winner) => winner.id === this.id);
+    if (winners) {
       await deleteWinner(this.id);
     }
     await this.stopCar();
@@ -137,7 +137,7 @@ export default class Car {
     await this.renderList(this.id);
   }
 
-  selectBtn() {
+  selectButton() {
     this.update.enable();
     this.update.carBuilderPanelElements.name.focus();
     this.update.carBuilderPanelElements.name.value = this.car.name;
@@ -150,8 +150,8 @@ export default class Car {
   addListeners() {
     this.carRoad.getNode.start.addEventListener('click', () => this.startCar());
     this.carRoad.getNode.stop.addEventListener('click', () => this.stopCar());
-    this.remove.node.addEventListener('click', () => this.removeBtn());
-    this.select.node.addEventListener('click', () => this.selectBtn());
+    this.remove.node.addEventListener('click', () => this.removeButton());
+    this.select.node.addEventListener('click', () => this.selectButton());
   }
 
   createCar() {

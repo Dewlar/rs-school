@@ -7,12 +7,13 @@
   border-radius: .3rem;
   row-gap: .7rem;
 
-  h4 {
+  p {
     padding: .1rem 1rem;
     margin-left: 1.5rem;
-    border: 1px solid #000;
+    border: 1px solid black;
     border-radius: 4px;
     font-size: 1.6rem;
+    font-weight: bold;
     user-select: none;
   }
 

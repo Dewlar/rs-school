@@ -1,5 +1,5 @@
 import { createWinner, getWinner, getWinners, updateWinner } from '../api/api';
-import { ICar } from '../api/interface';
+import { EOrder, ESort, ICar } from '../api/interface';
 import './modal.scss';
 
 export default class ModalWinner {
@@ -14,7 +14,7 @@ export default class ModalWinner {
   constructor() {
     this.container = document.createElement('div');
     // this.container.className = 'modal';
-    this.title = document.createElement('h1');
+    this.title = document.createElement('h2');
     this.state = { race: false };
     this.winners = [];
   }
@@ -23,7 +23,7 @@ export default class ModalWinner {
     if (this.state.race) {
       this.removeModal();
       const speed = +(velocity / 27).toFixed(2);
-      console.log(speed, velocity);
+      // console.log(speed, velocity);
       this.container.className = 'modal';
       this.title.className = 'modal-title';
       this.title.textContent = `${car.name} wins! With ${speed}s!`;
@@ -48,8 +48,8 @@ export default class ModalWinner {
   }
 
   private async getWinners(): Promise<void> {
-    const arr = await getWinners(1, 'id', 'ASC', 1000);
-    this.winners = arr.result.map((el) => el.id);
+    const arr = await getWinners(1, ESort.id, EOrder.ASC, 1000);
+    this.winners = arr.result.map((winner) => winner.id);
   }
 
   private removeModal(): void {

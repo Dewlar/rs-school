@@ -1,5 +1,5 @@
 import { getCars, getWinners } from '../api/api';
-import { EOrder, ESort, GarageData, ICar, IOrder, ISort, IWinners } from '../api/interface';
+import { EOrder, ESort, GarageData, ICar, IDirection, IOrder, ISort, IWinners } from '../api/interface';
 import { svgCar } from '../car/svg/svg';
 import './winners.scss';
 import PaginationButton from '../components/paginationButton';
@@ -31,8 +31,8 @@ export default class Winners {
     this.listWinner = document.createElement('div');
     this.paginationButton = new PaginationButton();
     this.pageDataCounter = new PageDataCounter();
-    this.order = 'ASC';
-    this.sort = 'id';
+    this.order = EOrder.ASC;
+    this.sort = ESort.id;
     this.page = 1;
     this.header = new WinnersHeader();
     this.addClass();
@@ -66,15 +66,15 @@ export default class Winners {
     });
   }
 
-  changePage(value: 'next' | 'prev') {
-    if (value === 'next') this.page += 1;
-    if (value === 'prev') this.page -= 1;
+  changePage(value: IDirection) {
+    if (value === IDirection.next) this.page += 1;
+    if (value === IDirection.prev) this.page -= 1;
     this.createListWinner();
   }
 
   addListeners() {
-    this.paginationButton.getNode.next.addEventListener('click', () => this.changePage('next'));
-    this.paginationButton.getNode.prev.addEventListener('click', () => this.changePage('prev'));
+    this.paginationButton.getNode.next.addEventListener('click', () => this.changePage(IDirection.next));
+    this.paginationButton.getNode.prev.addEventListener('click', () => this.changePage(IDirection.prev));
     this.header.getNode.wins.addEventListener('click', this.sortWinners(this.header.getNode.wins, ESort.wins));
     this.header.getNode.time.addEventListener('click', this.sortWinners(this.header.getNode.time, ESort.time));
   }

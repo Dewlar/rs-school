@@ -40,3 +40,8 @@ export enum ESort {
   'wins' = 'wins',
   'time' = 'time',
 }
+
+export enum IDirection {
+  'next' = 'next',
+  'prev' = 'prev',
+}
