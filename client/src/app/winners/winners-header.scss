@@ -13,13 +13,14 @@
     padding: .3rem 0;
     border: none;
     border-radius: 4px;
-    background-color: #fff;
+    background-color: blueviolet;
+    color: white;
     cursor: pointer;
     transition: .3s;
 
     &:hover {
-      background-color: blueviolet;
-      color: #fff;
+      background-color: white;
+      color: black;
       transform: scale(1.05);
     }
   }

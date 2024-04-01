@@ -1,13 +1,15 @@
 .control-buttons {
   display: flex;
   justify-content: space-between;
+  gap: 0.5em;
 
   button {
     font-size: 16px;
     font-weight: 700;
     font-family: "Stylish", serif;
     text-transform: uppercase;
-    padding: .5rem 2.5rem;
+    //padding: .5rem 2.5rem;
+    padding: .5rem 0;
     border-radius: 4px;
     border: none;
     background: white;
@@ -29,8 +31,14 @@
     }
   }
 
+  .race,
+  .reset {
+    flex: 1 1 auto;
+  }
+
   .cars-generator {
-    width: 21rem;
+    flex: 1 1 auto;
+    //width: 21rem;
     &:hover {
       transform: scale(1.02);
     }
