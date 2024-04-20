@@ -7,7 +7,7 @@
     "start": "webpack serve --open --config ./webpack.config.js --env mode=dev",
     "build": "webpack --config ./webpack.config.js --env mode=prod",
     "style": "sass --watch src/scss/style.scss src/scss/style.css",
-    "deploy": "npx gh-pages -d ./dist -e rss-base",
+    "deploy": "npx gh-pages -d ./dist -e fun-chats",
     "prepare": "husky",
     "format": "prettier --write .",
     "ci:format": "prettier --check .",
@@ -66,8 +66,8 @@
     }
   },
   "validate-branch-name": {
-    "pattern": "rss-puzzle",
-    "error": "Branch name must follow the pattern RSS-PZ-XX"
+    "pattern": "rss",
+    "error": "Branch name must follow the pattern rss"
   },
   "prepare": "husky install"
 }
