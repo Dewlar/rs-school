@@ -1,3 +1,19 @@
+:root {
+  --button-bg-color: #9d596b;
+  --button-hover-bg-color: #7e3843;
+  --transparent-bg: rgba(205, 214, 219, 0.5);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
 body {
   background-color: burlywood;
 }
