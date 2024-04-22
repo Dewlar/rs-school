@@ -1,4 +1,5 @@
 import Header from './header';
+import Footer from './footer';
 import './chat.scss';
 
 export default class Chat {
@@ -8,10 +9,13 @@ export default class Chat {
 
   private header: Header;
 
+  private footer: Footer;
+
   constructor() {
     this.container = document.createElement('div');
     this.chat = document.createElement('div');
     this.header = new Header();
+    this.footer = new Footer();
     this.setAttribute();
   }
 
@@ -29,7 +33,7 @@ export default class Chat {
   }
 
   render(userName: string) {
-    this.chat.append(this.header.render(userName));
+    this.chat.append(this.header.render(userName), this.footer.render());
     this.container.append(this.chat);
     return this.container;
   }
