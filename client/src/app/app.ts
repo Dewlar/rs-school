@@ -2,6 +2,7 @@ import User from './user';
 import WebSocketManager from './webSocket-manager';
 import { USER_STORAGE_DATA_KEY } from './models/const';
 import LoginForm from './login/login';
+import Chat from './chat/chat';
 
 export default class ChatApp {
   private currentUser: User | null;
@@ -14,19 +15,29 @@ export default class ChatApp {
 
   private loginForm: LoginForm;
 
+  private chat: Chat;
+
+  private user: User;
+
   constructor() {
     this.loginForm = new LoginForm();
     this.currentUser = null;
     this.sendTo = null;
     this.websocketManager = new WebSocketManager('ws://localhost:4000');
     this.sessionStorageData = sessionStorage.getItem(USER_STORAGE_DATA_KEY);
+    this.user = new User('', '');
+    this.chat = new Chat();
     this.addEventListeners();
   }
 
   init(): void {
-    console.log('session data', this.sessionStorageData);
+    const { login = '', password = '' } = JSON.parse(this.sessionStorageData ?? '{}');
+    this.user.setLogin(login);
+    this.user.setPassword(password);
     if (!this.sessionStorageData) {
       document.body.append(this.loginForm.render());
+    } else {
+      document.body.append(this.chat.render(this.user.getLogin()));
     }
     this.websocketManager.onOpen(() => {
       console.log('WebSocket opened');
@@ -49,11 +60,11 @@ export default class ChatApp {
 
     sessionStorage.setItem(USER_STORAGE_DATA_KEY, JSON.stringify(userData));
 
-    // this.formWrapper.classList.add('hidden');
-    // setTimeout(() => {
-    //   this.formWrapper.remove();
-    //   EventBus.publish('login');
-    // }, 200);
+    this.loginForm.formElements.container.classList.add('hidden');
+    setTimeout(() => {
+      this.loginForm.formElements.container.remove();
+      document.body.append(this.chat.render(''));
+    }, 200);
   }
 
   updateUsers(userData: string, isLogined: boolean): void {

@@ -1,6 +1,6 @@
 :root {
-  --button-bg-color: #9d596b;
-  --button-hover-bg-color: #7e3843;
+  --button-bg-color: #289bc4;
+  --button-hover-bg-color: #302993;
   --transparent-bg: rgba(205, 214, 219, 0.5);
 }
 
@@ -16,4 +16,10 @@ html {
 
 body {
   background-color: burlywood;
+  font-family: "Stylish", serif;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
 }

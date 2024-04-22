@@ -15,4 +15,12 @@ export default class User {
   getPassword(): string {
     return this.password;
   }
+
+  setLogin(login: string): void {
+    this.login = login;
+  }
+
+  setPassword(password: string): void {
+    this.password = password;
+  }
 }

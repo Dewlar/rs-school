@@ -5,6 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: opacity .3s ease;
 }
 
 .login-form {
@@ -72,7 +73,7 @@ button {
   }
 
   &:disabled {
-    background-color: #ccc;
+    background-color: #b0b0b0;
     cursor: not-allowed;
   }
 }
