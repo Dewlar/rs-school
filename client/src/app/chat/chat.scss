@@ -12,8 +12,16 @@
 .chat-wrapper {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: .8rem;
   max-width: 100rem;
   width: 100%;
   height: 80vh;
+}
+
+.chat-content {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  gap: .8rem;
 }

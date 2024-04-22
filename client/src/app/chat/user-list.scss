@@ -1,0 +1,48 @@
+.user-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: .4rem;
+  padding: .5rem;
+  border-radius: .8rem;
+  border: 1px solid var(--border);
+  max-width: 30rem;
+  width: 100%;
+  font-size: 1.6rem;
+
+  .list {
+    list-style: none;
+    padding: .4rem;
+  }
+}
+
+.list-item {
+  display: flex;
+  gap: .8rem;
+  align-items: center;
+
+  .dot {
+    border-radius: 50%;
+    background-color: red;
+    height: .6rem;
+    width: .6rem;
+  }
+
+  .green {
+    background-color: green;
+  }
+}
+
+.filter {
+  font-size: 2rem;
+  font-family: "Stylish", serif;
+  padding: .4rem 0.8rem;
+  border: 2px solid #ccc;
+  border-radius: 0.7rem;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+
+  &:focus {
+    border-color: #007bff;
+  }
+}
