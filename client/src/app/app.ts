@@ -3,6 +3,7 @@ import WebSocketManager from './webSocket-manager';
 import { USER_STORAGE_DATA_KEY } from './models/const';
 import LoginForm from './login/login';
 import Chat from './chat/chat';
+import About from './about/about';
 
 export default class ChatApp {
   private currentUser: User | null;
@@ -17,7 +18,9 @@ export default class ChatApp {
 
   private chat: Chat;
 
-  private user: User;
+  private readonly user: User;
+
+  private about: About;
 
   constructor() {
     this.loginForm = new LoginForm();
@@ -27,6 +30,7 @@ export default class ChatApp {
     this.sessionStorageData = sessionStorage.getItem(USER_STORAGE_DATA_KEY);
     this.user = new User('', '');
     this.chat = new Chat();
+    this.about = new About();
     this.addEventListeners();
   }
 
@@ -34,7 +38,7 @@ export default class ChatApp {
     const { login = '', password = '' } = JSON.parse(this.sessionStorageData ?? '{}');
     this.user.setLogin(login);
     this.user.setPassword(password);
-    console.log('vvv: ', this.user);
+    // console.log('vvv: ', this.user);
     if (!this.sessionStorageData) {
       document.body.append(this.loginForm.render());
       setTimeout(() => this.loginForm.formElements.container.classList.remove('hidden'), 200);
@@ -50,6 +54,25 @@ export default class ChatApp {
   private addEventListeners(): void {
     this.loginForm.formElements.button.addEventListener('click', this.loginFormSubmit.bind(this));
     this.chat.chatElements.header.buttonLogout.addEventListener('click', this.logoutHandler.bind(this));
+    this.chat.chatElements.header.buttonInfo.addEventListener('click', this.aboutHandler.bind(this));
+    this.about.aboutElements.buttonReturn.addEventListener('click', this.aboutReturnHandler.bind(this));
+  }
+
+  private aboutReturnHandler() {
+    this.about.aboutElements.container.classList.add('hidden');
+    setTimeout(() => {
+      this.about.aboutElements.container.remove();
+      document.body.append(this.chat.render(this.user.getLogin()));
+      // setTimeout(() => this.chat.chatElements.container.classList.remove('hidden'), 200);
+    }, 200);
+  }
+
+  private aboutHandler() {
+    this.chat.chatElements.container.classList.add('hidden');
+    setTimeout(() => {
+      this.chat.chatElements.container.remove();
+      document.body.append(this.about.render());
+    }, 200);
   }
 
   private logoutHandler() {
@@ -59,7 +82,7 @@ export default class ChatApp {
     setTimeout(() => {
       this.chat.chatElements.container.remove();
       document.body.append(this.loginForm.render());
-      setTimeout(() => this.loginForm.formElements.container.classList.remove('hidden'), 200);
+      // setTimeout(() => this.loginForm.formElements.container.classList.remove('hidden'), 200);
     }, 200);
   }
 
@@ -76,7 +99,6 @@ export default class ChatApp {
     setTimeout(() => {
       this.loginForm.formElements.container.remove();
       document.body.append(this.chat.render(this.user.getLogin()));
-      setTimeout(() => this.chat.chatElements.container.classList.remove('hidden'), 200);
     }, 200);
   }
 

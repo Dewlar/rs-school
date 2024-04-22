@@ -35,6 +35,7 @@ export default class Chat {
   render(userName: string) {
     this.chat.append(this.header.render(userName), this.footer.render());
     this.container.append(this.chat);
+    setTimeout(() => this.container.classList.remove('hidden'), 200);
     return this.container;
   }
 }

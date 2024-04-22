@@ -28,6 +28,7 @@ export default class LoginForm {
     this.inputPasswordError = document.createElement('div');
 
     this.button = new Button('Login');
+    this.button.disable();
     this.setAttribute();
     this.addEventListeners();
   }
@@ -128,6 +129,7 @@ export default class LoginForm {
       this.button.node
     );
     this.container.append(this.form);
+    setTimeout(() => this.container.classList.remove('hidden'), 200);
     return this.container;
   }
 }
