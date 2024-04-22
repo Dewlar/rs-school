@@ -1,6 +1,7 @@
 import Header from './header';
 import Footer from './footer';
 import UserList from './user-list';
+import Dialog from './dialog';
 import './chat.scss';
 
 export default class Chat {
@@ -16,6 +17,8 @@ export default class Chat {
 
   private userList: UserList;
 
+  private dialog: Dialog;
+
   constructor() {
     this.container = document.createElement('div');
     this.chat = document.createElement('div');
@@ -23,6 +26,7 @@ export default class Chat {
     this.header = new Header();
     this.footer = new Footer();
     this.userList = new UserList();
+    this.dialog = new Dialog();
     this.setAttribute();
   }
 
@@ -41,7 +45,7 @@ export default class Chat {
   }
 
   render(userName: string) {
-    this.chatContent.append(this.userList.render());
+    this.chatContent.append(this.userList.render(), this.dialog.render());
     this.chat.append(this.header.render(userName), this.chatContent, this.footer.render());
     this.container.append(this.chat);
     setTimeout(() => this.container.classList.remove('hidden'), 200);
