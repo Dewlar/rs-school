@@ -34,10 +34,13 @@ export default class ChatApp {
     const { login = '', password = '' } = JSON.parse(this.sessionStorageData ?? '{}');
     this.user.setLogin(login);
     this.user.setPassword(password);
+    console.log('vvv: ', this.user);
     if (!this.sessionStorageData) {
       document.body.append(this.loginForm.render());
+      setTimeout(() => this.loginForm.formElements.container.classList.remove('hidden'), 200);
     } else {
       document.body.append(this.chat.render(this.user.getLogin()));
+      setTimeout(() => this.chat.chatElements.container.classList.remove('hidden'), 200);
     }
     this.websocketManager.onOpen(() => {
       console.log('WebSocket opened');
@@ -46,24 +49,34 @@ export default class ChatApp {
 
   private addEventListeners(): void {
     this.loginForm.formElements.button.addEventListener('click', this.loginFormSubmit.bind(this));
+    this.chat.chatElements.header.buttonLogout.addEventListener('click', this.logoutHandler.bind(this));
+  }
+
+  private logoutHandler() {
+    sessionStorage.removeItem(USER_STORAGE_DATA_KEY);
+
+    this.chat.chatElements.container.classList.add('hidden');
+    setTimeout(() => {
+      this.chat.chatElements.container.remove();
+      document.body.append(this.loginForm.render());
+      setTimeout(() => this.loginForm.formElements.container.classList.remove('hidden'), 200);
+    }, 200);
   }
 
   private loginFormSubmit(event: Event) {
     event.preventDefault();
-    const login = this.loginForm.formElements.login.value.trim();
-    const password = this.loginForm.formElements.password.value.trim();
+    this.user.setLogin(this.loginForm.formElements.login.value.trim());
+    this.user.setPassword(this.loginForm.formElements.password.value.trim());
 
-    const userData = {
-      login,
-      password,
-    };
-
-    sessionStorage.setItem(USER_STORAGE_DATA_KEY, JSON.stringify(userData));
+    sessionStorage.setItem(USER_STORAGE_DATA_KEY, JSON.stringify(this.user));
 
     this.loginForm.formElements.container.classList.add('hidden');
+    this.loginForm.formElements.login.value = '';
+    this.loginForm.formElements.password.value = '';
     setTimeout(() => {
       this.loginForm.formElements.container.remove();
-      document.body.append(this.chat.render(''));
+      document.body.append(this.chat.render(this.user.getLogin()));
+      setTimeout(() => this.chat.chatElements.container.classList.remove('hidden'), 200);
     }, 200);
   }
 

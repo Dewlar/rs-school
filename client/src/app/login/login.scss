@@ -5,7 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: opacity .3s ease;
+  transition: opacity .2s ease;
 }
 
 .login-form {
@@ -19,12 +19,7 @@
   width: 100%;
   border-radius: 1rem;
   background-color: var(--transparent-bg);
-  transition: opacity 0.2s ease;
-}
-
-.hidden {
-  opacity: 0;
-  pointer-events: none;
+  transition: opacity .2s ease;
 }
 
 input {

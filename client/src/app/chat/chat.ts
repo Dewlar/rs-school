@@ -16,7 +16,8 @@ export default class Chat {
   }
 
   setAttribute() {
-    this.container.className = 'chat-container';
+    this.container.className = 'chat-container hidden';
+    // this.container.classList.add('hidden');
     this.chat.className = 'chat-wrapper';
   }
 

@@ -33,7 +33,8 @@ export default class LoginForm {
   }
 
   setAttribute() {
-    this.container.className = 'login-container';
+    this.container.className = 'login-container hidden';
+    // this.container.classList.add('hidden');
     this.form.className = 'login-form';
     this.inputLogin.node.className = 'login';
     this.inputLogin.node.placeholder = 'Login';
