@@ -35,19 +35,60 @@ export default class ChatApp {
   }
 
   init(): void {
+    this.websocketManager.onOpen(() => {
+      console.log('WebSocket opened');
+      this.loginFormSubmit();
+    });
     const { login = '', password = '' } = JSON.parse(this.sessionStorageData ?? '{}');
     this.user.setLogin(login);
     this.user.setPassword(password);
-    // console.log('vvv: ', this.user);
-    if (!this.sessionStorageData) {
+    console.log('vvv: ', this.user, password);
+    if (!this.user.getPassword()) {
+      // console.log('abc');
       document.body.append(this.loginForm.render());
-      setTimeout(() => this.loginForm.formElements.container.classList.remove('hidden'), 200);
     } else {
       document.body.append(this.chat.render(this.user.getLogin()));
-      setTimeout(() => this.chat.chatElements.container.classList.remove('hidden'), 200);
     }
-    this.websocketManager.onOpen(() => {
-      console.log('WebSocket opened');
+    this.websocketManager.onMessage((e: MessageEvent) => {
+      const { type, payload } = JSON.parse(e.data);
+      console.log('%%%%%', type, payload);
+      switch (type) {
+        case 'USER_LOGIN':
+          console.log('*****', type, payload.user.isLogined);
+          if (payload.user.isLogined) {
+            this.loginUserApply();
+          }
+          break;
+        case 'USER_LOGOUT':
+          console.log('*****', type, payload.user.isLogined);
+          if (!payload.user.isLogined) {
+            this.logoutUserApply();
+          }
+          break;
+        case 'USER_ACTIVE':
+          console.log('*****', type, payload.users);
+          break;
+        case 'USER_INACTIVE':
+          console.log('*****', type, payload.users);
+          break;
+        case 'USER_EXTERNAL_LOGIN':
+          console.log('USER_EXTERNAL_LOGIN!!!', payload.user.login);
+          break;
+        case 'USER_EXTERNAL_LOGOUT':
+          console.log('USER_EXTERNAL_LOGOUT!!!', payload.user.login);
+          break;
+        case 'MSG_SEND':
+          console.log('!!!!!!', payload.message.text);
+          break;
+        case 'MSG_FROM_USER':
+          console.log(payload.messages);
+          break;
+        case 'ERROR':
+          console.log(payload.error);
+          break;
+        default:
+          console.log('Unhandled message type:', type);
+      }
     });
   }
 
@@ -63,7 +104,6 @@ export default class ChatApp {
     setTimeout(() => {
       this.about.aboutElements.container.remove();
       document.body.append(this.chat.render(this.user.getLogin()));
-      // setTimeout(() => this.chat.chatElements.container.classList.remove('hidden'), 200);
     }, 200);
   }
 
@@ -76,23 +116,46 @@ export default class ChatApp {
   }
 
   private logoutHandler() {
+    this.websocketManager.send(
+      JSON.stringify({
+        id: '1',
+        type: 'USER_LOGOUT',
+        payload: { user: this.user },
+      })
+    );
+  }
+
+  private logoutUserApply() {
     sessionStorage.removeItem(USER_STORAGE_DATA_KEY);
 
     this.chat.chatElements.container.classList.add('hidden');
     setTimeout(() => {
       this.chat.chatElements.container.remove();
       document.body.append(this.loginForm.render());
-      // setTimeout(() => this.loginForm.formElements.container.classList.remove('hidden'), 200);
     }, 200);
   }
 
-  private loginFormSubmit(event: Event) {
-    event.preventDefault();
-    this.user.setLogin(this.loginForm.formElements.login.value.trim());
-    this.user.setPassword(this.loginForm.formElements.password.value.trim());
+  private loginFormSubmit(event?: Event) {
+    if (event) event.preventDefault();
+    const loginValue = this.loginForm.formElements.login.value.trim();
+    const passwordValue = this.loginForm.formElements.password.value.trim();
 
+    if (loginValue && passwordValue) {
+      this.user.setLogin(loginValue);
+      this.user.setPassword(passwordValue);
+    }
+
+    this.websocketManager.send(
+      JSON.stringify({
+        id: '1',
+        type: 'USER_LOGIN',
+        payload: { user: this.user },
+      })
+    );
+  }
+
+  private loginUserApply() {
     sessionStorage.setItem(USER_STORAGE_DATA_KEY, JSON.stringify(this.user));
-
     this.loginForm.formElements.container.classList.add('hidden');
     this.loginForm.formElements.login.value = '';
     this.loginForm.formElements.password.value = '';
