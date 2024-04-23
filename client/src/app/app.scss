@@ -1,0 +1,12 @@
+.error-box {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  position: absolute;
+  top: 4%;
+  right: 2%;
+  //height: 100px;
+  //width: 100px;
+  //background-color: white;
+  z-index: 1000;
+}

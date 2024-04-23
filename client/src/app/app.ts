@@ -4,6 +4,8 @@ import { USER_STORAGE_DATA_KEY } from './models/const';
 import LoginForm from './login/login';
 import Chat from './chat/chat';
 import About from './about/about';
+import './app.scss';
+import ErrorMessage from './components/error-message';
 
 export default class ChatApp {
   private currentUser: User | null;
@@ -22,6 +24,8 @@ export default class ChatApp {
 
   private about: About;
 
+  private errorBox: HTMLDivElement;
+
   constructor() {
     this.loginForm = new LoginForm();
     this.currentUser = null;
@@ -32,6 +36,9 @@ export default class ChatApp {
     this.chat = new Chat();
     this.about = new About();
     this.addEventListeners();
+    this.errorBox = document.createElement('div');
+    this.errorBox.className = 'error-box';
+    document.body.append(this.errorBox);
   }
 
   init(): void {
@@ -85,6 +92,7 @@ export default class ChatApp {
           break;
         case 'ERROR':
           console.log(payload.error);
+          this.errorBox.append(new ErrorMessage(payload.error).node);
           break;
         default:
           console.log('Unhandled message type:', type);
