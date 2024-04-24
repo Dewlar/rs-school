@@ -1,0 +1,30 @@
+.message-container {
+  display: flex;
+  width: 100%;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  background-color: #969696;
+  padding: .1rem .5rem;
+
+}
+.message-text{
+  background-color: #d0cdcd;
+}
+
+.message-header {
+  font-size: 1.4rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 .5rem;
+}
+
+.message-footer {
+  font-size: 1.4rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 .5rem;
+}

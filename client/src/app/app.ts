@@ -1,13 +1,14 @@
 import User from './user';
 import WebSocketManager from './webSocket-manager';
-import { USER_STORAGE_DATA_KEY } from './models/const';
+import { getFormatedDate, USER_STORAGE_DATA_KEY } from './models/const';
 import LoginForm from './login/login';
 import Chat from './chat/chat';
 import About from './about/about';
 import './app.scss';
 import ErrorMessage from './components/error-message';
 import UserListItem from './chat/user-list-item';
-import { IUserAuth } from './models/models';
+import { IMessage, IUserAuth } from './models/models';
+import Message from './chat/message';
 
 export default class ChatApp {
   private currentUser: User | null;
@@ -30,6 +31,8 @@ export default class ChatApp {
 
   private usersList: UserListItem[];
 
+  private historyMessages: Message[];
+
   constructor() {
     this.loginForm = new LoginForm();
     this.currentUser = null;
@@ -44,6 +47,7 @@ export default class ChatApp {
     this.errorBox.className = 'error-box';
     document.body.append(this.errorBox);
     this.usersList = [];
+    this.historyMessages = [];
   }
 
   init(): void {
@@ -108,10 +112,25 @@ export default class ChatApp {
           });
           break;
         case 'MSG_SEND':
-          console.log('!!!!!!', payload.message.text);
+          console.log('!!!!!!', payload.message);
+          console.log('!!!!!!!!!! - update-chat');
+          this.createMessage(payload.message);
+          // this.chat.chatElements.dialog.dialog.innerHTML = '';
+          // this.chat.chatElements.dialog.dialog.append(...this.historyMessages.map((msg) => msg.render()));
+          this.updateChat(
+            this.chat.chatElements.dialog.userName.textContent ? this.chat.chatElements.dialog.userName.textContent : ''
+          );
           break;
         case 'MSG_FROM_USER':
-          console.log(payload.messages);
+          console.log(payload.messages[0]);
+          this.historyMessages = [];
+          payload.messages.forEach((msg: IMessage) => this.createMessage(msg));
+          // this.chat.chatElements.dialog.dialog.innerHTML = '';
+          // this.chat.chatElements.dialog.dialog.append(...this.historyMessages.map((msg) => msg.render()));
+          this.updateChat(
+            this.chat.chatElements.dialog.userName.textContent ? this.chat.chatElements.dialog.userName.textContent : ''
+          );
+          // console.log('zaraza', this.chat.chatElements.dialog.userName.textContent);
           break;
         case 'ERROR':
           console.log(payload.error);
@@ -121,6 +140,28 @@ export default class ChatApp {
           console.log('Unhandled message type:', type);
       }
     });
+  }
+
+  private createMessage(msg: IMessage) {
+    const { id, from, datetime, text, status, to } = msg;
+    const message = new Message(
+      id,
+      from,
+      to,
+      getFormatedDate(datetime),
+      text,
+      status.isDelivered,
+      status.isReaded,
+      status.isEdited
+    );
+    if (from === this.user.getLogin()) {
+      message.elements.container.style.justifyContent = 'flex-end';
+      message.elements.message.style.borderRadius = '1rem 0 1rem 1rem';
+    } else {
+      message.elements.container.style.justifyContent = 'flex-start';
+      message.elements.message.style.borderRadius = '0 1rem 1rem 1rem';
+    }
+    this.historyMessages.push(message);
   }
 
   private createUserList(users: IUserAuth[]) {
@@ -139,6 +180,8 @@ export default class ChatApp {
     this.chat.chatElements.header.buttonInfo.addEventListener('click', this.aboutHandler.bind(this));
     this.about.aboutElements.buttonReturn.addEventListener('click', this.aboutReturnHandler.bind(this));
     this.chat.chatElements.userList.filter.addEventListener('input', this.userFilterHandler.bind(this));
+    this.chat.chatElements.dialog.buttonSubmit.node.addEventListener('click', this.sendMessageSubmit.bind(this));
+    this.chat.chatElements.dialog.input.node.addEventListener('keypress', this.sendMessageSubmit.bind(this));
   }
 
   private userFilterHandler() {
@@ -158,6 +201,7 @@ export default class ChatApp {
     setTimeout(() => {
       this.about.aboutElements.container.remove();
       document.body.append(this.chat.render(this.user.getLogin()));
+      this.updateChat('');
     }, 200);
   }
 
@@ -167,6 +211,8 @@ export default class ChatApp {
       this.chat.chatElements.container.remove();
       document.body.append(this.about.render());
     }, 200);
+
+    this.cleanInput();
   }
 
   private logoutHandler() {
@@ -183,6 +229,7 @@ export default class ChatApp {
   private logoutUserApply() {
     sessionStorage.removeItem(USER_STORAGE_DATA_KEY);
     this.chat.chatElements.userList.userList.innerHTML = '';
+    this.updateChat('');
 
     this.chat.chatElements.container.classList.add('hidden');
     setTimeout(() => {
@@ -218,8 +265,9 @@ export default class ChatApp {
     this.websocketManager.send(JSON.stringify({ id: '1', type: 'USER_ACTIVE', payload: null }));
     this.websocketManager.send(JSON.stringify({ id: '1', type: 'USER_INACTIVE', payload: null }));
     this.loginForm.formElements.container.classList.add('hidden');
-    this.loginForm.formElements.login.value = '';
-    this.loginForm.formElements.password.value = '';
+    // this.loginForm.formElements.login.value = '';
+    // this.loginForm.formElements.password.value = '';
+    this.cleanInput();
     setTimeout(() => {
       this.loginForm.formElements.container.remove();
       document.body.append(this.chat.render(this.user.getLogin()));
@@ -237,22 +285,78 @@ export default class ChatApp {
     const target = event.currentTarget as HTMLElement;
     const userLogin = target.getAttribute('data-login');
     console.log('selectUser', userLogin);
-    if (userLogin) this.updateChat(userLogin);
+
+    this.chat.chatElements.dialog.dialog.innerHTML = '';
+    if (userLogin) {
+      this.websocketManager.send(
+        JSON.stringify({
+          id: '1',
+          type: 'MSG_FROM_USER',
+          payload: { user: { login: `${userLogin}` } },
+        })
+      );
+      this.updateChat(userLogin);
+    }
+    this.cleanInput();
   }
 
   private updateChat(userLogin: string): void {
-    console.log(userLogin);
-    const [userNameDialog] = this.usersList.filter((user) => user.elements.userLogin.textContent === userLogin);
-    this.chat.chatElements.dialog.userName.textContent = userLogin;
-    console.log(userNameDialog.elements.isLogined);
-    if (userNameDialog.elements.isLogined) {
-      this.chat.chatElements.dialog.userStatus.textContent = 'online';
-      this.chat.chatElements.dialog.userStatus.style.color = 'green';
+    console.log('update-chat: ', userLogin);
+    if (userLogin) {
+      const [userNameDialog] = this.usersList.filter((user) => user.elements.userLogin.textContent === userLogin);
+      this.chat.chatElements.dialog.userName.textContent = userLogin;
+      console.log(userNameDialog.elements.isLogined);
+      if (userNameDialog.elements.isLogined) {
+        this.chat.chatElements.dialog.userStatus.textContent = 'online';
+        this.chat.chatElements.dialog.userStatus.style.color = 'green';
+      } else {
+        this.chat.chatElements.dialog.userStatus.textContent = 'offline';
+        this.chat.chatElements.dialog.userStatus.style.color = 'red';
+      }
+      this.chat.chatElements.dialog.input.enable();
+      this.chat.chatElements.dialog.buttonSubmit.enable();
+      this.chat.chatElements.dialog.dialog.innerHTML = '';
+      this.chat.chatElements.dialog.dialog.append(...this.historyMessages.map((msg) => msg.render()));
+      this.chat.chatElements.dialog.dialog.scrollTo(0, this.chat.chatElements.dialog.dialog.scrollHeight);
     } else {
-      this.chat.chatElements.dialog.userStatus.textContent = 'offline';
-      this.chat.chatElements.dialog.userStatus.style.color = 'red';
+      this.chat.chatElements.dialog.input.disable();
+      this.chat.chatElements.dialog.buttonSubmit.disable();
+      this.chat.chatElements.dialog.userName.textContent = '';
+      this.chat.chatElements.dialog.userStatus.textContent = '';
+      this.chat.chatElements.dialog.dialog.innerHTML = '';
+      // this.chat.chatElements.dialog.initialMessage.remove();
+      // console.log('чат ощичен');
     }
-    this.chat.chatElements.dialog.input.enable();
-    this.chat.chatElements.dialog.buttonSubmit.enable();
+  }
+
+  private sendMessageHandler() {
+    const message = this.chat.chatElements.dialog.input.node.value;
+    if (message) {
+      console.log(message);
+      this.websocketManager.send(
+        JSON.stringify({
+          id: '1',
+          type: 'MSG_SEND',
+          payload: { message: { to: `${this.chat.chatElements.dialog.userName.textContent}`, text: `${message}` } },
+        })
+      );
+    }
+    // this.updateChat(this.user.getLogin());
+    this.cleanInput();
+  }
+
+  private sendMessageSubmit(event?: KeyboardEvent | MouseEvent) {
+    if (event && event instanceof KeyboardEvent && event.key === 'Enter') {
+      this.sendMessageHandler();
+    }
+    if (event && event instanceof MouseEvent) {
+      this.sendMessageHandler();
+    }
+  }
+
+  private cleanInput() {
+    this.chat.chatElements.dialog.input.node.value = '';
+    this.loginForm.formElements.login.value = '';
+    this.loginForm.formElements.password.value = '';
   }
 }

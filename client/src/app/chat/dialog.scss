@@ -24,9 +24,13 @@
 }
 
 .dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
   padding: .5rem;
   height: 100%;
   border: 1px solid var(--border);
+  overflow-y: scroll;
 }
 
 .dialog-input {

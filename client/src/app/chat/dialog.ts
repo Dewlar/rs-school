@@ -62,11 +62,12 @@ export default class Dialog {
       input: this.input,
       buttonSubmit: this.buttonSubmit,
       dialog: this.dialogContent,
+      initialMessage: this.dialogContentMessage,
     };
   }
 
   render() {
-    this.dialogContent.append(this.dialogContentMessage);
+    // this.dialogContent.append(this.dialogContentMessage);
     this.dialogHeader.append(this.userName, this.userStatus);
     this.dialogInput.append(this.input.node, this.buttonSubmit.node);
     this.container.append(this.dialogHeader, this.dialogContent, this.dialogInput);
