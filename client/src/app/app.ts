@@ -6,6 +6,8 @@ import Chat from './chat/chat';
 import About from './about/about';
 import './app.scss';
 import ErrorMessage from './components/error-message';
+import UserListItem from './chat/user-list-item';
+import { IUserAuth } from './models/models';
 
 export default class ChatApp {
   private currentUser: User | null;
@@ -26,6 +28,8 @@ export default class ChatApp {
 
   private readonly errorBox: HTMLDivElement;
 
+  private usersList: UserListItem[];
+
   constructor() {
     this.loginForm = new LoginForm();
     this.currentUser = null;
@@ -39,6 +43,7 @@ export default class ChatApp {
     this.errorBox = document.createElement('div');
     this.errorBox.className = 'error-box';
     document.body.append(this.errorBox);
+    this.usersList = [];
   }
 
   init(): void {
@@ -58,7 +63,7 @@ export default class ChatApp {
     }
     this.websocketManager.onMessage((e: MessageEvent) => {
       const { type, payload } = JSON.parse(e.data);
-      console.log('%%%%%', type, payload);
+      console.log('connect%%%%%', type, payload);
       switch (type) {
         case 'USER_LOGIN':
           console.log('*****', type, payload.user.isLogined);
@@ -73,16 +78,26 @@ export default class ChatApp {
           }
           break;
         case 'USER_ACTIVE':
-          console.log('*****', type, payload.users);
+          console.log('active*****: ', type, payload.users);
+          this.chat.chatElements.userList.userList.append(...this.createUserList(payload.users));
+          this.usersList.forEach((user) => user.elements.dot.classList.add('green'));
+          // console.log(this.createUserList(payload.users));
           break;
         case 'USER_INACTIVE':
-          console.log('*****', type, payload.users);
+          console.log('inActive*****:', type, payload.users);
+          this.chat.chatElements.userList.userList.append(...this.createUserList(payload.users));
           break;
         case 'USER_EXTERNAL_LOGIN':
           console.log('USER_EXTERNAL_LOGIN!!!', payload.user.login);
+          this.usersList.forEach((user) => {
+            if (user.elements.userLogin.textContent === payload.user.login) user.elements.dot.classList.add('green');
+          });
           break;
         case 'USER_EXTERNAL_LOGOUT':
           console.log('USER_EXTERNAL_LOGOUT!!!', payload.user.login);
+          this.usersList.forEach((user) => {
+            if (user.elements.userLogin.textContent === payload.user.login) user.elements.dot.classList.remove('green');
+          });
           break;
         case 'MSG_SEND':
           console.log('!!!!!!', payload.message.text);
@@ -100,11 +115,26 @@ export default class ChatApp {
     });
   }
 
+  private createUserList(users: IUserAuth[]) {
+    const list = users
+      .filter((user: IUserAuth) => user.login !== this.user.getLogin())
+      .map((user: IUserAuth) => new UserListItem(user.login));
+
+    this.usersList.push(...list);
+
+    return list.map((user) => user.render());
+  }
+
   private addEventListeners(): void {
     this.loginForm.formElements.button.addEventListener('click', this.loginFormSubmit.bind(this));
     this.chat.chatElements.header.buttonLogout.addEventListener('click', this.logoutHandler.bind(this));
     this.chat.chatElements.header.buttonInfo.addEventListener('click', this.aboutHandler.bind(this));
     this.about.aboutElements.buttonReturn.addEventListener('click', this.aboutReturnHandler.bind(this));
+    this.chat.chatElements.userList.filter.addEventListener('input', this.userFilterHandler.bind(this));
+  }
+
+  private userFilterHandler() {
+    console.log(this.chat.chatElements.userList.filter.value);
   }
 
   private aboutReturnHandler() {
@@ -136,6 +166,7 @@ export default class ChatApp {
 
   private logoutUserApply() {
     sessionStorage.removeItem(USER_STORAGE_DATA_KEY);
+    this.chat.chatElements.userList.userList.innerHTML = '';
 
     this.chat.chatElements.container.classList.add('hidden');
     setTimeout(() => {
@@ -168,6 +199,8 @@ export default class ChatApp {
 
   private loginUserApply() {
     sessionStorage.setItem(USER_STORAGE_DATA_KEY, JSON.stringify(this.user));
+    this.websocketManager.send(JSON.stringify({ id: '1', type: 'USER_ACTIVE', payload: null }));
+    this.websocketManager.send(JSON.stringify({ id: '1', type: 'USER_INACTIVE', payload: null }));
     this.loginForm.formElements.container.classList.add('hidden');
     this.loginForm.formElements.login.value = '';
     this.loginForm.formElements.password.value = '';

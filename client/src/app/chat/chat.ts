@@ -40,6 +40,7 @@ export default class Chat {
   get chatElements() {
     return {
       header: this.header.headerElements,
+      userList: this.userList.userListElements,
       container: this.container,
     };
   }

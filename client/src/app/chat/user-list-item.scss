@@ -1,0 +1,16 @@
+.list-item {
+  display: flex;
+  gap: .8rem;
+  align-items: center;
+
+  .dot {
+    border-radius: 50%;
+    background-color: red;
+    height: .6rem;
+    width: .6rem;
+  }
+
+  .green {
+    background-color: green;
+  }
+}
