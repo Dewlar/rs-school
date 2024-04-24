@@ -49,8 +49,8 @@ export default class Dialog {
     this.buttonSubmit.node.className = 'submit-button';
     this.buttonSubmit.disable();
 
-    this.userName.textContent = 'test-user';
-    this.userStatus.textContent = 'в сети';
+    // this.userName.textContent = 'test-user';
+    // this.userStatus.textContent = 'в сети';
     this.userStatus.className = 'user-status';
   }
 
@@ -59,8 +59,8 @@ export default class Dialog {
       container: this.container,
       userName: this.userName,
       userStatus: this.userStatus,
-      input: this.input.node,
-      buttonSubmit: this.buttonSubmit.node,
+      input: this.input,
+      buttonSubmit: this.buttonSubmit,
       dialog: this.dialogContent,
     };
   }

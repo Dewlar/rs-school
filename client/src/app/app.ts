@@ -80,8 +80,8 @@ export default class ChatApp {
         case 'USER_ACTIVE':
           console.log('active*****: ', type, payload.users);
           this.chat.chatElements.userList.userList.append(...this.createUserList(payload.users));
-          this.usersList.forEach((user) => user.elements.dot.classList.add('green'));
-          // console.log(this.createUserList(payload.users));
+          // this.usersList.forEach((user) => user.elements.dot.classList.add('green'));
+          this.usersList.forEach((user) => user.setIsLogined(true));
           break;
         case 'USER_INACTIVE':
           console.log('inActive*****:', type, payload.users);
@@ -90,13 +90,21 @@ export default class ChatApp {
         case 'USER_EXTERNAL_LOGIN':
           console.log('USER_EXTERNAL_LOGIN!!!', payload.user.login);
           this.usersList.forEach((user) => {
-            if (user.elements.userLogin.textContent === payload.user.login) user.elements.dot.classList.add('green');
+            // if (user.elements.userLogin.textContent === payload.user.login) user.elements.dot.classList.add('green');
+            if (user.elements.userLogin.textContent === payload.user.login) user.setIsLogined(true);
+            if (this.chat.chatElements.dialog.userName.textContent === payload.user.login) {
+              this.updateChat(payload.user.login);
+            }
           });
           break;
         case 'USER_EXTERNAL_LOGOUT':
           console.log('USER_EXTERNAL_LOGOUT!!!', payload.user.login);
           this.usersList.forEach((user) => {
-            if (user.elements.userLogin.textContent === payload.user.login) user.elements.dot.classList.remove('green');
+            // if (user.elements.userLogin.textContent === payload.user.login) user.elements.dot.classList.remove('green');
+            if (user.elements.userLogin.textContent === payload.user.login) user.setIsLogined(false);
+            if (this.chat.chatElements.dialog.userName.textContent === payload.user.login) {
+              this.updateChat(payload.user.login);
+            }
           });
           break;
         case 'MSG_SEND':
@@ -118,11 +126,11 @@ export default class ChatApp {
   private createUserList(users: IUserAuth[]) {
     const list = users
       .filter((user: IUserAuth) => user.login !== this.user.getLogin())
-      .map((user: IUserAuth) => new UserListItem(user.login));
+      .map((user: IUserAuth) => new UserListItem(user.login, user.isLogined));
 
     this.usersList.push(...list);
 
-    return list.map((user) => user.render());
+    return this.updateUsersList(list);
   }
 
   private addEventListeners(): void {
@@ -142,7 +150,7 @@ export default class ChatApp {
         : ''
     );
     this.chat.chatElements.userList.userList.innerHTML = '';
-    this.chat.chatElements.userList.userList.append(...updateList.map((user) => user.render()));
+    this.chat.chatElements.userList.userList.append(...this.updateUsersList(updateList));
   }
 
   private aboutReturnHandler() {
@@ -218,19 +226,33 @@ export default class ChatApp {
     }, 200);
   }
 
-  updateUsers(userData: string, isLogined: boolean): void {
-    console.log('Update users', userData, isLogined);
+  private updateUsersList(list: UserListItem[]): HTMLLIElement[] {
+    console.log('Update users', list);
+    const listNode = list.map((user) => user.render());
+    listNode.forEach((userNode) => userNode.addEventListener('click', this.selectUser.bind(this)));
+    return listNode;
   }
 
-  selectElement(query: string): HTMLElement {
-    const element = document.querySelector(query);
-    if (!(element instanceof HTMLElement)) {
-      throw new Error(`Element is not an instance of HTMLElement! ${query}`);
+  private selectUser(event: Event) {
+    const target = event.currentTarget as HTMLElement;
+    const userLogin = target.getAttribute('data-login');
+    console.log('selectUser', userLogin);
+    if (userLogin) this.updateChat(userLogin);
+  }
+
+  private updateChat(userLogin: string): void {
+    console.log(userLogin);
+    const [userNameDialog] = this.usersList.filter((user) => user.elements.userLogin.textContent === userLogin);
+    this.chat.chatElements.dialog.userName.textContent = userLogin;
+    console.log(userNameDialog.elements.isLogined);
+    if (userNameDialog.elements.isLogined) {
+      this.chat.chatElements.dialog.userStatus.textContent = 'online';
+      this.chat.chatElements.dialog.userStatus.style.color = 'green';
+    } else {
+      this.chat.chatElements.dialog.userStatus.textContent = 'offline';
+      this.chat.chatElements.dialog.userStatus.style.color = 'red';
     }
-    return element;
-  }
-
-  updateChat(data: string): void {
-    console.log('updateChat', data);
+    this.chat.chatElements.dialog.input.enable();
+    this.chat.chatElements.dialog.buttonSubmit.enable();
   }
 }

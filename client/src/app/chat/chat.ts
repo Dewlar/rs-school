@@ -41,6 +41,7 @@ export default class Chat {
     return {
       header: this.header.headerElements,
       userList: this.userList.userListElements,
+      dialog: this.dialog.dialogElements,
       container: this.container,
     };
   }
