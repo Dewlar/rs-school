@@ -24,7 +24,7 @@ export default class ChatApp {
 
   private about: About;
 
-  private errorBox: HTMLDivElement;
+  private readonly errorBox: HTMLDivElement;
 
   constructor() {
     this.loginForm = new LoginForm();
@@ -124,6 +124,7 @@ export default class ChatApp {
   }
 
   private logoutHandler() {
+    console.log('logout', this.user);
     this.websocketManager.send(
       JSON.stringify({
         id: '1',
@@ -152,14 +153,17 @@ export default class ChatApp {
       this.user.setLogin(loginValue);
       this.user.setPassword(passwordValue);
     }
+    console.log('loginsubmit', this.user);
 
-    this.websocketManager.send(
-      JSON.stringify({
-        id: '1',
-        type: 'USER_LOGIN',
-        payload: { user: this.user },
-      })
-    );
+    if (this.user.getLogin() && this.user.getPassword()) {
+      this.websocketManager.send(
+        JSON.stringify({
+          id: '1',
+          type: 'USER_LOGIN',
+          payload: { user: this.user },
+        })
+      );
+    }
   }
 
   private loginUserApply() {
