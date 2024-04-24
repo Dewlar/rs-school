@@ -135,6 +135,14 @@ export default class ChatApp {
 
   private userFilterHandler() {
     console.log(this.chat.chatElements.userList.filter.value);
+    const searchString = this.chat.chatElements.userList.filter.value.toLowerCase();
+    const updateList = this.usersList.filter((user) =>
+      user.elements.userLogin.textContent
+        ? user.elements.userLogin.textContent.toLowerCase().includes(searchString)
+        : ''
+    );
+    this.chat.chatElements.userList.userList.innerHTML = '';
+    this.chat.chatElements.userList.userList.append(...updateList.map((user) => user.render()));
   }
 
   private aboutReturnHandler() {
