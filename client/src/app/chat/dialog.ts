@@ -45,7 +45,9 @@ export default class Dialog {
     this.dialogInput.className = 'dialog-input';
     this.input.node.className = 'input';
     this.input.node.placeholder = 'message';
+    this.input.disable();
     this.buttonSubmit.node.className = 'submit-button';
+    this.buttonSubmit.disable();
 
     this.userName.textContent = 'test-user';
     this.userStatus.textContent = 'в сети';

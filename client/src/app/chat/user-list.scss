@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: flex-start;
   gap: .4rem;
-  padding: .5rem;
+  padding: .3rem;
   border-radius: .8rem;
   border: 1px solid var(--border);
   //max-width: 30rem;
@@ -12,8 +12,12 @@
   font-size: 1.6rem;
 
   .list {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: .4rem;
     list-style: none;
-    padding: .4rem;
+    //padding: .4rem;
   }
 }
 
