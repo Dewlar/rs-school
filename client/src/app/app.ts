@@ -58,7 +58,7 @@ export default class ChatApp {
     const { login = '', password = '' } = JSON.parse(this.sessionStorageData ?? '{}');
     this.user.setLogin(login);
     this.user.setPassword(password);
-    console.log('vvv: ', this.user, password);
+    // console.log('vvv: ', this.user, password);
     if (!this.user.getPassword()) {
       // console.log('abc');
       document.body.append(this.loginForm.render());
@@ -67,16 +67,16 @@ export default class ChatApp {
     }
     this.websocketManager.onMessage((e: MessageEvent) => {
       const { type, payload } = JSON.parse(e.data);
-      console.log('connect%%%%%', type, payload);
+      // console.log('connect%%%%%', type, payload);
       switch (type) {
         case 'USER_LOGIN':
-          console.log('*****', type, payload.user.isLogined);
+          // console.log('*****', type, payload.user.isLogined);
           if (payload.user.isLogined) {
             this.loginUserApply();
           }
           break;
         case 'USER_LOGOUT':
-          console.log('*****', type, payload.user.isLogined);
+          // console.log('*****', type, payload.user.isLogined);
           if (!payload.user.isLogined) {
             this.logoutUserApply();
           }
@@ -93,6 +93,12 @@ export default class ChatApp {
           break;
         case 'USER_EXTERNAL_LOGIN':
           console.log('USER_EXTERNAL_LOGIN!!!', payload.user.login);
+          if (this.usersList.findIndex((user) => user.elements.userLogin.textContent === payload.user.login) === -1) {
+            const newUser = new UserListItem(payload.user.login, payload.user.isLogined);
+            this.usersList.push(newUser);
+            this.chat.chatElements.userList.userList.innerHTML = '';
+            this.chat.chatElements.userList.userList.append(...this.updateUsersList(this.usersList));
+          }
           this.usersList.forEach((user) => {
             // if (user.elements.userLogin.textContent === payload.user.login) user.elements.dot.classList.add('green');
             if (user.elements.userLogin.textContent === payload.user.login) user.setIsLogined(true);
@@ -112,8 +118,8 @@ export default class ChatApp {
           });
           break;
         case 'MSG_SEND':
-          console.log('!!!!!!', payload.message);
-          console.log('!!!!!!!!!! - update-chat');
+          // console.log('!!!!!!', payload.message);
+          // console.log('!!!!!!!!!! - update-chat');
           this.createMessage(payload.message);
           // this.chat.chatElements.dialog.dialog.innerHTML = '';
           // this.chat.chatElements.dialog.dialog.append(...this.historyMessages.map((msg) => msg.render()));
@@ -122,22 +128,23 @@ export default class ChatApp {
           );
           break;
         case 'MSG_FROM_USER':
-          console.log(payload.messages[0]);
+          // console.log('message from user: ', payload.messages[0]);
           this.historyMessages = [];
           payload.messages.forEach((msg: IMessage) => this.createMessage(msg));
           // this.chat.chatElements.dialog.dialog.innerHTML = '';
           // this.chat.chatElements.dialog.dialog.append(...this.historyMessages.map((msg) => msg.render()));
+          // this.readMessages();
           this.updateChat(
             this.chat.chatElements.dialog.userName.textContent ? this.chat.chatElements.dialog.userName.textContent : ''
           );
           // console.log('zaraza', this.chat.chatElements.dialog.userName.textContent);
           break;
         case 'ERROR':
-          console.log(payload.error);
+          // console.log(payload.error);
           this.errorBox.append(new ErrorMessage(payload.error).node);
           break;
         default:
-          console.log('Unhandled message type:', type);
+        // console.log('Unhandled message type:', type);
       }
     });
   }
@@ -182,10 +189,12 @@ export default class ChatApp {
     this.chat.chatElements.userList.filter.addEventListener('input', this.userFilterHandler.bind(this));
     this.chat.chatElements.dialog.buttonSubmit.node.addEventListener('click', this.sendMessageSubmit.bind(this));
     this.chat.chatElements.dialog.input.node.addEventListener('keypress', this.sendMessageSubmit.bind(this));
+    this.chat.chatElements.dialog.input.node.addEventListener('click', this.selectUser.bind(this));
+    this.chat.chatElements.dialog.container.addEventListener('click', this.selectUser.bind(this));
   }
 
   private userFilterHandler() {
-    console.log(this.chat.chatElements.userList.filter.value);
+    // console.log(this.chat.chatElements.userList.filter.value);
     const searchString = this.chat.chatElements.userList.filter.value.toLowerCase();
     const updateList = this.usersList.filter((user) =>
       user.elements.userLogin.textContent
@@ -216,7 +225,7 @@ export default class ChatApp {
   }
 
   private logoutHandler() {
-    console.log('logout', this.user);
+    // console.log('logout', this.user);
     this.websocketManager.send(
       JSON.stringify({
         id: '1',
@@ -247,7 +256,7 @@ export default class ChatApp {
       this.user.setLogin(loginValue);
       this.user.setPassword(passwordValue);
     }
-    console.log('loginsubmit', this.user);
+    // console.log('loginsubmit', this.user);
 
     if (this.user.getLogin() && this.user.getPassword()) {
       this.websocketManager.send(
@@ -275,16 +284,52 @@ export default class ChatApp {
   }
 
   private updateUsersList(list: UserListItem[]): HTMLLIElement[] {
-    console.log('Update users', list);
+    // console.log('Update users', list);
     const listNode = list.map((user) => user.render());
     listNode.forEach((userNode) => userNode.addEventListener('click', this.selectUser.bind(this)));
     return listNode;
   }
 
-  private selectUser(event: Event) {
-    const target = event.currentTarget as HTMLElement;
-    const userLogin = target.getAttribute('data-login');
-    console.log('selectUser', userLogin);
+  // private readMessages() {
+  //   this.historyMessages.forEach((message) => {
+  //     if (message.elements.from.textContent !== this.user.getLogin()) {
+  //       this.websocketManager.send(
+  //         JSON.stringify({
+  //           id: '1',
+  //           type: 'MSG_READ',
+  //           payload: { message: { id: message.elements.id } },
+  //         })
+  //       );
+  //     }
+  //   });
+  //   this.selectUser();
+  // }
+
+  private selectUser(event?: Event) {
+    let target;
+    let userLogin;
+    if (event) {
+      target = event.currentTarget as HTMLElement;
+      userLogin = target.getAttribute('data-login') || this.chat.chatElements.dialog.userName.textContent;
+      // console.log('selectUser', userLogin);
+    } else {
+      userLogin = this.chat.chatElements.dialog.userName.textContent
+        ? this.chat.chatElements.dialog.userName.textContent
+        : '';
+    } // todo: refactor this sh*t code
+    // console.log('select user - login -> ', userLogin, this.chat.chatElements.dialog.userName.textContent);
+
+    this.historyMessages.forEach((message) => {
+      if (message.elements.from.textContent !== this.user.getLogin()) {
+        this.websocketManager.send(
+          JSON.stringify({
+            id: '1',
+            type: 'MSG_READ',
+            payload: { message: { id: message.elements.id } },
+          })
+        );
+      }
+    });
 
     this.chat.chatElements.dialog.dialog.innerHTML = '';
     if (userLogin) {
@@ -301,11 +346,11 @@ export default class ChatApp {
   }
 
   private updateChat(userLogin: string): void {
-    console.log('update-chat: ', userLogin);
+    // console.log('update-chat: ', userLogin);
     if (userLogin) {
       const [userNameDialog] = this.usersList.filter((user) => user.elements.userLogin.textContent === userLogin);
       this.chat.chatElements.dialog.userName.textContent = userLogin;
-      console.log(userNameDialog.elements.isLogined);
+      // console.log(userNameDialog.elements.isLogined);
       if (userNameDialog.elements.isLogined) {
         this.chat.chatElements.dialog.userStatus.textContent = 'online';
         this.chat.chatElements.dialog.userStatus.style.color = 'green';
@@ -332,7 +377,7 @@ export default class ChatApp {
   private sendMessageHandler() {
     const message = this.chat.chatElements.dialog.input.node.value;
     if (message) {
-      console.log(message);
+      // console.log(message);
       this.websocketManager.send(
         JSON.stringify({
           id: '1',

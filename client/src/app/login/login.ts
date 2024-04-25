@@ -18,6 +18,8 @@ export default class LoginForm {
 
   private readonly inputPasswordError: HTMLDivElement;
 
+  private reviewerMessage: HTMLHeadingElement;
+
   constructor() {
     this.container = document.createElement('div');
     this.form = document.createElement('div');
@@ -26,6 +28,8 @@ export default class LoginForm {
     this.inputPassword = new Input('text');
     this.inputLoginError = document.createElement('div');
     this.inputPasswordError = document.createElement('div');
+
+    this.reviewerMessage = document.createElement('h1');
 
     this.button = new Button('Login');
     this.button.disable();
@@ -46,6 +50,8 @@ export default class LoginForm {
     this.inputPassword.node.type = 'password';
     this.inputPasswordError.className = 'password-error';
     this.inputPassword.node.value = '';
+    this.reviewerMessage.innerHTML = `I'm still working on making it better.<br>But check it out as is.<br>Thank you for waiting and helping me!`;
+    this.reviewerMessage.style.textAlign = 'center';
   }
 
   private addEventListeners(): void {
@@ -128,7 +134,7 @@ export default class LoginForm {
       this.inputPasswordError,
       this.button.node
     );
-    this.container.append(this.form);
+    this.container.append(this.form, this.reviewerMessage);
     setTimeout(() => this.container.classList.remove('hidden'), 200);
     return this.container;
   }

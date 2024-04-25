@@ -30,6 +30,7 @@ export default class Message {
     delivered: boolean,
     readed: boolean,
     edited: boolean
+    // private whoseDialog: string | null
   ) {
     this.container = document.createElement('div');
     this.message = document.createElement('div');
@@ -58,6 +59,13 @@ export default class Message {
     this.time.textContent = time;
     this.messageText.textContent = messageText;
     this.delivered.textContent = delivered ? 'delivered' : 'not delivered';
+    // if (this.whoseDialog === from) {
+    //   this.readed.textContent = '';
+    // } else if (readed) {
+    //   this.readed.textContent = 'readed';
+    // } else {
+    //   this.readed.textContent = 'not readed';
+    // }
     this.readed.textContent = readed ? 'readed' : 'not readed';
     this.edited.textContent = edited ? 'edited' : '';
   }
