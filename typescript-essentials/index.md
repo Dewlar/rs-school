@@ -2,7 +2,7 @@
 
 ## Badges Overview
 
-Here is a collection of badges I earned from completing Microsoft Learn's TypeScript modules:  
+Here is a collection of badges I earned from completing **Microsoft Learn's** TypeScript modules:  
 
 | №  | module                                             | badge-link                                                                                                         |  
 |:--:|----------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------|  
